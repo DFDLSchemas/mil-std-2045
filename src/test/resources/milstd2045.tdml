@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2014 Tresys Technology, LLC. All rights reserved.
+
+Developed by: Tresys Technology, LLC
+              http://www.tresys.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal with
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimers.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimers in the
+    documentation and/or other materials provided with the distribution.
+
+ 3. Neither the names of Tresys Technology, nor the names of its contributors
+    may be used to endorse or promote products derived from this Software
+  without specific prior written permission.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+SOFTWARE.
+-->
+<tdml:testSuite suiteName="MIL_STD_2045_Unit_Tests" description="Unit tests"
+  xmlns:tns="http://example.com"
+  xmlns:ms="urn:milstd2045DFDL"
+  xmlns:tdml="http://www.ibm.com/xmlns/dfdl/testData" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:gpf="http://www.ibm.com/dfdl/GeneralPurposeFormat"
+  xmlns:fn="http://www.w3.org/2005/xpath-functions" 
+  xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
+  http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd
+  http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd">
+
+  <tdml:parserTestCase name="test2045msghdr1"
+    root="mil_std_2045_application_header" model="xsd/mil_std_2045_application_header.dfdl.xsd">
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="byte" byteOrder="LTR">
+        E3 67 00 80 55
+        67 92 1A FC 77 00
+        00 00 80 F8 63 44 48 10 FE B6 9B 01 00 00
+      </tdml:documentPart>
+    </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <mil_std_2045_application_header>
+          <version>
+            <value>3</value>
+          </version>
+          <originator_address_group>
+            <urn>
+              <value>207</value>
+            </urn>
+            <unit_name>
+              <value>UNITA</value>
+            </unit_name>
+          </originator_address_group>
+          <recipient_address_group>
+            <urn>
+              <value>3</value>
+            </urn>
+          </recipient_address_group>
+          <message_handling_group>
+            <umf>
+              <value>2</value>
+            </umf>
+            <vmf_message_identification_group>
+              <fad>
+                <value>15</value>
+              </fad>
+              <message_number>
+                <value>99</value>
+              </message_number>
+            </vmf_message_identification_group>
+            <operation_indicator>
+              <value>1</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>2</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+            <originator_dtg_group>
+              <year>
+                <value>4</value>
+              </year>
+              <month>
+                <value>2</value>
+              </month>
+              <day>
+                <value>28</value>
+              </day>
+              <hour>
+                <value>15</value>
+              </hour>
+              <minute>
+                <value>27</value>
+              </minute>
+              <second>
+                <value>55</value>
+              </second>
+            </originator_dtg_group>
+            <acknowledgement_request_group>
+              <machine_acknowledge_request_indicator>
+                <value>1</value>
+              </machine_acknowledge_request_indicator>
+              <operator_acknowledge_request_indicator>
+                <value>0</value>
+              </operator_acknowledge_request_indicator>
+              <operator_reply_request_indicator>
+                <value>0</value>
+              </operator_reply_request_indicator>
+            </acknowledgement_request_group>
+          </message_handling_group>
+        </mil_std_2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+
+  <tdml:defineSchema name="SPI" >
+    <xs:import namespace="urn:milstd2045DFDL" schemaLocation="xsd/mil_std_2045_application_header.dfdl.xsd" />
+
+    <dfdl:format ref="ms:msCommon" />
+
+    <xs:element name="SPI">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element ref="ms:message_security_group_with_PI" />
+          <xs:sequence dfdl:hiddenGroupRef="tns:gh_toByteBoundary" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+
+    <xs:group name="gh_toByteBoundary">
+      <xs:sequence>
+        <xs:element name="toByteBoundary" type="xs:string"
+          dfdl:lengthKind="explicit" dfdl:length="0" dfdl:lengthUnits="bytes"
+          dfdl:alignment="8" />
+      </xs:sequence>
+    </xs:group>
+
+  </tdml:defineSchema>
+
+  <tdml:parserTestCase name="test2045msghdr2" root="SPI"
+    model="SPI">
+    <tdml:document bitOrder="LSBFirst">
+      <!-- data taken from table D-I (page 180 -->
+      <tdml:documentPart type="byte" byteOrder="LTR">
+        01 09 C8 D8 DC B6 2D BA B4 55 D1 26 F4 58 24 DF 56 1F 5F 34 E2 41 C0
+        41 B3 92 7C B9 6A B1 95 1F 18 B7 5C 43 10 64 B6 1A AC 8B 09 C8
+        D8 DC B6 2D BA B4 55 D1 26 F4 58 24 DF 56 1F 5F 34 E2 41 C0 41
+        B3 92 7C B9 6A B1 95 1F 18 B7 5C 43 10 64 B6 1A AC 8B 01
+        </tdml:documentPart>
+    </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <SPI>
+        <message_security_group_with_PI>
+          <message_security_group>
+            <security_parameters_information>
+              <value>0</value>
+            </security_parameters_information>
+            <authentication_data_a_group>
+              <authentication_data_a_length>
+                <value>4</value>
+              </authentication_data_a_length>
+              <authentication_data_a>
+                <value>1165383534807735024960831460109562391266149895894190358406659448827384983175709607016309163088072
+                </value>
+              </authentication_data_a>
+            </authentication_data_a_group>
+            <authentication_data_b_group>
+              <authentication_data_b_length>
+                <value>4</value>
+              </authentication_data_b_length>
+              <authentication_data_b>
+                <value>1165383534807735024960831460109562391266149895894190358406659448827384983175709607016309163088072
+                </value>
+              </authentication_data_b>
+            </authentication_data_b_group>
+            <signed_acknowledge_request_indicator>
+              <value>1</value>
+            </signed_acknowledge_request_indicator>
+          </message_security_group>
+        </message_security_group_with_PI>
+        </SPI>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+  
+
+</tdml:testSuite>

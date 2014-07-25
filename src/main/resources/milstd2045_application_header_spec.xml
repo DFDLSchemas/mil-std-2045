@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2014 Tresys Technology, LLC. All rights reserved.
+
+Developed by: Tresys Technology, LLC
+              http://www.tresys.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal with
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimers.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimers in the
+    documentation and/or other materials provided with the distribution.
+
+ 3. Neither the names of Tresys Technology, nor the names of its contributors
+    may be used to endorse or promote products derived from this Software
+  without specific prior written permission.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+SOFTWARE.
+-->
+<!-- ################################################################### -->
+<!-- MIL-STD-2045-47001D w/CHANGE 1 - Defines a header for messages.  It -->
+<!-- gives an example of data and the header in table B-I.               -->
+<!--                                                                     -->
+<!-- Below is a messageSpec created from the table B-I in the            -->
+<!-- specification. This message spec is used to generate the DFDL Schema for -->
+<!-- this header.                     -->
+<!--                                                                     -->
+<!-- IMPORTANT NOTE: There are two errors in the document in Table B-I. Page -->
+<!-- 73 - field Operator Acknowledge Request Indicator - If you look at the  -->
+<!-- "Field Fragments" column, there is one unused "X". This field has       -->
+<!--                                                                     -->
+<!--    XXXXX?0X                                                         -->
+<!--    XXXX0?XX                                                         -->
+<!--                                                                     -->
+<!-- One X in each line has been replaced with a ?.                      -->
+<!--                                                                     -->
+<!-- The ? bit is not accounted for in any field. So in the              -->
+<!-- messageSpec below we make Operator Acknowledge Request Indicator be two -->
+<!-- bits wide. Not 1.                                                   -->
+<!--                                                                     -->
+<!-- Page 74, The Hour field inside the Reference Message Data Group has 6    -->
+<!-- bits width, but all other use of Hour use 5 bits. It is almost certainly -->
+<!-- a typographical error, though without data to verify this against, we    -->
+<!-- can't know if this is a typo, or that structure really does use up one   -->
+<!-- more bit.  In the below, 5 bits are used.                                -->
+<!-- ######################################################################## -->
+
+<!-- We use this to get the strings (which are generated) though we're hand -->
+<!-- Maintaining the schema for the header for now. -->
+<messageSpec title="Dummy MIL STD 2045 Application Header"
+  purpose="Appears before each message.">
+  <field indexNo="1" DUIName="Version" numBits="4" />
+  <field indexNo="2" DUIName="FPI" resolutionCodingEtc="FPI for Data Compression Type"
+    numBits="1">
+    <field indexNo="2.1" DUIName="Data Compression Type" numBits="2" />
+  </field>
+  <field indexNo="3" DUIName="GPI" resolutionCodingEtc="GPI.Originator Address"
+    numBits="1">
+    <field indexNo="3.1" DUIName="FPI" resolutionCodingEtc="FPI for URN for Originator Address"
+      numBits="1">
+      <field indexNo="3.1.1" DUIName="URN" numBits="24" />
+    </field>
+    <field indexNo="3.2" DUIName="FPI"
+      resolutionCodingEtc="FPI for Unit Name for Originator Address" numBits="1">
+      <field indexNo="3.2.1" DUIName="Unit Name" numBits="448" refDFI="4054" />
+    </field>
+  </field>
+  <field indexNo="4" DUIName="GPI" resolutionCodingEtc="GPI.Recipient Address Group"
+    numBits="1">
+    <field indexNo="4.1" DUIName="GRI" resolutionCodingEtc="GRI.Recipient Address Group"
+      numBits="1">
+      <field indexNo="4.1.1" DUIName="FPI"
+        resolutionCodingEtc="FPI for URN for Recipient Address Group" numBits="1">
+        <field indexNo="4.1.1.1" DUIName="URN" numBits="24" />
+      </field>
+      <field indexNo="4.1.2" DUIName="FPI"
+        resolutionCodingEtc="FPI for Unit Name for Recipient Address Group"
+        numBits="1">
+        <field indexNo="4.1.2.1" DUIName="Unit Name" numBits="448" refDFI="4054" />
+      </field>
+    </field>
+  </field>
+  <field indexNo="5" DUIName="GPI" resolutionCodingEtc="GPI.Information Address Group"
+    numBits="1">
+    <field indexNo="5.1" DUIName="GRI" resolutionCodingEtc="GRI.Information Address Group"
+      numBits="1">
+      <field indexNo="5.1.1" DUIName="FPI"
+        resolutionCodingEtc="FPI for URN for Information Address Group" numBits="1">
+        <field indexNo="5.1.1.1" DUIName="URN" numBits="24" />
+      </field>
+      <field indexNo="5.1.2" DUIName="FPI"
+        resolutionCodingEtc="FPI for Unit Name for Information Address Group"
+        numBits="1">
+        <field indexNo="5.1.2.1" DUIName="Unit Name" numBits="448" refDFI="4054" />
+      </field>
+    </field>
+  </field>
+  <field indexNo="6" DUIName="FPI" resolutionCodingEtc="FPI for Header Size"
+    numBits="1">
+    <field indexNo="6.1" DUIName="Header Size" numBits="16" />
+  </field>
+  <field indexNo="7" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 1"
+    numBits="1">
+    <field indexNo="7.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="8" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 2"
+    numBits="1">
+    <field indexNo="8.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="9" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 3"
+    numBits="1">
+    <field indexNo="9.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="10" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 4"
+    numBits="1">
+    <field indexNo="10.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="11" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 5"
+    numBits="1">
+    <field indexNo="11.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="12" DUIName="GRI" resolutionCodingEtc="GRI.Message Handling Group"
+    numBits="1">
+    <field indexNo="12.1" DUIName="UMF" numBits="4" />
+    <field indexNo="12.2" DUIName="FPI" resolutionCodingEtc="FPI for Message Standard Version"
+      numBits="1">
+      <field indexNo="12.2.1" DUIName="Message Standard Version" numBits="4" />
+    </field>
+    <field indexNo="12.2" DUIName="GPI" resolutionCodingEtc="GPI.VMF Message Identification Group"
+      numBits="1">
+      <field indexNo="12.2.1" DUIName="FAD" numBits="4" />
+      <field indexNo="12.2.2" refDFI="4029" DUIName="Message Number"
+        numBits="7" />
+      <field indexNo="12.2.3" DUIName="FPI" resolutionCodingEtc="FPI for Message Subtype"
+        numBits="1">
+        <field indexNo="12.2.3.1" refDFI="4029" DUIName="Message Subtype"
+          numBits="7" />
+      </field>
+    </field>
+    <field indexNo="13" DUIName="FPI" resolutionCodingEtc="FPI for File Name"
+      numBits="1">
+      <field indexNo="13.1" DUIName="File Name" numBits="448" refDFI="4054" />
+    </field>
+    <field indexNo="14" DUIName="FPI" resolutionCodingEtc="FPI for Message Size"
+      numBits="1">
+      <field indexNo="14.1" DUIName="Message Size" numBits="20" />
+    </field>
+    <field indexNo="15" DUIName="Operation Indicator" numBits="2" />
+    <field indexNo="16" DUIName="Retransmit Indicator" numBits="1" />
+    <field indexNo="17" DUIName="Message Precedence Codes" numBits="3" />
+    <field indexNo="18" DUIName="Security Classification" numBits="2" />
+    <field indexNo="19" DUIName="FPI" resolutionCodingEtc="FPI for Control/Release Marking"
+      numBits="1">
+      <field indexNo="19.1" DUIName="FRI" resolutionCodingEtc="FRI for Control/Release Marking"
+        numBits="1">
+        <field indexNo="19.1.1" DUIName="Control/Release Marking" numBits="9" />
+      </field>
+    </field>
+    <field indexNo="20" DUIName="GPI" resolutionCodingEtc="GPI.Originator DTG"
+      numBits="1">
+      <field indexNo="20.1" refDFI="4098" refDUI="001" DUIName="Year"
+        numBits="7" />
+      <field indexNo="20.2" DUIName="Month" numBits="4" />
+      <field indexNo="20.3" DUIName="Day" numBits="5" />
+      <field indexNo="20.4" DUIName="Hour" numBits="5" />
+      <field indexNo="20.5" DUIName="Minute" numBits="6" />
+      <field indexNo="20.6" DUIName="Second" numBits="6" />
+      <field indexNo="20.7" DUIName="FPI" resolutionCodingEtc="FPI for DTG Extension"
+        numBits="1">
+        <field indexNo="20.7.1" DUIName="DTG Extension" numBits="12" />
+      </field>
+    </field>
+    <field indexNo="21" DUIName="GPI" resolutionCodingEtc="GPI.Perishability DTG"
+      numBits="1">
+      <field indexNo="21.1" refDFI="4098" refDUI="001" DUIName="Year"
+        numBits="7" />
+      <field indexNo="21.2" DUIName="month" numBits="4" />
+      <field indexNo="21.3" DUIName="Day" numBits="5" />
+      <field indexNo="21.4" DUIName="Hour" numBits="5" />
+      <field indexNo="21.5" DUIName="Minute" numBits="6" />
+      <field indexNo="21.6" DUIName="Second" numBits="6" />
+    </field>
+    <field indexNo="22" DUIName="GPI" resolutionCodingEtc="GPI.Acknowledgement Request Group"
+      numBits="1">
+      <field indexNo="22.1" DUIName="Machine Acknowledge Request Indicator"
+        numBits="1" />
+      <field indexNo="22.2" DUIName="Operator Acknowledge Request Indicator"
+        numBits="1" />
+      <!-- NOTE BUG IN SPEC. Made field below 2-wide to use up bit -->
+      <field indexNo="22.3" DUIName="Operator Reply Request Indicator"
+        numBits="2" />
+    </field>
+    <field indexNo="23" DUIName="GPI" resolutionCodingEtc="GPI.Response Data Group"
+      numBits="1">
+      <field indexNo="23.1" refDFI="4098" refDUI="001" DUIName="Year"
+        numBits="7" />
+      <field indexNo="23.2" DUIName="Month" numBits="4" />
+      <field indexNo="23.3" DUIName="Day" numBits="5" />
+      <field indexNo="23.4" DUIName="Hour" numBits="5" />
+      <field indexNo="23.5" DUIName="Minute" numBits="6" />
+      <field indexNo="23.6" DUIName="Second" numBits="6" />
+      <field indexNo="23.7" DUIName="FPI"
+        resolutionCodingEtc="FPI for DTG Extension for Response Data Group"
+        numBits="1">
+        <field indexNo="23.7.1" DUIName="DTG Extension" numBits="12" />
+      </field>
+      <field indexNo="28" DUIName="R/C" numBits="3" />
+      <field indexNo="29" DUIName="FPI" resolutionCodingEtc="FPI for CANTCO Reason Code"
+        numBits="1">
+        <field indexNo="29.1" DUIName="CANTCO Reason Code" numBits="3" />
+      </field>
+      <field indexNo="30" DUIName="FPI" resolutionCodingEtc="FPI for CANTPRO Reason Code"
+        numBits="1">
+        <field indexNo="30.1" DUIName="CANTPRO Reason Code" numBits="6" />
+      </field>
+      <field indexNo="31" DUIName="FPI" resolutionCodingEtc="FPI for Reply Amplification"
+        numBits="1">
+        <field indexNo="31.1" DUIName="Reply Amplification" numBits="350"
+          refDFI="4054" />
+      </field>
+    </field>
+    <field indexNo="32" DUIName="GPI" resolutionCodingEtc="GPI.Reference Message Data Group"
+      numBits="1">
+      <field indexNo="32.1" DUIName="GRI" resolutionCodingEtc="GRI.Reference Message Data Group"
+        numBits="1">
+        <field indexNo="32.1.1" DUIName="FPI"
+          resolutionCodingEtc="FPI for URN for Reference Message Data Group"
+          numBits="1">
+          <field indexNo="32.1.1.1" DUIName="URN" numBits="24" />
+        </field>
+        <field indexNo="32.1.2" DUIName="FPI"
+          resolutionCodingEtc="FPI for Unit Name for Reference Message Data Group"
+          numBits="1">
+          <field indexNo="32.1.2.1" DUIName="Unit Name" numBits="448"
+            refDFI="4054" />
+        </field>
+        <field indexNo="32.1.3" refDFI="4098" refDUI="001" DUIName="Year"
+          numBits="7" />
+        <field indexNo="32.1.4" DUIName="Month" numBits="4" />
+        <field indexNo="32.1.5" DUIName="Day" numBits="5" />
+        <!-- Field below is Hour - everywhere else in the format Hour uses only 5 
+          bits. -->
+        <!-- Here the spec has 6 bits. This is likely a typographical error in the 
+          spec. -->
+        <field indexNo="32.1.6" DUIName="Hour" numBits="5" />
+        <field indexNo="32.1.7" DUIName="Minute" numBits="6" />
+        <field indexNo="32.1.8" DUIName="Second" numBits="6" />
+        <field indexNo="32.1.9" DUIName="FPI"
+          resolutionCodingEtc="FPI for DTG Extension for Reference Message Data Group"
+          numBits="1">
+          <field indexNo="32.1.10" DUIName="DTG Extension" numBits="12" />
+        </field>
+      </field>
+    </field>
+    <field indexNo="33" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 6"
+      numBits="1">
+      <field indexNo="33.1" DUIName="unused" numBits="1" />
+    </field>
+    <field indexNo="34" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 7"
+      numBits="1">
+      <field indexNo="34.1" DUIName="unused" numBits="1" />
+    </field>
+    <field indexNo="35" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 8"
+      numBits="1">
+      <field indexNo="35.1" DUIName="unused" numBits="1" />
+    </field>
+    <field indexNo="36" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 9"
+      numBits="1">
+      <field indexNo="36.1" DUIName="unused" numBits="1" />
+    </field>
+    <field indexNo="37" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 10"
+      numBits="1">
+      <field indexNo="37.1" DUIName="unused" numBits="1" />
+    </field>
+    <field indexNo="38" DUIName="GPI" resolutionCodingEtc="GPI.Message Security Group"
+      numBits="1">
+      <field indexNo="38.1" DUIName="Security Parameters Information"
+        numBits="4" />
+      <field indexNo="38.2" DUIName="GPI" resolutionCodingEtc="GPI.Keying Material Group"
+        numBits="1">
+        <field indexNo="38.2.1" DUIName="Keying Material ID Length"
+          numBits="3" />
+        <field indexNo="38.2.2" DUIName="Keying Material ID" numBits="64" />
+      </field>
+      <field indexNo="38.3" DUIName="GPI"
+        resolutionCodingEtc="GPI.Cryptographic Initialization Group" numBits="1">
+        <field indexNo="38.3.1" DUIName="Cryptographic Initialization Length"
+          numBits="4" />
+        <field indexNo="38.3.2" DUIName="Cryptographic Initialization"
+          numBits="1024" />
+      </field>
+      <field indexNo="38.4" DUIName="GPI" resolutionCodingEtc="GPI.Key Token Group"
+        numBits="1">
+        <field indexNo="38.4.1" DUIName="Key Token Length" numBits="8" />
+        <field indexNo="38.4.2" DUIName="FRI" resolutionCodingEtc="FRI for Key Token"
+          numBits="1">
+          <field indexNo="38.4.2.1" DUIName="Key Token" numBits="16384" />
+        </field>
+      </field>
+      <field indexNo="38.5" DUIName="GPI" resolutionCodingEtc="GPI.Authentication Data (A) Group"
+        numBits="1">
+        <field indexNo="38.5.1" refDFI="4029" DUIName="Authentication Data (A) Length"
+          numBits="7" />
+        <field indexNo="38.5.2" refDFI="4029" DUIName="Authentication Data (A)"
+          numBits="8192" />
+      </field>
+      <field indexNo="38.6" DUIName="GPI" resolutionCodingEtc="GPI.Authentication Data (B) Group"
+        numBits="1">
+        <field indexNo="38.6.1" refDFI="4029" DUIName="Authentication Data (B) Length"
+          numBits="7" />
+        <field indexNo="38.6.2" refDFI="4029" DUIName="Authentication Data (B)"
+          numBits="8192" />
+      </field>
+      <field indexNo="38.7" DUIName="Signed Acknowledge Request Indicator"
+        numBits="1" />
+      <field indexNo="38.8" DUIName="GPI" resolutionCodingEtc="GPI.Message Security Padding Group"
+        numBits="1">
+        <field indexNo="38.8.1" DUIName="Message Security Padding Length"
+          numBits="8" />
+        <field indexNo="38.8.2" DUIName="FPI" resolutionCodingEtc="FPI for Message Security Padding"
+          numBits="1">
+          <field indexNo="38.8.2.1" DUIName="Message Security Padding"
+            numBits="2040" />
+        </field>
+      </field>
+    </field>
+  </field>
+  <field indexNo="39" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 11"
+    numBits="1">
+    <field indexNo="39.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="40" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 12"
+    numBits="1">
+    <field indexNo="40.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="41" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 13"
+    numBits="1">
+    <field indexNo="41.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="42" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 14"
+    numBits="1">
+    <field indexNo="42.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="43" DUIName="FPI" resolutionCodingEtc="FPI. FPI for FUTURE USE 15"
+    numBits="1">
+    <field indexNo="43.1" DUIName="unused" numBits="1" />
+  </field>
+  <field indexNo="44" refDFI="4029" DUIName="(Zero Padding)" numBits="7" />
+</messageSpec>
