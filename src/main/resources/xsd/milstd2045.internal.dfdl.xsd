@@ -35,8 +35,10 @@ SOFTWARE.
   xmlns:tns="urn:milstd2045DFDLInternal"
   xmlns:msi="urn:milstd2045DFDLInternal"
   xmlns:msdfdl="urn:milstd2045DFDL"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:fn="http://www.w3.org/2005/xpath-functions"
   xsi:schemaLocation="urn:milstd2045DFDL milstd2045.common.dfdl.xsd 
   http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
   http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd"
@@ -123,7 +125,7 @@ SOFTWARE.
   <xs:group name="ghFRI">
     <xs:sequence>
       <xs:element name="FRI" type="tns:repeatIndicator"
-        dfdl:outputValueCalc='{ if dfdl:occursIndex() = dfdl:occursCount(..) then 0 else 1 }'>
+        dfdl:outputValueCalc='{ if dfdl:occursIndex() = fn:count(..) then 0 else 1 }'>
         <xs:annotation>
           <xs:appinfo source="http://www.ogf.org/dfdl/">
             <dfdl:discriminator><![CDATA[{
@@ -151,7 +153,7 @@ SOFTWARE.
   <xs:group name="ghGRI">
     <xs:sequence>
       <xs:element name="GRI" type="tns:repeatIndicator"
-        dfdl:outputValueCalc='{ if dfdl:occursIndex() = dfdl:occursCount(..) then 0 else 1 }'>
+        dfdl:outputValueCalc='{ if dfdl:occursIndex() = fn:count(..) then 0 else 1 }'>
         <xs:annotation>
           <xs:appinfo source="http://www.ogf.org/dfdl/">
             <dfdl:discriminator><![CDATA[{
