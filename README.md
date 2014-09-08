@@ -19,7 +19,8 @@ the Daffodil DFDL implementation - as of 2014-07-25)
 
 The src/test/resources/milstd2045.tdml file contains unit tests with test data.
 
-Note that this DFDL schema requires the proposed new dfdl:bitOrder format property.
+Note that this DFDL schema requires the proposed new dfdl:bitOrder format property. 
+As such it works only with Daffodil and not IBM DFDL.
 
 The directory is setup as an Eclipse IDE project, and contains the .project and
 other files needed to run the unit tests in conjunction with the Daffodil DFDL
