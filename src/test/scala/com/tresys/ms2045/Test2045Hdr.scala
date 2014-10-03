@@ -15,14 +15,7 @@ class Test2045Hdr {
   val testDir = ""
   val aa = testDir + "milstd2045.tdml"
   val validateTDML = true
-  //
-  // TODO: fix validation - for some reason, if we run our tests
-  // with validateDFDLSchema, it is unable to resolve the 
-  // msi:tStringNNN symbols. The xerces xml validator resolving
-  // of schema locations is not working identically to the way 
-  // our own DFDL include/import schema location logic is working
-  //
-  val vaidateDFDLSchema = false
+  val vaidateDFDLSchema = true
   lazy val runner = new DFDLTestSuite(Misc.getRequiredResource(aa), validateTDML, vaidateDFDLSchema)
   def dbg = {
     Debugger.withTracing(false)
@@ -30,6 +23,7 @@ class Test2045Hdr {
   }
 
   @Test def test_2045msghdr1() {
+    dbg
     runner.runOneTest("test2045msghdr1")
   }
 

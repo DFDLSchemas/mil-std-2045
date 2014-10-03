@@ -33,18 +33,13 @@ SOFTWARE.
 -->
 <xs:schema targetNamespace="urn:milstd2045DFDLInternal" 
   xmlns:tns="urn:milstd2045DFDLInternal"
-  xmlns:msi="urn:milstd2045DFDLInternal"
-  xmlns:msdfdl="urn:milstd2045DFDL"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
   xmlns:xs="http://www.w3.org/2001/XMLSchema" 
   xmlns:fn="http://www.w3.org/2005/xpath-functions"
-  xsi:schemaLocation="urn:milstd2045DFDL milstd2045.common.dfdl.xsd 
-  http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
+  xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
   http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd"
   elementFormDefault="unqualified">
-
-  <xs:import namespace="urn:milstd2045DFDL" schemaLocation="milstd2045.common.dfdl.xsd"/>
   
   <!-- This file exists to avoid polluting the namespace. I.e., the primary namespace
     of symbols that a user of the DFDL Schema will need to use should ONLY have 
@@ -121,18 +116,17 @@ SOFTWARE.
    <xs:restriction base="tns:presenceIndicator"/>
   </xs:simpleType>
  
-
+<!-- 
   <xs:group name="ghFRI">
     <xs:sequence>
-      <xs:element name="FRI" type="tns:repeatIndicator"
-        dfdl:outputValueCalc='{ if dfdl:occursIndex() = fn:count(..) then 0 else 1 }'>
+      <xs:element name="FRI" type="tns:repeatIndicator">
         <xs:annotation>
           <xs:appinfo source="http://www.ogf.org/dfdl/">
             <dfdl:discriminator><![CDATA[{
             if
             (dfdl:occursIndex() = 1) then fn:true()
             else if
-            (../../msdfdl:r[dfdl:occursIndex()-1]/tns:FRI = 1) then
+            (../../tns:r[dfdl:occursIndex()-1]/tns:FRI = 1) then
             fn:true()
             else 
             fn:false()
@@ -142,8 +136,9 @@ SOFTWARE.
       </xs:element>
     </xs:sequence>
   </xs:group>
+-->
 
-
+<!-- 
   <xs:group name="ghGPI">
     <xs:sequence>
       <xs:element name="GPI" type="tns:presenceIndicator" />
@@ -152,15 +147,14 @@ SOFTWARE.
 
   <xs:group name="ghGRI">
     <xs:sequence>
-      <xs:element name="GRI" type="tns:repeatIndicator"
-        dfdl:outputValueCalc='{ if dfdl:occursIndex() = fn:count(..) then 0 else 1 }'>
+      <xs:element name="GRI" type="tns:repeatIndicator">
         <xs:annotation>
           <xs:appinfo source="http://www.ogf.org/dfdl/">
             <dfdl:discriminator><![CDATA[{
             if
             (dfdl:occursIndex() = 1) then fn:true()
             else if
-            (../../msdfdl:r[dfdl:occursIndex()-1]/tns:GRI = 1) then
+            (../../tns:r[dfdl:occursIndex()-1]/tns:GRI = 1) then
             fn:true()
             else
             fn:false()
@@ -172,6 +166,8 @@ SOFTWARE.
     </xs:sequence>
   </xs:group>
 
+-->
+
   <!-- MS2045 String Model -->
 
   <!-- The example of the rep of a MS2045 string -->
@@ -181,17 +177,17 @@ SOFTWARE.
       <xs:element name="__rep" type="xs:string"
         dfdl:lengthKind="pattern" dfdl:lengthPattern="[^\x7F]{0,63}\x7F|[^\x7F]{64}"
         dfdl:outputValueCalc="{ 
-            if (fn:string-length(../tns:value) lt 64) 
-            then fn:concat(../tns:value, dfdl:string('%DEL;')) 
-            else fn:substring(../tns:value, 1, 64)
+            if (fn:string-length(../value) lt 64) 
+            then fn:concat(../value, dfdl:decodeDFDLEntities('%DEL;')) 
+            else fn:substring(../value, 1, 64)
             }" /> <!-- Note: truncates if the infoset on unparsing contains MORE than the max capacity.
         than 64 chars -->
       <xs:element name="hValue" type="xs:string"
         dfdl:inputValueCalc="{ 
-               if ((fn:string-length(../tns:__rep) = 64) 
-                    and fn:not(fn:ends-with(../tns:__rep, dfdl:string('%DEL;'))))
-                    then ../tns:__rep
-               else fn:substring(../tns:__rep, 1, fn:string-length(../tns:__rep) - 1)
+               if ((fn:string-length(../__rep) = 64) 
+                    and fn:not(fn:ends-with(../__rep, dfdl:decodeDFDLEntities('%DEL;'))))
+                    then ../__rep
+               else fn:substring(../__rep, 1, fn:string-length(../__rep) - 1)
              }" />
     </xs:sequence>
   </xs:group>
@@ -208,24 +204,24 @@ SOFTWARE.
     
       <xs:group name="gh_String50Rep">
     <xs:sequence>
-      <xs:element name="__rep" type="xs:string" dfdl:lengthKind="pattern" dfdl:lengthPattern="[^\x7F]{0,49}\x7F|[^\x7F]{50}" dfdl:outputValueCalc="{ if (fn:string-length(../msi:value) lt 50) then fn:concat(../msi:value, dfdl:string('%DEL;')) else fn:substring(../msi:value, 1, 50) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
+      <xs:element name="__rep" type="xs:string" dfdl:lengthKind="pattern" dfdl:lengthPattern="[^\x7F]{0,49}\x7F|[^\x7F]{50}" dfdl:outputValueCalc="{ if (fn:string-length(../value) lt 50) then fn:concat(../value, dfdl:decodeDFDLEntities('%DEL;')) else fn:substring(../value, 1, 50) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tString50">
     <xs:sequence>
-      <xs:sequence dfdl:hiddenGroupRef="msi:gh_String50Rep"/>
-      <xs:element name="value" type="xs:string" dfdl:inputValueCalc="{ if ((fn:string-length(xs:string(../msi:__rep)) = 50) and fn:not(fn:ends-with(../msi:__rep, dfdl:string('%DEL;')))) then xs:string(../msi:__rep) else fn:substring(../msi:__rep, 1, fn:string-length(../msi:__rep) - 1) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
+      <xs:sequence dfdl:hiddenGroupRef="tns:gh_String50Rep"/>
+      <xs:element name="value" type="xs:string" dfdl:inputValueCalc="{ if ((fn:string-length(xs:string(../__rep)) = 50) and fn:not(fn:ends-with(../__rep, dfdl:decodeDFDLEntities('%DEL;')))) then xs:string(../__rep) else fn:substring(../__rep, 1, fn:string-length(../__rep) - 1) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="gh_String64Rep">
     <xs:sequence>
-      <xs:element name="__rep" type="xs:string" dfdl:lengthKind="pattern" dfdl:lengthPattern="[^\x7F]{0,63}\x7F|[^\x7F]{64}" dfdl:outputValueCalc="{ if (fn:string-length(../msi:value) lt 64) then fn:concat(../msi:value, dfdl:string('%DEL;')) else fn:substring(../msi:value, 1, 64) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
+      <xs:element name="__rep" type="xs:string" dfdl:lengthKind="pattern" dfdl:lengthPattern="[^\x7F]{0,63}\x7F|[^\x7F]{64}" dfdl:outputValueCalc="{ if (fn:string-length(../value) lt 64) then fn:concat(../value, dfdl:decodeDFDLEntities('%DEL;')) else fn:substring(../value, 1, 64) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="tString64">
     <xs:sequence>
-      <xs:sequence dfdl:hiddenGroupRef="msi:gh_String64Rep"/>
-      <xs:element name="value" type="xs:string" dfdl:inputValueCalc="{ if ((fn:string-length(xs:string(../msi:__rep)) = 64) and fn:not(fn:ends-with(../msi:__rep, dfdl:string('%DEL;')))) then xs:string(../msi:__rep) else fn:substring(../msi:__rep, 1, fn:string-length(../msi:__rep) - 1) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
+      <xs:sequence dfdl:hiddenGroupRef="tns:gh_String64Rep"/>
+      <xs:element name="value" type="xs:string" dfdl:inputValueCalc="{ if ((fn:string-length(xs:string(../__rep)) = 64) and fn:not(fn:ends-with(../__rep, dfdl:decodeDFDLEntities('%DEL;')))) then xs:string(../__rep) else fn:substring(../__rep, 1, fn:string-length(../__rep) - 1) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
     </xs:sequence>
   </xs:group>
   

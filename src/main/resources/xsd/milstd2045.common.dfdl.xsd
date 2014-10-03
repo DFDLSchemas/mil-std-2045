@@ -32,12 +32,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
 SOFTWARE.
 -->
 
-<xs:schema targetNamespace="urn:milstd2045DFDL" xmlns:tns="urn:milstd2045DFDL"
-  xmlns:msi="urn:milstd2045DFDLInternal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<xs:schema targetNamespace="urn:milstd2045DFDL" 
+  xmlns:tns="urn:milstd2045DFDL"
+  xmlns:msi="urn:milstd2045DFDLInternal" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:fn="http://www.w3.org/2005/xpath-functions"
   xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
-  http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd"
+  http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd
+  urn:milstd2045DFDLInternal milstd2045.internal.dfdl.xsd"
   elementFormDefault="unqualified">
 
   <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="milstd2045.internal.dfdl.xsd" />
