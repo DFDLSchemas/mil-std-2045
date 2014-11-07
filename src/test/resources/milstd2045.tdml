@@ -45,7 +45,7 @@ SOFTWARE.
   http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd">
 
   <tdml:parserTestCase name="test2045msghdr1"
-    root="mil_std_2045_application_header" model="xsd/mil_std_2045_application_header.dfdl.xsd">
+    root="milstd2045_application_header" model="xsd/milstd2045_application_header.dfdl.xsd">
     <tdml:document bitOrder="LSBFirst">
       <tdml:documentPart type="byte" byteOrder="LTR">
         E3 67 00 80 55
@@ -56,7 +56,7 @@ SOFTWARE.
 
     <tdml:infoset>
       <tdml:dfdlInfoset>
-        <mil_std_2045_application_header>
+        <milstd2045_application_header>
           <version>
             <value>3</value>
           </version>
@@ -129,13 +129,13 @@ SOFTWARE.
               </operator_reply_request_indicator>
             </acknowledgement_request_group>
           </message_handling_group>
-        </mil_std_2045_application_header>
+        </milstd2045_application_header>
       </tdml:dfdlInfoset>
     </tdml:infoset>
   </tdml:parserTestCase>
 
   <tdml:defineSchema name="SPI" >
-    <xs:import namespace="urn:milstd2045DFDL" schemaLocation="xsd/mil_std_2045_application_header.dfdl.xsd" />
+    <xs:import namespace="urn:milstd2045DFDL" schemaLocation="xsd/milstd2045_application_header.dfdl.xsd" />
 
     <dfdl:format ref="ms:msCommon" />
 

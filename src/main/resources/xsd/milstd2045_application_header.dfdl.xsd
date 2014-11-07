@@ -63,303 +63,303 @@ SOFTWARE.
   </xs:complexType>
 
   
-  <xs:group name="gh_mil_std_2045_application_header_data_compression_type_2_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_data_compression_type_2_1_FPI">
     <xs:sequence>
       <xs:element name="data_compression_type_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_originator_address_group_urn_3_1_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_originator_address_group_urn_3_1_1_FPI">
     <xs:sequence>
       <xs:element name="urn_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_originator_address_group_unit_name_3_2_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_originator_address_group_unit_name_3_2_1_FPI">
     <xs:sequence>
       <xs:element name="unit_name_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_originator_address_group_3_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_originator_address_group_3_1_GPI">
     <xs:sequence>
       <xs:element name="originator_address_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_recipient_address_group_urn_4_1_1_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_recipient_address_group_urn_4_1_1_1_FPI">
     <xs:sequence>
       <xs:element name="urn_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_recipient_address_group_unit_name_4_1_2_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_recipient_address_group_unit_name_4_1_2_1_FPI">
     <xs:sequence>
       <xs:element name="unit_name_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_recipient_address_group_4_1_1_GRI">
+  <xs:group name="gh_milstd2045_application_header_recipient_address_group_4_1_1_GRI">
     <xs:sequence>
       <xs:element name="recipient_address_group_GRI" type="msi:tGRI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_recipient_address_group_4_1_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_recipient_address_group_4_1_1_GPI">
     <xs:sequence>
       <xs:element name="recipient_address_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_information_address_group_urn_5_1_1_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_information_address_group_urn_5_1_1_1_FPI">
     <xs:sequence>
       <xs:element name="urn_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_information_address_group_unit_name_5_1_2_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_information_address_group_unit_name_5_1_2_1_FPI">
     <xs:sequence>
       <xs:element name="unit_name_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_information_address_group_5_1_1_GRI">
+  <xs:group name="gh_milstd2045_application_header_information_address_group_5_1_1_GRI">
     <xs:sequence>
       <xs:element name="information_address_group_GRI" type="msi:tGRI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_information_address_group_5_1_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_information_address_group_5_1_1_GPI">
     <xs:sequence>
       <xs:element name="information_address_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_header_size_6_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_header_size_6_1_FPI">
     <xs:sequence>
       <xs:element name="header_size_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_7_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_7_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_7_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_8_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_8_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_8_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_9_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_9_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_9_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_10_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_10_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_10_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_11_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_11_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_11_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_standard_version_12_2_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_standard_version_12_2_1_FPI">
     <xs:sequence>
       <xs:element name="message_standard_version_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_vmf_message_identification_group_message_subtype_12_2_3_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_vmf_message_identification_group_message_subtype_12_2_3_1_FPI">
     <xs:sequence>
       <xs:element name="message_subtype_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_vmf_message_identification_group_12_2_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_vmf_message_identification_group_12_2_1_GPI">
     <xs:sequence>
       <xs:element name="vmf_message_identification_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_file_name_13_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_file_name_13_1_FPI">
     <xs:sequence>
       <xs:element name="file_name_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_size_14_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_size_14_1_FPI">
     <xs:sequence>
       <xs:element name="message_size_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_control_release_marking_19_1_1_FRI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_control_release_marking_19_1_1_FRI">
     <xs:sequence>
       <xs:element name="control_release_marking_FRI" type="msi:tFRI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_control_release_marking_19_1_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_control_release_marking_19_1_1_FPI">
     <xs:sequence>
       <xs:element name="control_release_marking_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_originator_dtg_group_dtg_extension_20_7_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_originator_dtg_group_dtg_extension_20_7_1_FPI">
     <xs:sequence>
       <xs:element name="dtg_extension_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_originator_dtg_group_20_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_originator_dtg_group_20_1_GPI">
     <xs:sequence>
       <xs:element name="originator_dtg_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_perishability_dtg_group_21_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_perishability_dtg_group_21_1_GPI">
     <xs:sequence>
       <xs:element name="perishability_dtg_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_acknowledgement_request_group_22_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_acknowledgement_request_group_22_1_GPI">
     <xs:sequence>
       <xs:element name="acknowledgement_request_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_response_data_group_dtg_extension_23_7_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_response_data_group_dtg_extension_23_7_1_FPI">
     <xs:sequence>
       <xs:element name="dtg_extension_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_response_data_group_cantco_reason_code_29_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_response_data_group_cantco_reason_code_29_1_FPI">
     <xs:sequence>
       <xs:element name="cantco_reason_code_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_response_data_group_cantpro_reason_code_30_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_response_data_group_cantpro_reason_code_30_1_FPI">
     <xs:sequence>
       <xs:element name="cantpro_reason_code_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_response_data_group_reply_amplification_31_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_response_data_group_reply_amplification_31_1_FPI">
     <xs:sequence>
       <xs:element name="reply_amplification_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_response_data_group_23_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_response_data_group_23_1_GPI">
     <xs:sequence>
       <xs:element name="response_data_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_urn_32_1_1_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_reference_message_data_group_urn_32_1_1_1_FPI">
     <xs:sequence>
       <xs:element name="urn_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_unit_name_32_1_2_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_reference_message_data_group_unit_name_32_1_2_1_FPI">
     <xs:sequence>
       <xs:element name="unit_name_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_dtg_extension_32_1_10_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_reference_message_data_group_dtg_extension_32_1_10_FPI">
     <xs:sequence>
       <xs:element name="dtg_extension_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_32_1_1_GRI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_reference_message_data_group_32_1_1_GRI">
     <xs:sequence>
       <xs:element name="reference_message_data_group_GRI" type="msi:tGRI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_32_1_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_reference_message_data_group_32_1_1_GPI">
     <xs:sequence>
       <xs:element name="reference_message_data_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_future_use_33_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_future_use_33_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_33_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_future_use_34_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_future_use_34_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_34_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_future_use_35_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_future_use_35_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_35_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_future_use_36_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_future_use_36_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_36_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_future_use_37_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_future_use_37_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_37_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_security_group_keying_material_group_38_2_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_security_group_keying_material_group_38_2_1_GPI">
     <xs:sequence>
       <xs:element name="keying_material_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_security_group_cryptographic_initialization_group_38_3_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_security_group_cryptographic_initialization_group_38_3_1_GPI">
     <xs:sequence>
       <xs:element name="cryptographic_initialization_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_security_group_key_token_group_key_token_38_4_2_1_FRI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_security_group_key_token_group_key_token_38_4_2_1_FRI">
     <xs:sequence>
       <xs:element name="key_token_FRI" type="msi:tFRI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_security_group_key_token_group_38_4_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_security_group_key_token_group_38_4_1_GPI">
     <xs:sequence>
       <xs:element name="key_token_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_security_group_authentication_data_a_group_38_5_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_security_group_authentication_data_a_group_38_5_1_GPI">
     <xs:sequence>
       <xs:element name="authentication_data_a_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_security_group_authentication_data_b_group_38_6_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_security_group_authentication_data_b_group_38_6_1_GPI">
     <xs:sequence>
       <xs:element name="authentication_data_b_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_security_group_message_security_padding_group_message_security_padding_38_8_2_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_security_group_message_security_padding_group_message_security_padding_38_8_2_1_FPI">
     <xs:sequence>
       <xs:element name="message_security_padding_FPI" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_security_group_message_security_padding_group_38_8_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_security_group_message_security_padding_group_38_8_1_GPI">
     <xs:sequence>
       <xs:element name="message_security_padding_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_message_security_group_38_1_GPI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_message_security_group_38_1_GPI">
     <xs:sequence>
       <xs:element name="message_security_group_GPI" type="msi:tGPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_message_handling_group_12_1_GRI">
+  <xs:group name="gh_milstd2045_application_header_message_handling_group_12_1_GRI">
     <xs:sequence>
       <xs:element name="message_handling_group_GRI" type="msi:tGRI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_39_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_39_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_39_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_40_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_40_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_40_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_41_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_41_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_41_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_42_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_42_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_42_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
-  <xs:group name="gh_mil_std_2045_application_header_future_use_43_1_FPI">
+  <xs:group name="gh_milstd2045_application_header_future_use_43_1_FPI">
     <xs:sequence>
       <xs:element name="future_use_FPI_43_1" type="msi:tFPI"/>
     </xs:sequence>
   </xs:group>
   
-  <xs:element name="mil_std_2045_application_header">
+  <xs:element name="milstd2045_application_header">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="version" dfdl:lengthKind="implicit">
@@ -369,7 +369,7 @@ SOFTWARE.
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_data_compression_type_2_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_data_compression_type_2_1_FPI"/>
         <xs:element name="data_compression_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../data_compression_type_FPI } ">
           <xs:complexType>
             <xs:sequence>
@@ -377,11 +377,11 @@ SOFTWARE.
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_originator_address_group_3_1_GPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_originator_address_group_3_1_GPI"/>
         <xs:element name="originator_address_group" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../originator_address_group_GPI }">
           <xs:complexType>
             <xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_originator_address_group_urn_3_1_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_originator_address_group_urn_3_1_1_FPI"/>
               <xs:element name="urn" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../urn_FPI } ">
                 <xs:complexType>
                   <xs:sequence>
@@ -389,7 +389,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_originator_address_group_unit_name_3_2_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_originator_address_group_unit_name_3_2_1_FPI"/>
               <xs:element name="unit_name" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../unit_name_FPI }">
                 <xs:complexType>
                   <xs:group ref="msi:tString64"/>
@@ -398,7 +398,7 @@ SOFTWARE.
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_recipient_address_group_4_1_1_GPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_recipient_address_group_4_1_1_GPI"/>
         <xs:element name="recipient_address_group" minOccurs="0" maxOccurs="unbounded" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
           <xs:complexType>
             <xs:sequence>
@@ -409,8 +409,8 @@ SOFTWARE.
                   </xs:appinfo>
                 </xs:annotation>
               </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_recipient_address_group_4_1_1_GRI"/>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_recipient_address_group_urn_4_1_1_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_recipient_address_group_4_1_1_GRI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_recipient_address_group_urn_4_1_1_1_FPI"/>
               <xs:element name="urn" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../urn_FPI } ">
                 <xs:complexType>
                   <xs:sequence>
@@ -418,7 +418,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_recipient_address_group_unit_name_4_1_2_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_recipient_address_group_unit_name_4_1_2_1_FPI"/>
               <xs:element name="unit_name" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../unit_name_FPI }">
                 <xs:complexType>
                   <xs:group ref="msi:tString64"/>
@@ -427,7 +427,7 @@ SOFTWARE.
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_information_address_group_5_1_1_GPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_information_address_group_5_1_1_GPI"/>
         <xs:element name="information_address_group" minOccurs="0" maxOccurs="unbounded" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
           <xs:complexType>
             <xs:sequence>
@@ -438,8 +438,8 @@ SOFTWARE.
                   </xs:appinfo>
                 </xs:annotation>
               </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_information_address_group_5_1_1_GRI"/>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_information_address_group_urn_5_1_1_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_information_address_group_5_1_1_GRI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_information_address_group_urn_5_1_1_1_FPI"/>
               <xs:element name="urn" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../urn_FPI } ">
                 <xs:complexType>
                   <xs:sequence>
@@ -447,7 +447,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_information_address_group_unit_name_5_1_2_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_information_address_group_unit_name_5_1_2_1_FPI"/>
               <xs:element name="unit_name" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../unit_name_FPI }">
                 <xs:complexType>
                   <xs:group ref="msi:tString64"/>
@@ -456,7 +456,7 @@ SOFTWARE.
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_header_size_6_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_header_size_6_1_FPI"/>
         <xs:element name="header_size" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../header_size_FPI } ">
           <xs:complexType>
             <xs:sequence>
@@ -464,15 +464,15 @@ SOFTWARE.
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_7_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_7_1_FPI"/>
         <xs:element name="future_use_0" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_7_1 } "/>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_8_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_8_1_FPI"/>
         <xs:element name="future_use_1" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_8_1 } "/>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_9_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_9_1_FPI"/>
         <xs:element name="future_use_2" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_9_1 } "/>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_10_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_10_1_FPI"/>
         <xs:element name="future_use_3" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_10_1 } "/>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_11_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_11_1_FPI"/>
         <xs:element name="future_use_4" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_11_1 } "/>
         <xs:element name="message_handling_group" minOccurs="0" maxOccurs="unbounded" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
           <xs:complexType>
@@ -484,7 +484,7 @@ SOFTWARE.
                   </xs:appinfo>
                 </xs:annotation>
               </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_12_1_GRI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_12_1_GRI"/>
               <xs:element name="umf" dfdl:lengthKind="implicit">
                 <xs:complexType>
                   <xs:sequence>
@@ -492,7 +492,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_standard_version_12_2_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_standard_version_12_2_1_FPI"/>
               <xs:element name="message_standard_version" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../message_standard_version_FPI } ">
                 <xs:complexType>
                   <xs:sequence>
@@ -500,7 +500,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_vmf_message_identification_group_12_2_1_GPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_vmf_message_identification_group_12_2_1_GPI"/>
               <xs:element name="vmf_message_identification_group" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../vmf_message_identification_group_GPI }">
                 <xs:complexType>
                   <xs:sequence>
@@ -518,7 +518,7 @@ SOFTWARE.
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_vmf_message_identification_group_message_subtype_12_2_3_1_FPI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_vmf_message_identification_group_message_subtype_12_2_3_1_FPI"/>
                     <xs:element name="message_subtype" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../message_subtype_FPI } ">
                       <xs:complexType>
                         <xs:sequence>
@@ -529,13 +529,13 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_file_name_13_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_file_name_13_1_FPI"/>
               <xs:element name="file_name" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../file_name_FPI }">
                 <xs:complexType>
                   <xs:group ref="msi:tString64"/>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_size_14_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_size_14_1_FPI"/>
               <xs:element name="message_size" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../message_size_FPI } ">
                 <xs:complexType>
                   <xs:sequence>
@@ -571,7 +571,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_control_release_marking_19_1_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_control_release_marking_19_1_1_FPI"/>
               <xs:element name="control_release_marking" minOccurs="0" maxOccurs="unbounded" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
                 <xs:complexType>
                   <xs:sequence>
@@ -582,12 +582,12 @@ SOFTWARE.
                         </xs:appinfo>
                       </xs:annotation>
                     </xs:sequence>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_control_release_marking_19_1_1_FRI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_control_release_marking_19_1_1_FRI"/>
                     <xs:element name="value" type="tns:tIntField" dfdl:length="9"/>
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_originator_dtg_group_20_1_GPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_originator_dtg_group_20_1_GPI"/>
               <xs:element name="originator_dtg_group" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../originator_dtg_group_GPI }">
                 <xs:complexType>
                   <xs:sequence>
@@ -633,7 +633,7 @@ SOFTWARE.
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_originator_dtg_group_dtg_extension_20_7_1_FPI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_originator_dtg_group_dtg_extension_20_7_1_FPI"/>
                     <xs:element name="dtg_extension" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../dtg_extension_FPI } ">
                       <xs:complexType>
                         <xs:sequence>
@@ -644,7 +644,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_perishability_dtg_group_21_1_GPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_perishability_dtg_group_21_1_GPI"/>
               <xs:element name="perishability_dtg_group" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../perishability_dtg_group_GPI }">
                 <xs:complexType>
                   <xs:sequence>
@@ -693,7 +693,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_acknowledgement_request_group_22_1_GPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_acknowledgement_request_group_22_1_GPI"/>
               <xs:element name="acknowledgement_request_group" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../acknowledgement_request_group_GPI }">
                 <xs:complexType>
                   <xs:sequence>
@@ -721,7 +721,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_response_data_group_23_1_GPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_response_data_group_23_1_GPI"/>
               <xs:element name="response_data_group" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../response_data_group_GPI }">
                 <xs:complexType>
                   <xs:sequence>
@@ -767,7 +767,7 @@ SOFTWARE.
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_response_data_group_dtg_extension_23_7_1_FPI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_response_data_group_dtg_extension_23_7_1_FPI"/>
                     <xs:element name="dtg_extension" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../dtg_extension_FPI } ">
                       <xs:complexType>
                         <xs:sequence>
@@ -782,7 +782,7 @@ SOFTWARE.
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_response_data_group_cantco_reason_code_29_1_FPI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_response_data_group_cantco_reason_code_29_1_FPI"/>
                     <xs:element name="cantco_reason_code" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../cantco_reason_code_FPI } ">
                       <xs:complexType>
                         <xs:sequence>
@@ -790,7 +790,7 @@ SOFTWARE.
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_response_data_group_cantpro_reason_code_30_1_FPI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_response_data_group_cantpro_reason_code_30_1_FPI"/>
                     <xs:element name="cantpro_reason_code" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../cantpro_reason_code_FPI } ">
                       <xs:complexType>
                         <xs:sequence>
@@ -798,7 +798,7 @@ SOFTWARE.
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_response_data_group_reply_amplification_31_1_FPI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_response_data_group_reply_amplification_31_1_FPI"/>
                     <xs:element name="reply_amplification" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../reply_amplification_FPI }">
                       <xs:complexType>
                         <xs:group ref="msi:tString50"/>
@@ -807,7 +807,7 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_32_1_1_GPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_reference_message_data_group_32_1_1_GPI"/>
               <xs:element name="reference_message_data_group" minOccurs="0" maxOccurs="unbounded" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
                 <xs:complexType>
                   <xs:sequence>
@@ -818,8 +818,8 @@ SOFTWARE.
                         </xs:appinfo>
                       </xs:annotation>
                     </xs:sequence>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_32_1_1_GRI"/>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_urn_32_1_1_1_FPI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_reference_message_data_group_32_1_1_GRI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_reference_message_data_group_urn_32_1_1_1_FPI"/>
                     <xs:element name="urn" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../urn_FPI } ">
                       <xs:complexType>
                         <xs:sequence>
@@ -827,7 +827,7 @@ SOFTWARE.
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_unit_name_32_1_2_1_FPI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_reference_message_data_group_unit_name_32_1_2_1_FPI"/>
                     <xs:element name="unit_name" minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../unit_name_FPI }">
                       <xs:complexType>
                         <xs:group ref="msi:tString64"/>
@@ -875,7 +875,7 @@ SOFTWARE.
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
-                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_reference_message_data_group_dtg_extension_32_1_10_FPI"/>
+                    <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_reference_message_data_group_dtg_extension_32_1_10_FPI"/>
                     <xs:element name="dtg_extension" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../dtg_extension_FPI } ">
                       <xs:complexType>
                         <xs:sequence>
@@ -886,29 +886,29 @@ SOFTWARE.
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_future_use_33_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_future_use_33_1_FPI"/>
               <xs:element name="future_use_0" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_33_1 } "/>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_future_use_34_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_future_use_34_1_FPI"/>
               <xs:element name="future_use_1" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_34_1 } "/>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_future_use_35_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_future_use_35_1_FPI"/>
               <xs:element name="future_use_2" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_35_1 } "/>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_future_use_36_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_future_use_36_1_FPI"/>
               <xs:element name="future_use_3" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_36_1 } "/>
-              <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_future_use_37_1_FPI"/>
+              <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_future_use_37_1_FPI"/>
               <xs:element name="future_use_4" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_37_1 } "/>
               <xs:group ref="tns:message_security_group"/>
             </xs:sequence> 
           </xs:complexType>
         </xs:element>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_39_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_39_1_FPI"/>
         <xs:element name="future_use_5" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_39_1 } "/>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_40_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_40_1_FPI"/>
         <xs:element name="future_use_6" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_40_1 } "/>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_41_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_41_1_FPI"/>
         <xs:element name="future_use_7" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_41_1 } "/>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_42_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_42_1_FPI"/>
         <xs:element name="future_use_8" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_42_1 } "/>
-        <xs:sequence dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_future_use_43_1_FPI"/>
+        <xs:sequence dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_future_use_43_1_FPI"/>
         <xs:element name="future_use_9" type="tns:future_use_group_type" minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit" dfdl:occursCountKind="expression" dfdl:occursCount="{ ../future_use_FPI_43_1 } "/>
         <xs:sequence dfdl:hiddenGroupRef="tns:trimOrFillToByteBoundary"/>
       </xs:sequence>
@@ -926,7 +926,7 @@ SOFTWARE.
   <xs:group name="message_security_group">
     <xs:sequence>
       <xs:sequence
-        dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_security_group_38_1_GPI" />
+        dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_security_group_38_1_GPI" />
       <xs:element name="message_security_group" minOccurs="0"
         maxOccurs="1" dfdl:occursCountKind="expression"
         dfdl:occursCount="{ ../message_security_group_GPI }">
@@ -942,7 +942,7 @@ SOFTWARE.
               </xs:complexType>
             </xs:element>
             <xs:sequence
-              dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_security_group_keying_material_group_38_2_1_GPI" />
+              dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_security_group_keying_material_group_38_2_1_GPI" />
             <xs:element name="keying_material_group" minOccurs="0"
               maxOccurs="1" dfdl:occursCountKind="expression"
               dfdl:occursCount="{ ../keying_material_group_GPI }">
@@ -970,7 +970,7 @@ SOFTWARE.
               </xs:complexType>
             </xs:element>
             <xs:sequence
-              dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_security_group_cryptographic_initialization_group_38_3_1_GPI" />
+              dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_security_group_cryptographic_initialization_group_38_3_1_GPI" />
             <xs:element name="cryptographic_initialization_group"
               minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression"
               dfdl:occursCount="{ ../cryptographic_initialization_group_GPI }">
@@ -998,7 +998,7 @@ SOFTWARE.
               </xs:complexType>
             </xs:element>
             <xs:sequence
-              dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_security_group_key_token_group_38_4_1_GPI" />
+              dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_security_group_key_token_group_38_4_1_GPI" />
             <xs:element name="key_token_group" minOccurs="0"
               maxOccurs="1" dfdl:occursCountKind="expression"
               dfdl:occursCount="{ ../key_token_group_GPI }">
@@ -1029,7 +1029,7 @@ SOFTWARE.
                           </xs:annotation>
                         </xs:sequence>
                         <xs:sequence
-                          dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_security_group_key_token_group_key_token_38_4_2_1_FRI" />
+                          dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_security_group_key_token_group_key_token_38_4_2_1_FRI" />
                         <xs:element name="value" type="tns:tBigIntField"
                           dfdl:length="{ (../../key_token_length/value + 1) * 64 }" />
                       </xs:sequence>
@@ -1039,7 +1039,7 @@ SOFTWARE.
               </xs:complexType>
             </xs:element>
             <xs:sequence
-              dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_security_group_authentication_data_a_group_38_5_1_GPI" />
+              dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_security_group_authentication_data_a_group_38_5_1_GPI" />
             <xs:element name="authentication_data_a_group" minOccurs="0"
               maxOccurs="1" dfdl:occursCountKind="expression"
               dfdl:occursCount="{ ../authentication_data_a_group_GPI }">
@@ -1067,7 +1067,7 @@ SOFTWARE.
               </xs:complexType>
             </xs:element>
             <xs:sequence
-              dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_security_group_authentication_data_b_group_38_6_1_GPI" />
+              dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_security_group_authentication_data_b_group_38_6_1_GPI" />
             <xs:element name="authentication_data_b_group" minOccurs="0"
               maxOccurs="1" dfdl:occursCountKind="expression"
               dfdl:occursCount="{ ../authentication_data_b_group_GPI }">
@@ -1104,7 +1104,7 @@ SOFTWARE.
               </xs:complexType>
             </xs:element>
             <xs:sequence
-              dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_security_group_message_security_padding_group_38_8_1_GPI" />
+              dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_security_group_message_security_padding_group_38_8_1_GPI" />
             <xs:element name="message_security_padding_group"
               minOccurs="0" maxOccurs="1" dfdl:occursCountKind="expression"
               dfdl:occursCount="{ ../message_security_padding_group_GPI }">
@@ -1120,7 +1120,7 @@ SOFTWARE.
                     </xs:complexType>
                   </xs:element>
                   <xs:sequence
-                    dfdl:hiddenGroupRef="tns:gh_mil_std_2045_application_header_message_handling_group_message_security_group_message_security_padding_group_message_security_padding_38_8_2_1_FPI" />
+                    dfdl:hiddenGroupRef="tns:gh_milstd2045_application_header_message_handling_group_message_security_group_message_security_padding_group_message_security_padding_38_8_2_1_FPI" />
                   <xs:element name="message_security_padding"
                     minOccurs="0" maxOccurs="1" dfdl:lengthKind="implicit"
                     dfdl:occursCountKind="expression"
