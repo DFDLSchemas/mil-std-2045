@@ -1,70 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Copyright (c) 2014 Tresys Technology, LLC. All rights reserved.
-
-Developed by: Tresys Technology, LLC
-              http://www.tresys.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal with
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
- 1. Redistributions of source code must retain the above copyright notice,
-    this list of conditions and the following disclaimers.
-
- 2. Redistributions in binary form must reproduce the above copyright
-    notice, this list of conditions and the following disclaimers in the
-    documentation and/or other materials provided with the distribution.
-
- 3. Neither the names of Tresys Technology, nor the names of its contributors
-    may be used to endorse or promote products derived from this Software
-  without specific prior written permission.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
-SOFTWARE.
--->
-<xs:schema targetNamespace="urn:milstd2045DFDLInternal" 
-  xmlns:tns="urn:milstd2045DFDLInternal"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-  xmlns:fn="http://www.w3.org/2005/xpath-functions"
+<!-- Copyright (c) 2014 Tresys Technology, LLC. All rights reserved. Developed by: 
+  Tresys Technology, LLC http://www.tresys.com Permission is hereby granted, free of 
+  charge, to any person obtaining a copy of this software and associated documentation 
+  files (the "Software"), to deal with the Software without restriction, including 
+  without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+  and/or sell copies of the Software, and to permit persons to whom the Software is 
+  furnished to do so, subject to the following conditions: 1. Redistributions of source 
+  code must retain the above copyright notice, this list of conditions and the following 
+  disclaimers. 2. Redistributions in binary form must reproduce the above copyright 
+  notice, this list of conditions and the following disclaimers in the documentation 
+  and/or other materials provided with the distribution. 3. Neither the names of Tresys 
+  Technology, nor the names of its contributors may be used to endorse or promote products 
+  derived from this Software without specific prior written permission. THE SOFTWARE 
+  IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+  BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE 
+  AND NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE 
+  FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT 
+  OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+  OR OTHER DEALINGS WITH THE SOFTWARE. -->
+<xs:schema targetNamespace="urn:milstd2045DFDLInternal" xmlns:tns="urn:milstd2045DFDLInternal"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions"
   xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
   http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd"
   elementFormDefault="unqualified">
-  
-  <!-- This file exists to avoid polluting the namespace. I.e., the primary namespace
-    of symbols that a user of the DFDL Schema will need to use should ONLY have 
-    symbols they may need to use. 
-    
-    Implementation dependent symbols go in an explicitly milstd2045DFDLInternal namespace that will not be bound 
-    to a prefix by most of the DFDL Schemas for milstd2045 or related standards. -->
-    
+
+  <!-- This file exists to avoid polluting the namespace. I.e., the primary namespace 
+    of symbols that a user of the DFDL Schema will need to use should ONLY have symbols 
+    they may need to use. Implementation dependent symbols go in an explicitly milstd2045DFDLInternal 
+    namespace that will not be bound to a prefix by most of the DFDL Schemas for milstd2045 
+    or related standards. -->
+
   <xs:annotation>
     <xs:appinfo source="http://www.ogf.org/dfdl/">
 
-      <!-- Note: The default format doesn't provide a default for length 
-        kind. So it forces us to annotate every element its specific dfdl:ref or 
-        we'll get an error message. That's good because this schema really does need 
-        you to put a dfdl:ref on every element to tell us if it is a field or a group, 
-        optional or required, and repeating. -->
+      <!-- Note: The default format doesn't provide a default for length kind. So 
+        it forces us to annotate every element its specific dfdl:ref or we'll get an error 
+        message. That's good because this schema really does need you to put a dfdl:ref on 
+        every element to tell us if it is a field or a group, optional or required, and repeating. -->
 
       <dfdl:defineFormat name="thesePropertiesShouldNotMatter">
         <dfdl:format textStandardBase='10' binaryFloatRep='ieee'
           calendarPatternKind='implicit' escapeSchemeRef=''
           documentFinalTerminatorCanBeMissing='no' ignoreCase='no'
-          separatorPolicy='suppressed' separatorPosition='infix'
-          textNumberRep='standard' textNumberCheckPolicy='strict'
-          textStringJustification='left' emptyValueDelimiterPolicy="both"
-          utf16Width="fixed" textTrimKind="none" />
+          separatorPolicy='suppressed' separatorPosition='infix' textNumberRep='standard'
+          textNumberCheckPolicy='strict' textStringJustification='left'
+          emptyValueDelimiterPolicy="both" utf16Width="fixed" textTrimKind="none" />
       </dfdl:defineFormat>
 
       <dfdl:defineFormat name="msBase">
@@ -74,156 +55,93 @@ SOFTWARE.
           textStringPadCharacter='' lengthUnits="bits" alignment="1"
           alignmentUnits="bits" representation="binary" encoding="US-ASCII-7-bit-packed"
           binaryNumberRep="binary" byteOrder="littleEndian" bitOrder="leastSignificantBitFirst"
-          encodingErrorPolicy="replace"
-          />
+          encodingErrorPolicy="replace" />
       </dfdl:defineFormat>
 
-      <!-- the default format makes sequences behave properly, but every 
-        element needs an explicit dfdl:ref to provide its length kind and (if optional 
-        or repeating) occursCountKind. -->
+      <!-- the default format makes sequences behave properly, but every element 
+        needs an explicit dfdl:ref to provide its length kind and (if optional or repeating) 
+        occursCountKind. -->
       <dfdl:format ref="tns:msBase" />
 
 
     </xs:appinfo>
   </xs:annotation>
 
-  <!-- Resusable groups used to capture presence and repeat bit structure. 
-    The interface are three reusable groups named FPI, FRI, GPI, and GRI. 
-   -->
+  <!-- Resusable groups used to capture presence and repeat bit structure. The interface 
+    are three reusable groups named FPI, FRI, GPI, and GRI. -->
   <xs:simpleType name="presenceIndicator" dfdl:length="1"
-    dfdl:ref="tns:msBase" dfdl:lengthKind="explicit" >
-    <xs:restriction base="xs:unsignedInt" />
-  </xs:simpleType>
-
-  <xs:simpleType name="repeatIndicator" dfdl:length="1"
     dfdl:ref="tns:msBase" dfdl:lengthKind="explicit">
     <xs:restriction base="xs:unsignedInt" />
   </xs:simpleType>
 
-  <xs:simpleType name="tFPI">
-   <xs:restriction base="tns:presenceIndicator"/>
+  <xs:simpleType name="repeatIndicator" dfdl:length="1" dfdl:ref="tns:msBase"
+    dfdl:lengthKind="explicit">
+    <xs:restriction base="xs:unsignedInt" />
   </xs:simpleType>
-  
-  <xs:simpleType name="tFRI">
-   <xs:restriction base="tns:presenceIndicator"/>
-  </xs:simpleType>
-  
-  <xs:simpleType name="tGPI">
-   <xs:restriction base="tns:presenceIndicator"/>
-  </xs:simpleType>
-  
-  <xs:simpleType name="tGRI">
-   <xs:restriction base="tns:presenceIndicator"/>
-  </xs:simpleType>
- 
-<!-- 
-  <xs:group name="ghFRI">
+
+  <xs:group name="PI_true">
     <xs:sequence>
-      <xs:element name="FRI" type="tns:repeatIndicator">
+      <xs:element name="h_PI_true" type="tns:presenceIndicator"> <!-- default="1" -->
         <xs:annotation>
           <xs:appinfo source="http://www.ogf.org/dfdl/">
-            <dfdl:discriminator><![CDATA[{
-            if
-            (dfdl:occursIndex() = 1) then fn:true()
-            else if
-            (../../tns:r[dfdl:occursIndex()-1]/tns:FRI = 1) then
-            fn:true()
-            else 
-            fn:false()
-            }]]></dfdl:discriminator>
+            <dfdl:discriminator test="{ . eq 1 }" />
           </xs:appinfo>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
   </xs:group>
--->
 
-<!-- 
-  <xs:group name="ghGPI">
+  <xs:group name="PI_false">
     <xs:sequence>
-      <xs:element name="GPI" type="tns:presenceIndicator" />
+      <xs:element name="h_PI_false" type="tns:presenceIndicator" /> <!-- default="0" -->
     </xs:sequence>
   </xs:group>
 
-  <xs:group name="ghGRI">
+  <xs:group name="GRI">
     <xs:sequence>
-      <xs:element name="GRI" type="tns:repeatIndicator">
-        <xs:annotation>
-          <xs:appinfo source="http://www.ogf.org/dfdl/">
-            <dfdl:discriminator><![CDATA[{
-            if
-            (dfdl:occursIndex() = 1) then fn:true()
-            else if
-            (../../tns:r[dfdl:occursIndex()-1]/tns:GRI = 1) then
-            fn:true()
-            else
-            fn:false()
-            }]]></dfdl:discriminator>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-
+      <xs:element name="GRI" type="tns:repeatIndicator" /> <!-- default="0" -->
     </xs:sequence>
   </xs:group>
 
--->
+  <xs:group name="FRI">
+    <xs:sequence>
+      <xs:element name="FRI" type="tns:repeatIndicator" /> <!-- default="0" -->
+    </xs:sequence>
+  </xs:group>
 
   <!-- MS2045 String Model -->
 
-  <!-- The example of the rep of a MS2045 string -->
-  <xs:group name="ghMS2045String64Rep_handcrafted">
+  <xs:group name="tString50">
     <xs:sequence>
-    <!-- We need the length in a regex here. Can't put variables in those. -->
-      <xs:element name="__rep" type="xs:string"
-        dfdl:lengthKind="pattern" dfdl:lengthPattern="[^\x7F]{0,63}\x7F|[^\x7F]{64}"
-        dfdl:outputValueCalc="{ 
-            if (fn:string-length(../value) lt 64) 
-            then fn:concat(../value, dfdl:decodeDFDLEntities('%DEL;')) 
-            else fn:substring(../value, 1, 64)
-            }" /> <!-- Note: truncates if the infoset on unparsing contains MORE than the max capacity.
-        than 64 chars -->
-      <xs:element name="hValue" type="xs:string"
-        dfdl:inputValueCalc="{ 
-               if ((fn:string-length(../__rep) = 64) 
-                    and fn:not(fn:ends-with(../__rep, dfdl:decodeDFDLEntities('%DEL;'))))
-                    then ../__rep
-               else fn:substring(../__rep, 1, fn:string-length(../__rep) - 1)
-             }" />
+      <xs:element name="value" type="xs:string" dfdl:lengthKind="pattern"
+        dfdl:lengthPattern="[^\x7F]{0,49}(?=\x7F)|.{50}" />
+      <xs:sequence
+        dfdl:terminator="{if (fn:string-length(./value) eq 50) then '%WSP*;' else '%DEL;'}" />
+      <!-- can replace %ES with WSP* if ES doesn't work -->
     </xs:sequence>
   </xs:group>
 
-<!-- For moving over to a byte boundary (at end of messages when they don't end
-     on a byte boundary -->
-    <xs:group name="gh_toByteBoundary">
-      <xs:sequence>
-        <xs:element name="toByteBoundary" type="xs:string"
-          dfdl:lengthKind="explicit" dfdl:length="0" dfdl:lengthUnits="bytes"
-          dfdl:alignment="8" />
-      </xs:sequence>
-    </xs:group>
-    
-      <xs:group name="gh_String50Rep">
-    <xs:sequence>
-      <xs:element name="__rep" type="xs:string" dfdl:lengthKind="pattern" dfdl:lengthPattern="[^\x7F]{0,49}\x7F|[^\x7F]{50}" dfdl:outputValueCalc="{ if (fn:string-length(../value) lt 50) then fn:concat(../value, dfdl:decodeDFDLEntities('%DEL;')) else fn:substring(../value, 1, 50) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
-    </xs:sequence>
-  </xs:group>
-  <xs:group name="tString50">
-    <xs:sequence>
-      <xs:sequence dfdl:hiddenGroupRef="tns:gh_String50Rep"/>
-      <xs:element name="value" type="xs:string" dfdl:inputValueCalc="{ if ((fn:string-length(xs:string(../__rep)) = 50) and fn:not(fn:ends-with(../__rep, dfdl:decodeDFDLEntities('%DEL;')))) then xs:string(../__rep) else fn:substring(../__rep, 1, fn:string-length(../__rep) - 1) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
-    </xs:sequence>
-  </xs:group>
-  <xs:group name="gh_String64Rep">
-    <xs:sequence>
-      <xs:element name="__rep" type="xs:string" dfdl:lengthKind="pattern" dfdl:lengthPattern="[^\x7F]{0,63}\x7F|[^\x7F]{64}" dfdl:outputValueCalc="{ if (fn:string-length(../value) lt 64) then fn:concat(../value, dfdl:decodeDFDLEntities('%DEL;')) else fn:substring(../value, 1, 64) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
-    </xs:sequence>
-  </xs:group>
   <xs:group name="tString64">
     <xs:sequence>
-      <xs:sequence dfdl:hiddenGroupRef="tns:gh_String64Rep"/>
-      <xs:element name="value" type="xs:string" dfdl:inputValueCalc="{ if ((fn:string-length(xs:string(../__rep)) = 64) and fn:not(fn:ends-with(../__rep, dfdl:decodeDFDLEntities('%DEL;')))) then xs:string(../__rep) else fn:substring(../__rep, 1, fn:string-length(../__rep) - 1) }" xmlns:msi="urn:milstd2045DFDLInternal"/>
+      <xs:element name="value" type="xs:string" dfdl:lengthKind="pattern"
+        dfdl:lengthPattern="[^\x7F]{0,49}(?=\x7F)|.{50}" />
+      <xs:sequence
+        dfdl:terminator="{if (fn:string-length(./value) eq 50) then '%WSP*;' else '%DEL;'}" />
+      <!-- can replace %ES with WSP* if ES doesn't work -->
     </xs:sequence>
   </xs:group>
-  
+
+  <!-- For moving over to a byte boundary (at end of messages when they don't end 
+    on a byte boundary -->
+  <xs:group name="gh_toByteBoundary">
+    <xs:sequence>
+      <xs:element name="toByteBoundary" type="xs:string"
+        dfdl:lengthKind="explicit" dfdl:length="0" dfdl:lengthUnits="bytes"
+        dfdl:alignment="8" />
+    </xs:sequence>
+  </xs:group>
+
+
+
 
 </xs:schema>

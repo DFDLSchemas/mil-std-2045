@@ -34,6 +34,7 @@ SOFTWARE.
 <tdml:testSuite suiteName="MIL_STD_2045_Unit_Tests" description="Unit tests"
   xmlns:tns="http://example.com"
   xmlns:ms="urn:milstd2045DFDL"
+    xmlns:msi="urn:milstd2045DFDLInternal"
   xmlns:tdml="http://www.ibm.com/xmlns/dfdl/testData" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" 
@@ -42,8 +43,65 @@ SOFTWARE.
   xmlns:fn="http://www.w3.org/2005/xpath-functions" 
   xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
   http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd
-  http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd">
+  http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd
+  urn:milstd2045DFDLInternal xsd/milstd2045.internal.dfdl.xsd" >
 
+<tdml:defineSchema name="unit">
+  <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="xsd/milstd2045.internal.dfdl.xsd" />
+  <dfdl:format ref="msi:msBase" />
+
+  <xs:element name="x" dfdl:lengthKind="implicit">
+    <xs:complexType>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
+          <xs:element name="y" dfdl:lengthKind="implicit">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xs:unsignedInt"
+                  dfdl:lengthKind="explicit" dfdl:length="2" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+</tdml:defineSchema>
+
+
+  <tdml:parserTestCase name="presenceByChoice1" root="x"
+    model="unit">
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="bits" byteOrder="LTR">111
+      </tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <x>
+          <y>
+            <value>3</value>
+          </y>
+        </x>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+
+<tdml:parserTestCase name="presenceByChoice2" root="x"
+  model="unit">
+  <tdml:document bitOrder="LSBFirst">
+    <tdml:documentPart type="bits" byteOrder="LTR">0
+    </tdml:documentPart>
+  </tdml:document>
+  <tdml:infoset>
+    <tdml:dfdlInfoset>
+      <x></x>
+    </tdml:dfdlInfoset>
+  </tdml:infoset>
+</tdml:parserTestCase>
+    
   <tdml:parserTestCase name="test2045msghdr1"
     root="milstd2045_application_header" model="xsd/milstd2045_application_header.dfdl.xsd">
     <tdml:document bitOrder="LSBFirst">

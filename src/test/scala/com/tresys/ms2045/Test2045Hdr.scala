@@ -9,6 +9,7 @@ import edu.illinois.ncsa.daffodil.debugger.InteractiveDebugger
 import edu.illinois.ncsa.daffodil.debugger.TraceDebuggerRunner
 import edu.illinois.ncsa.daffodil.util.LoggingDefaults
 import edu.illinois.ncsa.daffodil.util.LogLevel
+import edu.illinois.ncsa.daffodil.dsom.ExpressionCompiler
 
 class Test2045Hdr {
 
@@ -18,17 +19,24 @@ class Test2045Hdr {
   val vaidateDFDLSchema = true
   lazy val runner = new DFDLTestSuite(Misc.getRequiredResource(aa), validateTDML, vaidateDFDLSchema)
   def dbg = {
+    Debugger.setDebugger(new InteractiveDebugger(new TraceDebuggerRunner, ExpressionCompiler))
     Debugger.withTracing(false)
     // LoggingDefaults.setLoggingLevel(LogLevel.Debug)
   }
 
+  @Test def test_presenceByChoice1() {
+    runner.runOneTest("presenceByChoice1")
+  }
+
+  @Test def test_presenceByChoice2() {
+    runner.runOneTest("presenceByChoice2")
+  }
+
   @Test def test_2045msghdr1() {
-    dbg
     runner.runOneTest("test2045msghdr1")
   }
 
   @Test def test_2045msghdr2() {
-    dbg
     runner.runOneTest("test2045msghdr2")
   }
 
