@@ -34,7 +34,7 @@ SOFTWARE.
 <tdml:testSuite suiteName="MIL_STD_2045_Unit_Tests" description="Unit tests"
   xmlns:tns="http://example.com"
   xmlns:ms="urn:milstd2045DFDL"
-    xmlns:msi="urn:milstd2045DFDLInternal"
+  xmlns:msi="urn:milstd2045DFDLInternal"
   xmlns:tdml="http://www.ibm.com/xmlns/dfdl/testData" 
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" 

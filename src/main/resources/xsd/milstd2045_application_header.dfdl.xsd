@@ -28,8 +28,8 @@
   xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
   elementFormDefault="unqualified">
 
-  <xs:include schemaLocation="milstd2045.common.dfdl.xsd" />
-  <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="milstd2045.internal.dfdl.xsd" />
+  <xs:include schemaLocation="xsd/milstd2045.common.dfdl.xsd" />
+  <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="xsd/milstd2045.internal.dfdl.xsd" />
 
   <xs:annotation>
     <xs:appinfo source="http://www.ogf.org/dfdl/">
