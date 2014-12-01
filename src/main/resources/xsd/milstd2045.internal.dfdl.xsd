@@ -45,7 +45,14 @@
           documentFinalTerminatorCanBeMissing='no' ignoreCase='no'
           separatorPolicy='suppressed' separatorPosition='infix' textNumberRep='standard'
           textNumberCheckPolicy='strict' textStringJustification='left'
-          emptyValueDelimiterPolicy="both" utf16Width="fixed" textTrimKind="none" />
+          emptyValueDelimiterPolicy="both" utf16Width="fixed" textTrimKind="none" 
+          truncateSpecifiedLengthString="no"
+          textPadKind="none"
+          binaryNumberCheckPolicy="lax"
+          fillByte="%#r00;"
+          textBidi="no"
+          floating="no"
+          choiceLengthKind='implicit' />
       </dfdl:defineFormat>
 
       <dfdl:defineFormat name="msBase">

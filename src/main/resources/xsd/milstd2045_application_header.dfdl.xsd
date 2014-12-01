@@ -40,8 +40,17 @@
   <xs:complexType name="future_use_group_type">
     <xs:sequence>
       <xs:element name="group_size" type="tns:tIntField" dfdl:length="12" />
-      <xs:element name="future_use_group_data" type="tns:tBigIntField"
-        dfdl:length="{ ../group_size }" />
+      <!-- DFDL doesn't allow length units of 'bits' for xs:nonNegativeInteger, 
+           So we use an array of unsigned int, for this opaque region. -->
+      <xs:element name="future_use_group_data">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="word" type="tns:tIntField" dfdl:length="32" minOccurs="0" maxOccurs="unbounded"
+                  dfdl:occursCountKind="expression" dfdl:occursCount="{ ../../group_size div 32 }"/>
+            <xs:element name="partialWord" type="tns:tIntField" dfdl:length="{ ../../group_size mod 32 }"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -118,7 +127,7 @@
                   <xs:sequence>
                     <xs:annotation>
                       <xs:appinfo source="http://www.ogf.org/dfdl/">
-                        <dfdl:discriminator>{ if (dfdl:occursIndex() = 1) then
+                        <dfdl:discriminator>{ if (dfdl:occursIndex() eq 1) then
                           fn:true() else
                           ../recipient_address_group[dfdl:occursIndex()-1]/GRI
                           =
@@ -170,10 +179,10 @@
                   <xs:sequence>
                     <xs:annotation>
                       <xs:appinfo source="http://www.ogf.org/dfdl/">
-                        <dfdl:discriminator>{ if (dfdl:occursIndex() = 1) then
+                        <dfdl:discriminator>{ if (dfdl:occursIndex() eq 1) then
                           fn:true() else
                           ../information_address_group[dfdl:occursIndex()-1]/GRI
-                          = 1 }
+                          eq 1 }
                         </dfdl:discriminator>
                       </xs:appinfo>
                     </xs:annotation>
@@ -271,10 +280,10 @@
               <xs:sequence>
                 <xs:annotation>
                   <xs:appinfo source="http://www.ogf.org/dfdl/">
-                    <dfdl:discriminator>{ if (dfdl:occursIndex() = 1) then
+                    <dfdl:discriminator>{ if (dfdl:occursIndex() eq 1) then
                       fn:true() else
                       ../message_handling_group[dfdl:occursIndex()-1]/GRI
-                      = 1 }
+                      eq 1 }
                     </dfdl:discriminator>
                   </xs:appinfo>
                 </xs:annotation>
@@ -418,11 +427,11 @@
                         <xs:sequence>
                           <xs:annotation>
                             <xs:appinfo source="http://www.ogf.org/dfdl/">
-                              <dfdl:discriminator>{ if (dfdl:occursIndex() = 1)
+                              <dfdl:discriminator>{ if (dfdl:occursIndex() eq 1)
                                 then
                                 fn:true() else
                                 ../control_release_marking[dfdl:occursIndex()-1]/FRI
-                                = 1 }
+                                eq 1 }
                               </dfdl:discriminator>
                             </xs:appinfo>
                           </xs:annotation>
@@ -745,11 +754,11 @@
                         <xs:sequence>
                           <xs:annotation>
                             <xs:appinfo source="http://www.ogf.org/dfdl/">
-                              <dfdl:discriminator>{ if (dfdl:occursIndex() = 1)
+                              <dfdl:discriminator>{ if (dfdl:occursIndex() eq 1)
                                 then
                                 fn:true() else
                                 ../reference_message_data_group[dfdl:occursIndex()-1]/GRI
-                                = 1 }
+                                eq 1 }
                               </dfdl:discriminator>
                             </xs:appinfo>
                           </xs:annotation>
@@ -984,8 +993,8 @@
                             dfdl:lengthKind="implicit">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="value" type="tns:tBigIntField"
-                                  dfdl:length="{ (../../keying_material_id_length/value + 1) * 8 }" />
+                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                  dfdl:length="{ ../../keying_material_id_length/value + 1 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1014,8 +1023,8 @@
                             dfdl:lengthKind="implicit">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="value" type="tns:tBigIntField"
-                                  dfdl:length="{ (../../cryptographic_initialization_length/value + 1) * 64 }" />
+                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                  dfdl:length="{ (../../cryptographic_initialization_length/value + 1) * 8 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1061,8 +1070,8 @@
                                   </xs:annotation>
                                 </xs:sequence>
                                 <xs:sequence dfdl:hiddenGroupRef="msi:FRI" />
-                                <xs:element name="value" type="tns:tBigIntField"
-                                  dfdl:length="{ (../../key_token_length/value + 1) * 64 }" />
+                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                  dfdl:length="{ (../../key_token_length/value + 1) * 8 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1091,8 +1100,8 @@
                             dfdl:lengthKind="implicit">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="value" type="tns:tBigIntField"
-                                  dfdl:length="{ (../../authentication_data_a_length/value + 1) * 64 }" />
+                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                  dfdl:length="{ (../../authentication_data_a_length/value + 1) * 8 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1121,8 +1130,8 @@
                             dfdl:lengthKind="implicit">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="value" type="tns:tBigIntField"
-                                  dfdl:length="{ (../../authentication_data_b_length/value + 1) * 64 }" />
+                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                  dfdl:length="{ (../../authentication_data_b_length/value + 1) * 8 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
