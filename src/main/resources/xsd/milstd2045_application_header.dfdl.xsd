@@ -47,7 +47,9 @@
           <xs:sequence>
             <xs:element name="word" type="tns:tIntField" dfdl:length="32" minOccurs="0" maxOccurs="unbounded"
                   dfdl:occursCountKind="expression" dfdl:occursCount="{ ../../group_size div 32 }"/>
-            <xs:element name="partialWord" type="tns:tIntField" dfdl:length="{ ../../group_size mod 32 }"/>
+            <xs:element name="partialWord" type="tns:tIntField" minOccurs="0" maxOccurs="1"
+                  dfdl:length="{ ../../group_size mod 32 }" dfdl:occursCountKind="expression"
+                  dfdl:occursCount="{ if ((../../group_size mod 32) ne 0) then 1 else 0 }"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
