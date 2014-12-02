@@ -45,7 +45,7 @@
       <xs:element name="future_use_group_data">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="word" type="tns:tIntField" dfdl:length="32" minOccurs="0" maxOccurs="unbounded"
+            <xs:element name="word" type="tns:tIntField" dfdl:length="32" minOccurs="0" maxOccurs="128"
                   dfdl:occursCountKind="expression" dfdl:occursCount="{ ../../group_size div 32 }"/>
             <xs:element name="partialWord" type="tns:tIntField" minOccurs="0" maxOccurs="1"
                   dfdl:length="{ ../../group_size mod 32 }" dfdl:occursCountKind="expression"
