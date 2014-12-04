@@ -132,8 +132,7 @@
                         <dfdl:discriminator>{ if (dfdl:occursIndex() eq 1) then
                           fn:true() else
                           ../recipient_address_group[dfdl:occursIndex()-1]/GRI
-                          =
-                          1 }
+                          eq 1 }
                         </dfdl:discriminator>
                       </xs:appinfo>
                     </xs:annotation>
@@ -1060,13 +1059,12 @@
                                   <xs:annotation>
                                     <xs:appinfo source="http://www.ogf.org/dfdl/">
                                       <dfdl:discriminator>{ if
-                                        (dfdl:occursIndex() =
+                                        (dfdl:occursIndex() eq
                                         1)
                                         then fn:true()
                                         else
                                         ../key_token[dfdl:occursIndex()-1]/FRI
-                                        =
-                                        1 }
+                                        eq 1 }
                                       </dfdl:discriminator>
                                     </xs:appinfo>
                                   </xs:annotation>
