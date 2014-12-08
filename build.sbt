@@ -2,6 +2,8 @@ name := "mil-std-2045"
 
 organization in ThisBuild := "com.tresys"
 
+version in ThisBuild := "0.0.1"
+
 scalaVersion in ThisBuild := "2.10.4"
 
 // removed -Xfatal-warnings for this branch - want to leave a few things to fix later
@@ -22,7 +24,7 @@ resolvers in ThisBuild += "NCSA Sonatype Releases" at "https://opensource.ncsa.i
 libraryDependencies in ThisBuild := Seq(
   "junit" % "junit" % "4.11" % "test",
   "com.novocode" % "junit-interface" % "0.10" % "test",
-  "edu.illinois.ncsa" %% "daffodil-cli" % "0.0.0-SNAPSHOT"
+  "edu.illinois.ncsa" %% "daffodil-core" % "0.16.0-SNAPSHOT"
 )
 
 retrieveManaged := true
@@ -60,7 +62,5 @@ scmInfo := Some(
     browseUrl = url("https://github.com/DFDLSchemas/mil-std-2045"),
     connection = "scm:git:https://github.com/DFDLSchemas/mil-std-2045.git")
   )
-
-licenses in ThisBuild := Seq("University of Illinois/NCSA Open Source License" -> url("http://opensource.org/licenses/UoI-NCSA.php"))
 
 homepage in ThisBuild := Some(url("https://github.com/DFDLSchemas/mil-std-2045"))
