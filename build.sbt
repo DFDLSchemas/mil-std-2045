@@ -1,10 +1,10 @@
 name := "mil-std-2045"
 
-organization in ThisBuild := "com.tresys"
+organization := "com.tresys"
 
-version in ThisBuild := "0.0.1"
+version := "0.0.1"
 
-scalaVersion in ThisBuild := "2.10.4"
+scalaVersion := "2.10.4"
 
 // removed -Xfatal-warnings for this branch - want to leave a few things to fix later
 scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-Yinline-warnings")
