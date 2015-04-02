@@ -16,8 +16,9 @@ class Test2045Hdr {
   val testDir = ""
   val aa = testDir + "milstd2045.tdml"
   val validateTDML = true
-  val vaidateDFDLSchema = true
-  lazy val runner = new DFDLTestSuite(Misc.getRequiredResource(aa), validateTDML, vaidateDFDLSchema)
+  val validateDFDLSchema = true
+  lazy val runner = new DFDLTestSuite(Misc.getRequiredResource(aa), validateTDML, validateDFDLSchema)
+  runner.setCheckAllTopLevel(true)
   def dbg = {
     Debugger.setDebugger(new InteractiveDebugger(new TraceDebuggerRunner, ExpressionCompiler))
     Debugger.withTracing(false)

@@ -242,8 +242,7 @@ SOFTWARE.
                 <value>4</value>
               </authentication_data_a_length>
               <authentication_data_a>
-                <value>1165383534807735024960831460109562391266149895894190358406659448827384983175709607016309163088072
-                </value>
+                <value><![CDATA[1165383534807735024960831460109562391266149895894190358406659448827384983175709607016309163088072]]></value>
               </authentication_data_a>
             </authentication_data_a_group>
             <authentication_data_b_group>
@@ -251,8 +250,7 @@ SOFTWARE.
                 <value>4</value>
               </authentication_data_b_length>
               <authentication_data_b>
-                <value>1165383534807735024960831460109562391266149895894190358406659448827384983175709607016309163088072
-                </value>
+                <value><![CDATA[1165383534807735024960831460109562391266149895894190358406659448827384983175709607016309163088072]]></value>
               </authentication_data_b>
             </authentication_data_b_group>
             <signed_acknowledge_request_indicator>
