@@ -12,6 +12,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-runtime1"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-runtime1-unparser"/>
-	<classpathentry kind="lib" path="lib_managed/jars/jline/jline/jline-2.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
