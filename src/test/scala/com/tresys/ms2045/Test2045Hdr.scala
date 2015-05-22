@@ -10,6 +10,7 @@ import edu.illinois.ncsa.daffodil.debugger.TraceDebuggerRunner
 import edu.illinois.ncsa.daffodil.util.LoggingDefaults
 import edu.illinois.ncsa.daffodil.util.LogLevel
 import edu.illinois.ncsa.daffodil.dsom.ExpressionCompiler
+import edu.illinois.ncsa.daffodil.util.TestUtils
 
 class Test2045Hdr {
 
@@ -34,6 +35,7 @@ class Test2045Hdr {
   }
 
   @Test def test_2045msghdr1() {
+    TestUtils.trace
     runner.runOneTest("test2045msghdr1")
   }
 
