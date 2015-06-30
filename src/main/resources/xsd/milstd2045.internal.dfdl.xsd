@@ -144,9 +144,13 @@
     on a byte boundary -->
   <xs:group name="gh_toByteBoundary">
     <xs:sequence>
-      <xs:element name="toByteBoundary" type="xs:string"
-        dfdl:lengthKind="explicit" dfdl:length="0" dfdl:lengthUnits="bytes"
-        dfdl:alignment="8" />
+      <xs:element name="toByteBoundary" dfdl:lengthKind="implicit">
+        <xs:complexType>
+         <xs:sequence>
+           <xs:sequence dfdl:alignment="8" />
+         </xs:sequence>
+        </xs:complexType>
+       </xs:element> 
     </xs:sequence>
   </xs:group>
 
