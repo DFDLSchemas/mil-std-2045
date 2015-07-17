@@ -1198,9 +1198,8 @@
   <xs:group name="trimOrFillToByteBoundary">
     <xs:sequence>
       <xs:element name="_zero_padding" nillable="true" dfdl:nilKind="literalValue"
-        dfdl:nilValue="%ES;" type="xs:string" dfdl:lengthUnits="bytes"
-        dfdl:alignment="1" dfdl:alignmentUnits="bytes" dfdl:length="0"
-        dfdl:lengthKind="explicit" />
+        dfdl:nilValue="%ES;" type="xs:int" dfdl:length="0"
+        dfdl:lengthKind="explicit" dfdl:alignment="1" dfdl:alignmentUnits="bytes" />
     </xs:sequence>
   </xs:group>
 
