@@ -52,7 +52,8 @@
           fillByte="%#r00;"
           textBidi="no"
           floating="no"
-          choiceLengthKind='implicit' />
+          choiceLengthKind='implicit'
+          outputNewLine='{$dfdl:outputNewLine}' />
       </dfdl:defineFormat>
 
       <dfdl:defineFormat name="msBase">
