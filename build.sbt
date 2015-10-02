@@ -4,10 +4,9 @@ organization := "com.tresys"
 
 version := "0.0.1"
 
-scalaVersion := "2.10.4"
+scalaVersion in ThisBuild := "2.11.7"
 
-// removed -Xfatal-warnings for this branch - want to leave a few things to fix later
-scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-Yinline-warnings")
+scalacOptions in ThisBuild ++= Seq("-unchecked", "-deprecation", "-Yinline-warnings", "-Xfatal-warnings", "-Xxml:-coalescing")
 
 parallelExecution in ThisBuild := false
 
