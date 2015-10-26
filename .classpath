@@ -15,5 +15,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-core-unittest"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib_managed/bundles/org.scala-lang.modules/scala-xml_2.11/scala-xml_2.11-1.0.5.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-macro-lib"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,15 +1,7 @@
 package com.tresys.ms2045
-import junit.framework.Assert._
 import org.junit.Test
-import scala.xml._
 import edu.illinois.ncsa.daffodil.tdml.DFDLTestSuite
-import edu.illinois.ncsa.daffodil.debugger.Debugger
 import edu.illinois.ncsa.daffodil.util.Misc
-import edu.illinois.ncsa.daffodil.debugger.InteractiveDebugger
-import edu.illinois.ncsa.daffodil.debugger.TraceDebuggerRunner
-import edu.illinois.ncsa.daffodil.util.LoggingDefaults
-import edu.illinois.ncsa.daffodil.util.LogLevel
-import edu.illinois.ncsa.daffodil.dsom.ExpressionCompiler
 
 class Test2045Hdr {
 
