@@ -3,14 +3,17 @@ import org.junit.Test
 import edu.illinois.ncsa.daffodil.tdml.DFDLTestSuite
 import edu.illinois.ncsa.daffodil.util.Misc
 
-class Test2045Hdr {
-
+object Test2045Hdr {
   val testDir = ""
   val aa = testDir + "milstd2045.tdml"
   val validateTDML = true
   val validateDFDLSchema = true
   lazy val runner = new DFDLTestSuite(Misc.getRequiredResource(aa), validateTDML, validateDFDLSchema)
   runner.setCheckAllTopLevel(true)
+}
+
+class Test2045Hdr {
+  import Test2045Hdr._
 
   @Test def test_presenceByChoice1() {
     runner.runOneTest("presenceByChoice1")
