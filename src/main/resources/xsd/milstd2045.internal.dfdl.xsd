@@ -61,7 +61,7 @@
           sequenceKind='ordered' initiator="" terminator="" separator=""
           initiatedContent='no' leadingSkip='0' trailingSkip='0'
           textStringPadCharacter='' lengthUnits="bits" alignment="1"
-          alignmentUnits="bits" representation="binary" encoding="US-ASCII-7-bit-packed"
+          alignmentUnits="bits" representation="binary" encoding="X-DFDL-US-ASCII-7-BIT-PACKED"
           binaryNumberRep="binary" byteOrder="littleEndian" bitOrder="leastSignificantBitFirst"
           encodingErrorPolicy="replace" 
           outputNewLine="%LF;"/>
