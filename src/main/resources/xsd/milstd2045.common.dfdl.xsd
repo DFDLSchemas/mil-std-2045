@@ -74,8 +74,8 @@ SOFTWARE.
     <xs:restriction base="xs:int" />
   </xs:simpleType>
   
-  <xs:simpleType name="tBigIntField" dfdl:lengthKind="explicit">
-    <xs:restriction base="xs:nonNegativeInteger" />
+  <xs:simpleType name="tHexBinary" dfdl:lengthKind="explicit">
+    <xs:restriction base="xs:hexBinary" />
   </xs:simpleType>
 
 </xs:schema>

@@ -45,7 +45,8 @@ SOFTWARE.
   http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd
   http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd
   urn:milstd2045DFDLInternal xsd/milstd2045.internal.dfdl.xsd
-  urn:milstd2045DFDL xsd/milstd2045_application_header.dfdl.xsd" >
+  urn:milstd2045DFDL xsd/milstd2045_application_header.dfdl.xsd"
+  defaultRoundTrip="true">
 
 <tdml:defineSchema name="unit">
   <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="xsd/milstd2045.internal.dfdl.xsd" />
@@ -212,7 +213,7 @@ SOFTWARE.
         <xs:element name="toByteBoundary" type="xs:int" 
           nillable="true" dfdl:nilValue="%ES;" dfdl:nilKind="literalValue"
           dfdl:lengthKind="explicit" dfdl:length="0" dfdl:lengthUnits="bytes"
-          dfdl:alignment="8" />
+          dfdl:alignment="8" dfdl:outputValueCalc="{ 0 }" />
       </xs:sequence>
     </xs:group>
 
@@ -243,7 +244,7 @@ SOFTWARE.
                 <value>4</value>
               </authentication_data_a_length>
               <authentication_data_a>
-                <value><![CDATA[1165383534807735024960831460109562391266149895894190358406659448827384983175709607016309163088072]]></value>
+                <value><![CDATA[C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B]]></value>
               </authentication_data_a>
             </authentication_data_a_group>
             <authentication_data_b_group>
@@ -251,7 +252,7 @@ SOFTWARE.
                 <value>4</value>
               </authentication_data_b_length>
               <authentication_data_b>
-                <value><![CDATA[1165383534807735024960831460109562391266149895894190358406659448827384983175709607016309163088072]]></value>
+                <value><![CDATA[C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B]]></value>
               </authentication_data_b>
             </authentication_data_b_group>
             <signed_acknowledge_request_indicator>

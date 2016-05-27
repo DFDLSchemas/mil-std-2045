@@ -21,15 +21,18 @@
   OR OTHER DEALINGS WITH THE SOFTWARE. -->
 <xs:schema targetNamespace="urn:milstd2045DFDL" xmlns:tns="urn:milstd2045DFDL"
   xmlns:msi="urn:milstd2045DFDLInternal" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:msms="urn:milstd2045DFDLMessageSize"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
   http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd 
-  urn:milstd2045DFDLInternal xsd/milstd2045.internal.dfdl.xsd"
+  urn:milstd2045DFDLInternal xsd/milstd2045.internal.dfdl.xsd
+  urn:milstd2045DFDLMessageSize xsd/milstd2045_message_size.dfdl.xsd"
   xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
   elementFormDefault="unqualified">
 
   <xs:include schemaLocation="xsd/milstd2045.common.dfdl.xsd" />
   <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="xsd/milstd2045.internal.dfdl.xsd" />
+  <xs:import namespace="urn:milstd2045DFDLMessageSize" schemaLocation="xsd/milstd2045_message_size.dfdl.xsd" />
 
   <xs:annotation>
     <xs:appinfo source="http://www.ogf.org/dfdl/">
@@ -39,7 +42,9 @@
 
   <xs:complexType name="future_use_group_type">
     <xs:sequence>
-      <xs:element name="group_size" type="tns:tIntField" dfdl:length="12" />
+      <xs:element name="group_size" type="tns:tIntField" dfdl:length="12" dfdl:outputValueCalc="
+{ (fn:count(../future_use_group_data/word) * 32) +
+  (fn:count(../future_use_group_data/partialWord) * dfdl:contentLength(../future_use_group_data/partialWord, 'bits')) }"/>
       <!-- DFDL doesn't allow length units of 'bits' for xs:nonNegativeInteger, 
            So we use an array of unsigned int, for this opaque region. -->
       <xs:element name="future_use_group_data">
@@ -121,7 +126,7 @@
         <xs:choice>
           <xs:sequence>
             <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-            <xs:element name="recipient_address_group" minOccurs="0"
+            <xs:element name="recipient_address_group" minOccurs="1"
               maxOccurs="unbounded" dfdl:lengthKind="implicit"
               dfdl:occursCountKind="implicit">
               <xs:complexType>
@@ -172,7 +177,7 @@
         <xs:choice>
           <xs:sequence>
             <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-            <xs:element name="information_address_group" minOccurs="0"
+            <xs:element name="information_address_group" minOccurs="1"
               maxOccurs="unbounded" dfdl:lengthKind="implicit"
               dfdl:occursCountKind="implicit">
               <xs:complexType>
@@ -274,7 +279,7 @@
           </xs:sequence>
           <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
         </xs:choice>
-        <xs:element name="message_handling_group" minOccurs="0"
+        <xs:element name="message_handling_group" minOccurs="1"
           maxOccurs="unbounded" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
           <xs:complexType>
             <xs:sequence>
@@ -371,14 +376,11 @@
               <xs:choice>
                 <xs:sequence>
                   <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                  <xs:element name="message_size" dfdl:lengthKind="implicit">
-                    <xs:complexType>
-                      <xs:sequence>
-                        <xs:element name="value" type="tns:tIntField"
-                          dfdl:length="20" />
-                      </xs:sequence>
-                    </xs:complexType>
-                  </xs:element>
+                  <!-- The user of milstd2045 header must define the message
+                       size. Typically, message size is of type tns:tIntField
+                       with a dfdl:length of 20. See milstd2045_message_size.dfdl.xsd
+                       for the typical implementation -->
+                  <xs:element ref="msms:message_size" />
                 </xs:sequence>
                 <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
               </xs:choice>
@@ -748,7 +750,7 @@
                 <xs:sequence>
                   <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
                   <xs:element name="reference_message_data_group"
-                    minOccurs="0" maxOccurs="unbounded" dfdl:lengthKind="implicit"
+                    minOccurs="1" maxOccurs="unbounded" dfdl:lengthKind="implicit"
                     dfdl:occursCountKind="implicit">
                     <xs:complexType>
                       <xs:sequence>
@@ -986,7 +988,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="3" />
+                                  dfdl:length="3" dfdl:outputValueCalc="{ dfdl:contentLength(../../keying_material_id/value, 'bytes') - 1 }"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -994,7 +996,7 @@
                             dfdl:lengthKind="implicit">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                <xs:element name="value" type="tns:tHexBinary" dfdl:lengthUnits="bytes"
                                   dfdl:length="{ ../../keying_material_id_length/value + 1 }" />
                               </xs:sequence>
                             </xs:complexType>
@@ -1016,7 +1018,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="4" />
+                                  dfdl:length="4" dfdl:outputValueCalc="{ (dfdl:contentLength(../../cryptographic_initialization/value, 'bytes') div 8) - 1 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1024,7 +1026,7 @@
                             dfdl:lengthKind="implicit">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                <xs:element name="value" type="tns:tHexBinary" dfdl:lengthUnits="bytes"
                                   dfdl:length="{ (../../cryptographic_initialization_length/value + 1) * 8 }" />
                               </xs:sequence>
                             </xs:complexType>
@@ -1046,11 +1048,11 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="8" />
+                                  dfdl:length="8" dfdl:outputValueCalc="{ (dfdl:contentLength(../../key_token[1]/value, 'bytes') div 8) - 1 }"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="key_token" minOccurs="0"
+                          <xs:element name="key_token" minOccurs="1"
                             maxOccurs="unbounded" dfdl:lengthKind="implicit"
                             dfdl:occursCountKind="implicit">
                             <xs:complexType>
@@ -1070,7 +1072,7 @@
                                   </xs:annotation>
                                 </xs:sequence>
                                 <xs:sequence dfdl:hiddenGroupRef="msi:FRI" />
-                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                <xs:element name="value" type="tns:tHexBinary" dfdl:lengthUnits="bytes"
                                   dfdl:length="{ (../../key_token_length/value + 1) * 8 }" />
                               </xs:sequence>
                             </xs:complexType>
@@ -1092,7 +1094,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="7" />
+                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:contentLength(../../authentication_data_a/value, 'bytes') div 8) - 1 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1100,7 +1102,7 @@
                             dfdl:lengthKind="implicit">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                <xs:element name="value" type="tns:tHexBinary" dfdl:lengthUnits="bytes"
                                   dfdl:length="{ (../../authentication_data_a_length/value + 1) * 8 }" />
                               </xs:sequence>
                             </xs:complexType>
@@ -1122,7 +1124,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="7" />
+                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:contentLength(../../authentication_data_b/value, 'bytes') div 8) - 1}" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1130,7 +1132,7 @@
                             dfdl:lengthKind="implicit">
                             <xs:complexType>
                               <xs:sequence>
-                                <xs:element name="value" type="tns:tBigIntField" dfdl:lengthUnits="bytes"
+                                <xs:element name="value" type="tns:tHexBinary" dfdl:lengthUnits="bytes"
                                   dfdl:length="{ (../../authentication_data_b_length/value + 1) * 8 }" />
                               </xs:sequence>
                             </xs:complexType>
@@ -1161,7 +1163,11 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="8" />
+                                  dfdl:length="8" dfdl:outputValueCalc="
+{ if (fn:exists(../../message_security_padding))
+  then ((dfdl:contentLength(../../message_security_padding/value, 'bits') div 8) - 1)
+  else 0
+}"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1199,7 +1205,7 @@
     <xs:sequence>
       <xs:element name="_zero_padding" nillable="true" dfdl:nilKind="literalValue"
         dfdl:nilValue="%ES;" type="xs:int" dfdl:length="0"
-        dfdl:lengthKind="explicit" dfdl:alignment="1" dfdl:alignmentUnits="bytes" />
+        dfdl:lengthKind="explicit" dfdl:alignment="1" dfdl:alignmentUnits="bytes" dfdl:outputValueCalc="{ 0 }" />
     </xs:sequence>
   </xs:group>
 

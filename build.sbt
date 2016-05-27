@@ -32,6 +32,10 @@ exportJars in ThisBuild := true
 
 exportJars in Test in ThisBuild := false
 
+// this is so that the test jar containing the message_size definition is on
+// the classpath and is available when compiling the schema
+fullClasspath in Test <+= (packageBin in Test).map { dir => Attributed.blank(dir) }
+
 publishMavenStyle in ThisBuild := true
 
 publishArtifact in Test := false

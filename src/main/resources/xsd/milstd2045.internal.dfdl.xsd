@@ -90,7 +90,7 @@
 
   <xs:group name="PI_true">
     <xs:sequence>
-      <xs:element name="h_PI_true" type="tns:presenceIndicator"> <!-- default="1" -->
+      <xs:element name="h_PI_true" type="tns:presenceIndicator" dfdl:outputValueCalc="{ 1 }">
         <xs:annotation>
           <xs:appinfo source="http://www.ogf.org/dfdl/">
             <dfdl:discriminator test="{ . eq 1 }" />
@@ -102,19 +102,19 @@
 
   <xs:group name="PI_false">
     <xs:sequence>
-      <xs:element name="h_PI_false" type="tns:presenceIndicator" /> <!-- default="0" -->
+      <xs:element name="h_PI_false" type="tns:presenceIndicator" dfdl:outputValueCalc="{ 0 }" />
     </xs:sequence>
   </xs:group>
 
   <xs:group name="GRI">
     <xs:sequence>
-      <xs:element name="GRI" type="tns:repeatIndicator" /> <!-- default="0" -->
+      <xs:element name="GRI" type="tns:repeatIndicator" dfdl:outputValueCalc="{ if (dfdl:occursIndex() lt fn:count(..)) then 1 else 0 }" />
     </xs:sequence>
   </xs:group>
 
   <xs:group name="FRI">
     <xs:sequence>
-      <xs:element name="FRI" type="tns:repeatIndicator" /> <!-- default="0" -->
+      <xs:element name="FRI" type="tns:repeatIndicator" dfdl:outputValueCalc="{ if (dfdl:occursIndex() lt fn:count(..)) then 1 else 0 }" />
     </xs:sequence>
   </xs:group>
 
@@ -144,15 +144,10 @@
     on a byte boundary -->
   <xs:group name="gh_toByteBoundary">
     <xs:sequence>
-      <xs:element name="toByteBoundary" dfdl:lengthKind="implicit">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="_zero_padding" nillable="true" dfdl:nilKind="literalValue" 
-            dfdl:nilValue="%ES;" type="xs:int" dfdl:length="0" 
-            dfdl:lengthKind="explicit" dfdl:alignment="1" dfdl:alignmentUnits="bytes"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:element name="_zero_padding" nillable="true" dfdl:nilKind="literalValue"
+      dfdl:nilValue="%ES;" type="xs:int" dfdl:length="0"
+      dfdl:lengthKind="explicit" dfdl:alignment="1" dfdl:alignmentUnits="bytes"
+      dfdl:outputValueCalc="{ 0 }" />
     </xs:sequence>
   </xs:group>
 
