@@ -71,6 +71,35 @@ SOFTWARE.
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="a" dfdl:lengthKind="implicit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="b" minOccurs="1" maxOccurs="unbounded" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:sequence>
+                <xs:annotation>
+                  <xs:appinfo source="http://www.ogf.org/dfdl/">
+                    <dfdl:discriminator>{ if
+                      (dfdl:occursIndex() eq
+                      1)
+                      then fn:true()
+                      else
+                      ../tns:b[dfdl:occursIndex()-1]/FRI
+                      eq 1 }
+                    </dfdl:discriminator>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:FRI" />
+              <xs:element name="value" type="xs:unsignedInt" dfdl:lengthKind="explicit" dfdl:length="7" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
 </tdml:defineSchema>
 
 
@@ -103,6 +132,39 @@ SOFTWARE.
     </tdml:dfdlInfoset>
   </tdml:infoset>
 </tdml:parserTestCase>
+
+  <tdml:parserTestCase name="recurrenceField1" root="a"
+    model="unit">
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="bits" byteOrder="RTL">10101010
+      </tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <a>
+          <b><value>85</value></b>
+        </a>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+
+  <tdml:parserTestCase name="recurrenceField2" root="a"
+    model="unit">
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="bits" byteOrder="RTL">00001110 11110001 01010101 10101011
+      </tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <a>
+          <b><value>85</value></b>
+          <b><value>42</value></b>
+          <b><value>120</value></b>
+          <b><value>7</value></b>
+        </a>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
     
   <tdml:parserTestCase name="test2045msghdr1"
     root="milstd2045_application_header" model="xsd/milstd2045_application_header.dfdl.xsd">

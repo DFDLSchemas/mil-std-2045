@@ -23,6 +23,14 @@ class Test2045Hdr {
     runner.runOneTest("presenceByChoice2")
   }
 
+  @Test def test_recurrenceField1() {
+    runner.runOneTest("recurrenceField1")
+  }
+
+  @Test def test_recurrenceField2() {
+    runner.runOneTest("recurrenceField2")
+  }
+
   @Test def test_2045msghdr1() {
     runner.runOneTest("test2045msghdr1")
   }
