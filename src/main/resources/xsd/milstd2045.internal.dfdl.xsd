@@ -60,11 +60,11 @@
         <dfdl:format ref="tns:thesePropertiesShouldNotMatter"
           sequenceKind='ordered' initiator="" terminator="" separator=""
           initiatedContent='no' leadingSkip='0' trailingSkip='0'
-          textStringPadCharacter='' lengthUnits="bits" alignment="1"
+          textStringPadCharacter='%SP;' lengthUnits="bits" alignment="1"
           alignmentUnits="bits" representation="binary" encoding="X-DFDL-US-ASCII-7-BIT-PACKED"
           binaryNumberRep="binary" byteOrder="littleEndian" bitOrder="leastSignificantBitFirst"
           encodingErrorPolicy="replace" 
-          outputNewLine="%LF;"/>
+          outputNewLine="%LF;" textOutputMinLength="0"/>
       </dfdl:defineFormat>
 
       <!-- the default format makes sequences behave properly, but every element 

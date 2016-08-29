@@ -44,7 +44,7 @@
     <xs:sequence>
       <xs:element name="group_size" type="tns:tIntField" dfdl:length="12" dfdl:outputValueCalc="
 { (fn:count(../future_use_group_data/word) * 32) +
-  (fn:count(../future_use_group_data/partialWord) * dfdl:contentLength(../future_use_group_data/partialWord, 'bits')) }"/>
+  (fn:count(../future_use_group_data/partialWord) * dfdl:valueLength(../future_use_group_data/partialWord, 'bits')) }"/>
       <!-- DFDL doesn't allow length units of 'bits' for xs:nonNegativeInteger, 
            So we use an array of unsigned int, for this opaque region. -->
       <xs:element name="future_use_group_data">
@@ -988,7 +988,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="3" dfdl:outputValueCalc="{ dfdl:contentLength(../../keying_material_id/value, 'bytes') - 1 }"/>
+                                  dfdl:length="3" dfdl:outputValueCalc="{ dfdl:valueLength(../../keying_material_id/value, 'bytes') - 1 }"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1018,7 +1018,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="4" dfdl:outputValueCalc="{ (dfdl:contentLength(../../cryptographic_initialization/value, 'bytes') div 8) - 1 }" />
+                                  dfdl:length="4" dfdl:outputValueCalc="{ (dfdl:valueLength(../../cryptographic_initialization/value, 'bytes') div 8) - 1 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1048,7 +1048,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="8" dfdl:outputValueCalc="{ (dfdl:contentLength(../../key_token[1]/value, 'bytes') div 8) - 1 }"/>
+                                  dfdl:length="8" dfdl:outputValueCalc="{ (dfdl:valueLength(../../key_token[1]/value, 'bytes') div 8) - 1 }"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1094,7 +1094,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:contentLength(../../authentication_data_a/value, 'bytes') div 8) - 1 }" />
+                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data_a/value, 'bytes') div 8) - 1 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1124,7 +1124,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:contentLength(../../authentication_data_b/value, 'bytes') div 8) - 1}" />
+                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data_b/value, 'bytes') div 8) - 1}" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1165,7 +1165,7 @@
                                 <xs:element name="value" type="tns:tIntField"
                                   dfdl:length="8" dfdl:outputValueCalc="
 { if (fn:exists(../../message_security_padding))
-  then ((dfdl:contentLength(../../message_security_padding/value, 'bits') div 8) - 1)
+  then ((dfdl:valueLength(../../message_security_padding/value, 'bits') div 8) - 1)
   else 0
 }"/>
                               </xs:sequence>
