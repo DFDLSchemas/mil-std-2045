@@ -39,4 +39,8 @@ class Test2045Hdr {
     runner.runOneTest("test2045msghdr2")
   }
 
+  @Test def test_2045msghdr3() {
+    runner.runOneTest("test2045msghdr3")
+  }
+
 }

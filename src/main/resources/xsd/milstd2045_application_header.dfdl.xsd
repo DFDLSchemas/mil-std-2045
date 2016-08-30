@@ -232,7 +232,8 @@
               <xs:complexType>
                 <xs:sequence>
                   <xs:element name="value" type="tns:tIntField"
-                    dfdl:length="16" />
+                    dfdl:length="16"
+                    dfdl:outputValueCalc="{ dfdl:valueLength(../.., 'bytes') }" />
                 </xs:sequence>
               </xs:complexType>
             </xs:element>

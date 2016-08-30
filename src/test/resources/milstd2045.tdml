@@ -326,6 +326,49 @@ SOFTWARE.
       </tdml:dfdlInfoset>
     </tdml:infoset>
   </tdml:parserTestCase>
+
+
+  <tdml:parserTestCase name="test2045msghdr3"
+    root="milstd2045_application_header" model="xsd/milstd2045_application_header.dfdl.xsd">
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="bits" byteOrder="RTL">
+        00000000 00000000 00000111 11111000 11111111 10000000 00000000 00010011 00000011
+      </tdml:documentPart>
+    </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <milstd2045_application_header>
+          <version>
+            <value>3</value>
+          </version>
+          <header_size>
+            <value>9</value>
+          </header_size>
+          <message_handling_group>
+            <umf>
+              <value>15</value>
+            </umf>
+            <message_standard_version>
+              <value>15</value>
+            </message_standard_version>
+            <operation_indicator>
+              <value>3</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>1</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>7</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>3</value>
+            </security_classification>
+          </message_handling_group>
+        </milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
   
 
 </tdml:testSuite>
