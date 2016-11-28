@@ -272,10 +272,10 @@ SOFTWARE.
 
     <xs:group name="gh_toByteBoundary">
       <xs:sequence dfdl:alignment="8">
-        <xs:element name="toByteBoundary" type="xs:int" 
-          nillable="true" dfdl:nilValue="%ES;" dfdl:nilKind="literalValue"
-          dfdl:lengthKind="explicit" dfdl:length="0" dfdl:lengthUnits="bytes"
-          dfdl:alignment="8" dfdl:outputValueCalc="{ 0 }" />
+        <xs:element name="toByteBoundary" type="xs:string"
+          dfdl:lengthKind="explicit" dfdl:length="0"
+          dfdl:lengthUnits="bytes" dfdl:alignment="8"
+          dfdl:outputValueCalc="{ '' }" />
       </xs:sequence>
     </xs:group>
 
