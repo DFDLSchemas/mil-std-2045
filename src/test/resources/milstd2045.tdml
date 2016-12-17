@@ -46,7 +46,8 @@ SOFTWARE.
   http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd
   urn:milstd2045DFDLInternal xsd/milstd2045.internal.dfdl.xsd
   urn:milstd2045DFDL xsd/milstd2045_application_header.dfdl.xsd"
-  defaultRoundTrip="true">
+  defaultRoundTrip="true"
+  defaultValidation="on">
 
 <tdml:defineSchema name="unit">
   <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="xsd/milstd2045.internal.dfdl.xsd" />
