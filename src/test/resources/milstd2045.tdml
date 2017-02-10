@@ -266,19 +266,10 @@ SOFTWARE.
       <xs:complexType>
         <xs:sequence>
           <xs:element ref="ms:message_security_group_with_PI" />
-          <xs:sequence dfdl:hiddenGroupRef="tns:gh_toByteBoundary" />
+          <xs:sequence dfdl:alignmentUnits="bytes" dfdl:alignment="1" />
         </xs:sequence>
       </xs:complexType>
     </xs:element>
-
-    <xs:group name="gh_toByteBoundary">
-      <xs:sequence dfdl:alignment="8">
-        <xs:element name="toByteBoundary" type="xs:string"
-          dfdl:lengthKind="explicit" dfdl:length="0"
-          dfdl:lengthUnits="bytes" dfdl:alignment="8"
-          dfdl:outputValueCalc="{ '' }" />
-      </xs:sequence>
-    </xs:group>
 
   </tdml:defineSchema>
 

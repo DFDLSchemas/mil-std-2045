@@ -948,7 +948,7 @@
           </xs:sequence>
           <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
         </xs:choice>
-        <xs:sequence dfdl:hiddenGroupRef="tns:trimOrFillToByteBoundary" />
+        <xs:sequence dfdl:alignmentUnits="bytes" dfdl:alignment="1" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1199,15 +1199,6 @@
         </xs:sequence>
         <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
       </xs:choice>
-    </xs:sequence>
-  </xs:group>
-
-  <xs:group name="trimOrFillToByteBoundary">
-    <xs:sequence>
-      <xs:element name="_zero_padding" type="xs:string"
-        dfdl:length="0" dfdl:lengthKind="explicit"
-        dfdl:alignment="1" dfdl:alignmentUnits="bytes"
-        dfdl:outputValueCalc="{ '' }" />
     </xs:sequence>
   </xs:group>
 
