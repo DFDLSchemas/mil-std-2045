@@ -51,7 +51,7 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element name="word" type="tns:tIntField" dfdl:length="32" minOccurs="0" maxOccurs="128"
-                  dfdl:occursCountKind="expression" dfdl:occursCount="{ ../../group_size div 32 }"/>
+                  dfdl:occursCountKind="expression" dfdl:occursCount="{ ../../group_size idiv 32 }"/>
             <xs:element name="partialWord" type="tns:tIntField" minOccurs="0" maxOccurs="1"
                   dfdl:length="{ ../../group_size mod 32 }" dfdl:occursCountKind="expression"
                   dfdl:occursCount="{ if ((../../group_size mod 32) ne 0) then 1 else 0 }"/>
@@ -1019,7 +1019,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="4" dfdl:outputValueCalc="{ (dfdl:valueLength(../../cryptographic_initialization/value, 'bytes') div 8) - 1 }" />
+                                  dfdl:length="4" dfdl:outputValueCalc="{ (dfdl:valueLength(../../cryptographic_initialization/value, 'bytes') idiv 8) - 1 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1049,7 +1049,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="8" dfdl:outputValueCalc="{ (dfdl:valueLength(../../key_token[1]/value, 'bytes') div 8) - 1 }"/>
+                                  dfdl:length="8" dfdl:outputValueCalc="{ (dfdl:valueLength(../../key_token[1]/value, 'bytes') idiv 8) - 1 }"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1095,7 +1095,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data_a/value, 'bytes') div 8) - 1 }" />
+                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data_a/value, 'bytes') idiv 8) - 1 }" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1125,7 +1125,7 @@
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
-                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data_b/value, 'bytes') div 8) - 1}" />
+                                  dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data_b/value, 'bytes') idiv 8) - 1}" />
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
@@ -1166,7 +1166,7 @@
                                 <xs:element name="value" type="tns:tIntField"
                                   dfdl:length="8" dfdl:outputValueCalc="
 { if (fn:exists(../../message_security_padding))
-  then ((dfdl:valueLength(../../message_security_padding/value, 'bits') div 8) - 1)
+  then ((dfdl:valueLength(../../message_security_padding/value, 'bits') idiv 8) - 1)
   else 0
 }"/>
                               </xs:sequence>
