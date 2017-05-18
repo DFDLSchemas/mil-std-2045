@@ -37,10 +37,9 @@
     </xs:appinfo>
   </xs:annotation>
 
-  <xs:element name="message_size" dfdl:lengthKind="implicit">
-    <xs:complexType>
-      <xs:sequence>
-        <!-- users of milstd2045 will likely want to copy this file into their
+  <xs:complexType name="message_size_type">
+    <xs:sequence>
+      <!-- users of milstd2045 will likely want to copy this file into their
              project and add a dfdl:outputValueCalc property to calculate
              the length of a message. A typical implementation will probably
              look something like:
@@ -48,10 +47,9 @@
                dfdl:valueLength(/messageRoot/message[dfdl:occursIndex], 'bytes')
              }"
           -->
-        <xs:element name="value" type="ms:tIntField" dfdl:length="20" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+      <xs:element name="value" type="ms:tIntField" dfdl:length="20" />
+    </xs:sequence>
+  </xs:complexType>
 
 </xs:schema>
 

@@ -167,8 +167,16 @@ SOFTWARE.
     </tdml:infoset>
   </tdml:parserTestCase>
     
+  <tdml:defineSchema name="hdr">
+  <xs:import namespace="urn:milstd2045DFDL" schemaLocation="xsd/milstd2045_application_header.dfdl.xsd" />
+  <dfdl:format ref="ms:msCommon" />
+  
+  <xs:element name="milstd2045_application_header" type="ms:milstd2045_application_header_type"/>
+  
+  </tdml:defineSchema>
+  
   <tdml:parserTestCase name="test2045msghdr1"
-    root="milstd2045_application_header" model="xsd/milstd2045_application_header.dfdl.xsd">
+    root="milstd2045_application_header" model="hdr">
     <tdml:document bitOrder="LSBFirst">
       <tdml:documentPart type="byte" byteOrder="LTR">
         E3 67 00 80 55
@@ -321,7 +329,7 @@ SOFTWARE.
 
 
   <tdml:parserTestCase name="test2045msghdr3"
-    root="milstd2045_application_header" model="xsd/milstd2045_application_header.dfdl.xsd">
+    root="milstd2045_application_header" model="hdr">
     <tdml:document bitOrder="LSBFirst">
       <tdml:documentPart type="bits" byteOrder="RTL">
         00000000 00000000 00000111 11111000 11111111 10000000 00000000 00010011 00000011

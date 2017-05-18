@@ -61,8 +61,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:element name="milstd2045_application_header">
-    <xs:complexType>
+  <xs:complexType name="milstd2045_application_header_type">
       <xs:sequence>
         <xs:element name="version" dfdl:lengthKind="implicit">
           <xs:complexType>
@@ -381,7 +380,7 @@
                        size. Typically, message size is of type tns:tIntField
                        with a dfdl:length of 20. See milstd2045_message_size.dfdl.xsd
                        for the typical implementation -->
-                  <xs:element ref="msms:message_size" />
+                  <xs:element name="message_size" type="msms:message_size_type" />
                 </xs:sequence>
                 <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
               </xs:choice>
@@ -950,8 +949,7 @@
         </xs:choice>
         <xs:sequence dfdl:alignmentUnits="bytes" dfdl:alignment="1" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  </xs:complexType>
 
   <!-- for testing this subsection of the header separately against the table D-I 
     in the spec. -->
