@@ -25,14 +25,14 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
   http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd 
-  urn:milstd2045DFDLInternal xsd/milstd2045.internal.dfdl.xsd
-  urn:milstd2045DFDLMessageSize xsd/milstd2045_message_size.dfdl.xsd"
+  urn:milstd2045DFDLInternal com/tresys/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd
+  urn:milstd2045DFDLMessageSize com/tresys/mil-std-2045/xsd/milstd2045_message_size.dfdl.xsd"
   xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
   elementFormDefault="unqualified">
 
-  <xs:include schemaLocation="xsd/milstd2045.common.dfdl.xsd" />
-  <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="xsd/milstd2045.internal.dfdl.xsd" />
-  <xs:import namespace="urn:milstd2045DFDLMessageSize" schemaLocation="xsd/milstd2045_message_size.dfdl.xsd" />
+  <xs:include schemaLocation="com/tresys/mil-std-2045/xsd/milstd2045.common.dfdl.xsd" />
+  <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="com/tresys/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd" />
+  <xs:import namespace="urn:milstd2045DFDLMessageSize" schemaLocation="com/tresys/mil-std-2045/xsd/milstd2045_message_size.dfdl.xsd" />
 
   <xs:annotation>
     <xs:appinfo source="http://www.ogf.org/dfdl/">

@@ -44,13 +44,13 @@ SOFTWARE.
   xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
   http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd
   http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd
-  urn:milstd2045DFDLInternal xsd/milstd2045.internal.dfdl.xsd
-  urn:milstd2045DFDL xsd/milstd2045_application_header.dfdl.xsd"
+  urn:milstd2045DFDLInternal com/tresys/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd
+  urn:milstd2045DFDL com/tresys/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"
   defaultRoundTrip="true"
   defaultValidation="on">
 
 <tdml:defineSchema name="unit">
-  <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="xsd/milstd2045.internal.dfdl.xsd" />
+  <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="com/tresys/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd" />
   <dfdl:format ref="msi:msBase" />
 
   <xs:element name="x" dfdl:lengthKind="implicit">
@@ -168,7 +168,7 @@ SOFTWARE.
   </tdml:parserTestCase>
     
   <tdml:defineSchema name="hdr">
-  <xs:import namespace="urn:milstd2045DFDL" schemaLocation="xsd/milstd2045_application_header.dfdl.xsd" />
+  <xs:import namespace="urn:milstd2045DFDL" schemaLocation="com/tresys/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd" />
   <dfdl:format ref="ms:msCommon" />
   
   <xs:element name="milstd2045_application_header" type="ms:milstd2045_application_header_type"/>
@@ -266,7 +266,7 @@ SOFTWARE.
   </tdml:parserTestCase>
 
   <tdml:defineSchema name="SPI" >
-    <xs:import namespace="urn:milstd2045DFDL" schemaLocation="xsd/milstd2045_application_header.dfdl.xsd" />
+    <xs:import namespace="urn:milstd2045DFDL" schemaLocation="com/tresys/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd" />
 
     <dfdl:format ref="ms:msCommon" />
 

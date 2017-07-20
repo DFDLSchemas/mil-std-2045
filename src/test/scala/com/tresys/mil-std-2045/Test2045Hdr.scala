@@ -1,15 +1,14 @@
-package com.tresys.ms2045
+package com.tresys.mil_std_2045
 import org.junit.Test
 import edu.illinois.ncsa.daffodil.tdml.DFDLTestSuite
 import edu.illinois.ncsa.daffodil.util.Misc
 
 object Test2045Hdr {
-  val testDir = ""
+  val testDir = "com/tresys/mil-std-2045/"
   val aa = testDir + "milstd2045.tdml"
   val validateTDML = true
   val validateDFDLSchema = true
   lazy val runner = new DFDLTestSuite(Misc.getRequiredResource(aa), validateTDML, validateDFDLSchema)
-  runner.setCheckAllTopLevel(true)
 }
 
 class Test2045Hdr {

@@ -26,10 +26,10 @@
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
   xmlns:ms="urn:milstd2045DFDL"
   xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd
-  urn:milstd2045DFDL xsd/milstd2045_application_header.dfdl.xsd"
+  urn:milstd2045DFDL com/tresys/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"
   elementFormDefault="unqualified">
 
-  <xs:import namespace="urn:milstd2045DFDL" schemaLocation="xsd/milstd2045.common.dfdl.xsd" />
+  <xs:import namespace="urn:milstd2045DFDL" schemaLocation="com/tresys/mil-std-2045/xsd/milstd2045.common.dfdl.xsd" />
 
   <xs:annotation>
     <xs:appinfo source="http://www.ogf.org/dfdl/">
