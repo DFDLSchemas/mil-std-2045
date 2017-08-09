@@ -13,7 +13,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-runtime1-unparser"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-macro-lib"/>
-	<classpathentry kind="lib" path="lib_managed/jars/jline/jline/jline-2.12.1.jar"/>
-	<classpathentry kind="lib" path="lib_managed/bundles/org.scala-lang.modules/scala-xml_2.11/scala-xml_2.11-1.0.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
