@@ -18,7 +18,7 @@ resolvers in ThisBuild ++= Seq(
 libraryDependencies in ThisBuild := Seq(
   "junit" % "junit" % "4.11" % "test",
   "com.novocode" % "junit-interface" % "0.10" % "test",
-  "edu.illinois.ncsa" %% "daffodil-tdml" % "2.0.0-SNAPSHOT" % "test"
+  "edu.illinois.ncsa" %% "daffodil-tdml" % "2.0.0" % "test"
 )
 
 // this is so that the test jar containing the message_size definition is on
