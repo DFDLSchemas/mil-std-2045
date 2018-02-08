@@ -1,7 +1,7 @@
 package com.tresys.mil_std_2045
 import org.junit.Test
-import edu.illinois.ncsa.daffodil.tdml.DFDLTestSuite
-import edu.illinois.ncsa.daffodil.util.Misc
+import org.apache.daffodil.tdml.DFDLTestSuite
+import org.apache.daffodil.util.Misc
 
 object Test2045Hdr {
   val testDir = "com/tresys/mil-std-2045/"
