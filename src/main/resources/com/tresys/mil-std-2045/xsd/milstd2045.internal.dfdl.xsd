@@ -133,9 +133,9 @@
   <xs:group name="tString64">
     <xs:sequence>
       <xs:element name="value" type="xs:string" dfdl:lengthKind="pattern"
-        dfdl:lengthPattern="[^\x7F]{0,49}(?=\x7F)|.{50}" />
+        dfdl:lengthPattern="[^\x7F]{0,63}(?=\x7F)|.{64}" />
       <xs:sequence
-        dfdl:terminator="{if (fn:string-length(./value) eq 50) then '%WSP*;' else '%DEL;'}" />
+        dfdl:terminator="{if (fn:string-length(./value) eq 64) then '%WSP*;' else '%DEL;'}" />
       <!-- can replace %ES with WSP* if ES doesn't work -->
     </xs:sequence>
   </xs:group>
