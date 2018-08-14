@@ -41,11 +41,6 @@ SOFTWARE.
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:gpf="http://www.ibm.com/dfdl/GeneralPurposeFormat"
   xmlns:fn="http://www.w3.org/2005/xpath-functions" 
-  xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
-  http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd
-  http://www.ibm.com/xmlns/dfdl/testData xsd/tdml.xsd
-  urn:milstd2045DFDLInternal com/tresys/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd
-  urn:milstd2045DFDL com/tresys/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"
   defaultRoundTrip="true"
   defaultValidation="on">
 

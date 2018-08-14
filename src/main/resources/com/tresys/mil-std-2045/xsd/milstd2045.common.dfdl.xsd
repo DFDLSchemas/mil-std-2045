@@ -39,9 +39,6 @@ SOFTWARE.
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/" 
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:fn="http://www.w3.org/2005/xpath-functions"
-  xsi:schemaLocation="http://www.ogf.org/dfdl/dfdl-1.0/ xsd/DFDL_part3_model.xsd 
-  http://www.w3.org/2001/XMLSchema xsd/XMLSchema_for_DFDL.xsd
-  urn:milstd2045DFDLInternal com/tresys/milstd-2045/xsd/milstd2045.internal.dfdl.xsd"
   elementFormDefault="unqualified">
 
   <xs:import namespace="urn:milstd2045DFDLInternal" schemaLocation="com/tresys/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd" />
