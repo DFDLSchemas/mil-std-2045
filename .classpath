@@ -7,11 +7,12 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-io"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-lib"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-tdml"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-runtime1"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-runtime1-unparser"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-macro-lib"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-tdml-lib"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/daffodil-tdml-processor"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

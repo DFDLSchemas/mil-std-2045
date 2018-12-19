@@ -288,9 +288,9 @@ SOFTWARE.
         </tdml:documentPart>
     </tdml:document>
 
-    <tdml:infoset>
-      <tdml:dfdlInfoset>
-        <SPI>
+  <tdml:infoset>
+    <tdml:dfdlInfoset>
+      <SPI>
         <message_security_group_with_PI>
           <message_security_group>
             <security_parameters_information>
@@ -301,7 +301,7 @@ SOFTWARE.
                 <value>4</value>
               </authentication_data_a_length>
               <authentication_data_a>
-                <value><![CDATA[8BAC1AB66410435CB7181F95B16AB97C92B341C041E2345F1F56DF2458F426D155B4BA2DB6DCD8C8]]></value>
+                <value>C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B</value>
               </authentication_data_a>
             </authentication_data_a_group>
             <authentication_data_b_group>
@@ -309,7 +309,7 @@ SOFTWARE.
                 <value>4</value>
               </authentication_data_b_length>
               <authentication_data_b>
-                <value><![CDATA[8BAC1AB66410435CB7181F95B16AB97C92B341C041E2345F1F56DF2458F426D155B4BA2DB6DCD8C8]]></value>
+                <value>C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B</value>
               </authentication_data_b>
             </authentication_data_b_group>
             <signed_acknowledge_request_indicator>
@@ -317,9 +317,9 @@ SOFTWARE.
             </signed_acknowledge_request_indicator>
           </message_security_group>
         </message_security_group_with_PI>
-        </SPI>
-      </tdml:dfdlInfoset>
-    </tdml:infoset>
+      </SPI>
+    </tdml:dfdlInfoset>
+  </tdml:infoset>
   </tdml:parserTestCase>
 
 
