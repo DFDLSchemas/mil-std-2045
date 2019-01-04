@@ -25,6 +25,7 @@
   <xs:annotation>
     <xs:appinfo source="http://www.ogf.org/dfdl/">
       <dfdl:format ref="tns:msCommon"/>
+      <dfdl:defineVariable name="versionSpec" external="true" type="xs:string">D1</dfdl:defineVariable>
     </xs:appinfo>
   </xs:annotation>
   <xs:complexType name="future_use_group_type">
@@ -209,41 +210,52 @@
         </xs:sequence>
         <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
       </xs:choice>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_0" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+      <xs:choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+        <xs:sequence dfdl:choiceBranchKey="C">
+          <!-- This element is here solely to work around a UPA violation as it is possible
+               for both choice branches to return an empty sequence, which causes issues on
+               unparse -->
+          <xs:element name="formatRevC_UPA" type="xs:int" dfdl:inputValueCalc="{ 1 }" />
         </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
-      </xs:choice>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_1" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+        <xs:sequence dfdl:choiceBranchKey="D1">
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_0" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_1" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_2" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_3" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_4" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
         </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
       </xs:choice>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_2" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
-        </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
-      </xs:choice>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_3" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
-        </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
-      </xs:choice>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_4" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
-        </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
-      </xs:choice>
+      <!-- start message handling group -->
       <xs:element maxOccurs="unbounded" minOccurs="1" name="message_handling_group" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
         <xs:complexType>
           <xs:sequence>
@@ -372,6 +384,13 @@
               <xs:sequence>
                 <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
                 <xs:element maxOccurs="unbounded" minOccurs="1" name="control_release_marking" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
+                  <xs:annotation>
+                    <xs:appinfo source="http://www.ogf.org/dfdl/">
+                      <dfdl:assert>
+                        { if ($tns:versionSpec ne 'D1') then (fn:count(../control_release_marking) eq 1) else fn:true() }
+                      </dfdl:assert>
+                    </xs:appinfo>
+                  </xs:annotation>
                   <xs:complexType>
                     <xs:sequence>
                       <xs:sequence>
@@ -802,41 +821,52 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_5" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+      <xs:choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+        <xs:sequence dfdl:choiceBranchKey="C">
+          <!-- This element is here solely to work around a UPA violation as it is possible
+               for both choice branches to return an empty sequence, which causes issues on
+               unparse -->
+          <xs:element name="formatRevC_UPA" type="xs:int" dfdl:inputValueCalc="{ 1 }" />
         </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
-      </xs:choice>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_6" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+        <xs:sequence dfdl:choiceBranchKey="D1">
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_5" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_6" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_7" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_8" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
+          <xs:choice>
+            <xs:sequence>
+              <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
+              <xs:element name="future_use_9" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
+            </xs:sequence>
+            <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
+          </xs:choice>
         </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
       </xs:choice>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_7" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
-        </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
-      </xs:choice>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_8" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
-        </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
-      </xs:choice>
-      <xs:choice>
-        <xs:sequence>
-          <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-          <xs:element name="future_use_9" type="tns:future_use_group_type" dfdl:lengthKind="implicit"/>
-        </xs:sequence>
-        <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
-      </xs:choice>
+      <!-- end message handling group -->
       <xs:sequence dfdl:alignment="1" dfdl:alignmentUnits="bytes"/>
     </xs:sequence>
   </xs:complexType>
