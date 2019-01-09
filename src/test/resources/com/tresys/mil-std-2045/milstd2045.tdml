@@ -41,6 +41,8 @@ SOFTWARE.
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:gpf="http://www.ibm.com/dfdl/GeneralPurposeFormat"
   xmlns:fn="http://www.w3.org/2005/xpath-functions" 
+  xmlns:daf="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"
+  xmlns:ex="http://example.com"
   defaultRoundTrip="true"
   defaultValidation="on">
 
@@ -364,6 +366,138 @@ SOFTWARE.
       </tdml:dfdlInfoset>
     </tdml:infoset>
   </tdml:parserTestCase>
-  
 
+<!--
+  Rev D (aka Revision D with Change 1) is default. Some tests use rev C however, and for that we need 
+  this config to be used. 
+  -->
+
+<tdml:defineConfig name="revC">
+  <daf:externalVariableBindings>
+    <daf:bind name="ms:versionSpec">C</daf:bind>
+  </daf:externalVariableBindings>
+</tdml:defineConfig>
+
+  <tdml:parserTestCase name="test_2045_C_msghdr1" root="milstd2045_application_header"
+    model="hdr" config="revC" >
+    <tdml:document bitOrder="LSBFirst">
+      <!-- From K02.1_1.1.VMB modified to have zero message size. -->
+      <tdml:documentPart type="byte" byteOrder="LTR"><![CDATA[
+       e29b 6109 6531 5160 0600 7925 4000 0008
+       51a2 8cc2 410f 1000 00
+      ]]></tdml:documentPart>
+    </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+          <version>
+            <value>2</value>
+          </version>
+          <originator_address_group>
+            <urn>
+              <value>1229623</value>
+            </urn>
+          </originator_address_group>
+          <recipient_address_group>
+            <urn>
+              <value>665132</value>
+            </urn>
+          </recipient_address_group>
+          <header_size>
+            <value>25</value>
+          </header_size>
+          <formatRevC_UPA>1</formatRevC_UPA>
+          <message_handling_group>
+            <umf>
+              <value>2</value>
+            </umf>
+            <message_standard_version>
+              <value>7</value>
+            </message_standard_version>
+            <vmf_message_identification_group>
+              <fad>
+                <value>2</value>
+              </fad>
+              <message_number>
+                <value>1</value>
+              </message_number>
+            </vmf_message_identification_group>
+            <message_size>
+              <value>0</value>
+            </message_size>
+            <operation_indicator>
+              <value>1</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>4</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+            <originator_dtg_group>
+              <year>
+                <value>18</value>
+              </year>
+              <month>
+                <value>10</value>
+              </month>
+              <day>
+                <value>12</value>
+              </day>
+              <hour>
+                <value>20</value>
+              </hour>
+              <minute>
+                <value>48</value>
+              </minute>
+              <second>
+                <value>1</value>
+              </second>
+              <dtg_extension>
+                <value>30</value>
+              </dtg_extension>
+            </originator_dtg_group>
+            <acknowledgement_request_group>
+              <machine_acknowledge_request_indicator>
+                <value>0</value>
+              </machine_acknowledge_request_indicator>
+              <operator_acknowledge_request_indicator>
+                <value>0</value>
+              </operator_acknowledge_request_indicator>
+              <operator_reply_request_indicator>
+                <value>0</value>
+              </operator_reply_request_indicator>
+            </acknowledgement_request_group>
+          </message_handling_group>
+          <formatRevC_UPA>1</formatRevC_UPA>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+
+  <tdml:parserTestCase name="test_2045_C_msghdr2" root="milstd2045_application_header"
+    model="hdr" config="revC">
+    <tdml:document bitOrder="LSBFirst">
+      <!-- From RevC Spec, Table XVIII -->
+      <tdml:documentPart type="byte" byteOrder="LTR"><![CDATA[   
+        E1 67 00 80 55 67 92 1A FC 77 00 00 
+        00 A4 04 10 21 F8 06 
+        DC 6E 
+        06 
+        31 32 33 34 35 36 37 38 39 30 
+      ]]></tdml:documentPart>
+    </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
 </tdml:testSuite>
+
