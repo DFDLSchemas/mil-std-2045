@@ -383,8 +383,8 @@ SOFTWARE.
     <tdml:document bitOrder="LSBFirst">
       <!-- From K02.1_1.1.VMB modified to have zero message size. -->
       <tdml:documentPart type="byte" byteOrder="LTR"><![CDATA[
-       e29b 6109 6531 5160 0600 7925 4000 0008
-       51a2 8cc2 410f 1000 00
+       e29b 6109 6531 5120 0600 7925 4000 0008
+       51a2 8cc2 410f 1000
       ]]></tdml:documentPart>
     </tdml:document>
 
@@ -405,7 +405,7 @@ SOFTWARE.
             </urn>
           </recipient_address_group>
           <header_size>
-            <value>25</value>
+            <value>24</value>
           </header_size>
           <formatRevC_UPA>1</formatRevC_UPA>
           <message_handling_group>
@@ -472,6 +472,7 @@ SOFTWARE.
                 <value>0</value>
               </operator_reply_request_indicator>
             </acknowledgement_request_group>
+            <formatRevC_UPA>1</formatRevC_UPA>
           </message_handling_group>
           <formatRevC_UPA>1</formatRevC_UPA>
         </ex:milstd2045_application_header>
@@ -482,22 +483,171 @@ SOFTWARE.
   <tdml:parserTestCase name="test_2045_C_msghdr2" root="milstd2045_application_header"
     model="hdr" config="revC">
     <tdml:document bitOrder="LSBFirst">
-      <!-- From RevC Spec, Table XVIII -->
+      <!-- 
+      From RevC Spec, Table XVIII page 57.
+      
+      Note, however, that this table has a bug in it.
+      
+      On page 58, the "FPI for Message Standard Version" is given value "NA" 
+      as if that field were absent due to a previous GPI of value 0. But the 
+      prior GPI has value 1 (The Information Address Group), so this bit must be
+      present. 
+      
+      This mistake seems due to edits to this draft of the standard, because the font
+      changes for that row of the table. This edit was not verified carefully enough
+      it seems.
+      
+      That mistake throws off the entire rest of the table, which is valueless
+      from there, as this bit is missing, and the 4 bit field it controls the presence
+      or absence of, could also be there. 
+      
+      If we assume this bit should be present, but have value 0, meaning the 
+      subsequent 4-bit field is absent (Message Standard Version), then 
+      still everyting is off by 1 bit. 
+      
+      Unfortunately, while the example in the revision D with Change 1 of the standard
+      has a similar example, it is different due to the introduction of the 
+      future use fields, which occupy a number of additional bits. So this same
+      worked example doesn't appear in that document.
+      
+      Working out the data for the bits is tedious but possible.
+      
+      The first document part below is the correct bytes, taken from the table. 
+      The first 13 bytes are correct.
+      -->
       <tdml:documentPart type="byte" byteOrder="LTR"><![CDATA[   
         E1 67 00 80 55 67 92 1A FC 77 00 00 
-        00 A4 04 10 21 F8 06 
-        DC 6E 
-        06 
-        31 32 33 34 35 36 37 38 39 30 
+        00 
       ]]></tdml:documentPart>
+      <!-- 
+        The next bytes are all incorrect in the document. This 
+        works out what they should be. 
+        
+        FPI for Message Standard Version  xx0xxxxx
+        Message Standard Version          NA
+        GPI for Message Ident Group       x1xxxxxx
+        FAD                      XXXXX001 1xxxxxxx  So the byte is 11000100 or C4
+        Message Number           XXXXXX00 00001xxx  So the byte is 00001001 or 09
+        FPI for Message Subtype           XXXXX0xx
+        Message Subtype                   NA
+        FPI for File Name                 XXXX0xxx
+        File Name                         NA
+        FPI for Message Size              XXX0XXXX
+        Message Size                      NA
+        Operation Indicator               X01XXXXX
+        Retransmit Indictor               0XXXXXXX  So the byte is 00100000 or 20
+        Message Precendence Codes         XXXXX010
+        Security Classification           XXX00XXX
+        FPI for C/R marking               XX0XXXXX
+        C/R Marking                       NA
+        GPI for Orig DTG                  X1XXXXXX
+        Year                   XX110000   0XXXXXXX So the byte is 01000010 or 42
+        Month                  XXXXXX01   11XXXXXX So the byte is 11110000 or F0
+        Day                               X00011XX
+        Hour                   XXXX1000   0XXXXXXX So the byte is 00001101 or 0D
+        Minute                 XXXXXX01   1011XXXX So the byte is 10111000 or B8
+        Second                            110111XX So the byte is 11011101 or DD
+        FPI for DTG Extension             XXXXXXX0
+        DTG Extension                     NA
+        GPI for Perishibility DTG         XXXXXX0X
+        Perishibility DTG fields          NA
+        GPI for Ack req group             XXXXX1XX
+        Machine ack req ind               XXXX1XXX
+        Oper ack req ind                  XXX0XXXX
+        Oper Reply req ind                XX0XXXXX
+        GPI for Resp Data Group           X0XXXXXX
+        Resp Data Group                   NA
+        FPI for Ref Msg Data Group        0XXXXXXX so the byte is 00001100 or 0C
+        GPI for Message Security Group    XXXXXXX0
+        Padding                           0000000X so the byte is 00000000 or 00
+       -->
+        <tdml:documentPart type="byte" byteOrder="LTR"><![CDATA[   
+        
+        C4 09 20 42 F0 0D B8 DD 0C 00
+        ]]></tdml:documentPart>
     </tdml:document>
 
-    <tdml:infoset>
-      <tdml:dfdlInfoset>
-        <ex:milstd2045_application_header>
-        </ex:milstd2045_application_header>
-      </tdml:dfdlInfoset>
-    </tdml:infoset>
+  <tdml:infoset>
+    <tdml:dfdlInfoset>
+      <ex:milstd2045_application_header>
+        <version>
+          <value>1</value>
+        </version>
+        <originator_address_group>
+          <urn>
+            <value>207</value>
+          </urn>
+          <unit_name>
+            <value>UNITA</value>
+          </unit_name>
+        </originator_address_group>
+        <recipient_address_group>
+          <urn>
+            <value>3</value>
+          </urn>
+        </recipient_address_group>
+        <formatRevC_UPA>1</formatRevC_UPA>
+        <message_handling_group>
+          <umf>
+            <value>2</value>
+          </umf>
+          <vmf_message_identification_group>
+            <fad>
+              <value>3</value>
+            </fad>
+            <message_number>
+              <value>1</value>
+            </message_number>
+          </vmf_message_identification_group>
+          <operation_indicator>
+            <value>1</value>
+          </operation_indicator>
+          <retransmit_indicator>
+            <value>0</value>
+          </retransmit_indicator>
+          <message_precedence_codes>
+            <value>2</value>
+          </message_precedence_codes>
+          <security_classification>
+            <value>0</value>
+          </security_classification>
+          <originator_dtg_group>
+            <year>
+              <value>96</value>
+            </year>
+            <month>
+              <value>7</value>
+            </month>
+            <day>
+              <value>3</value>
+            </day>
+            <hour>
+              <value>16</value>
+            </hour>
+            <minute>
+              <value>27</value>
+            </minute>
+            <second>
+              <value>55</value>
+            </second>
+          </originator_dtg_group>
+          <acknowledgement_request_group>
+            <machine_acknowledge_request_indicator>
+              <value>1</value>
+            </machine_acknowledge_request_indicator>
+            <operator_acknowledge_request_indicator>
+              <value>0</value>
+            </operator_acknowledge_request_indicator>
+            <operator_reply_request_indicator>
+              <value>0</value>
+            </operator_reply_request_indicator>
+          </acknowledgement_request_group>
+          <formatRevC_UPA>1</formatRevC_UPA>
+        </message_handling_group>
+        <formatRevC_UPA>1</formatRevC_UPA>
+      </ex:milstd2045_application_header>
+    </tdml:dfdlInfoset>
+  </tdml:infoset>
   </tdml:parserTestCase>
 </tdml:testSuite>
 

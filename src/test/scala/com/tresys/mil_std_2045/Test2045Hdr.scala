@@ -46,10 +46,7 @@ class Test2045Hdr {
     runner.runOneTest("test_2045_C_msghdr1")
   }
 
-  //
-  // Test not yet working - taken directly from Rev C spec.
-  //
-  //  @Test def test_2045_C_msghdr2() {
-  //    runner.runOneTest("test_2045_C_msghdr2")
-  //  }
+  @Test def test_2045_C_msghdr2() {
+    runner.runOneTest("test_2045_C_msghdr2")
+  }
 }
