@@ -176,7 +176,7 @@ SOFTWARE.
     root="milstd2045_application_header" model="hdr">
     <tdml:document bitOrder="LSBFirst">
       <tdml:documentPart type="byte" byteOrder="LTR">
-        E3 67 00 80 55
+        E4 67 00 80 55
         67 92 1A FC 77 00
         00 00 80 F8 63 44 48 10 FE B6 9B 01 00 00
       </tdml:documentPart>
@@ -186,7 +186,7 @@ SOFTWARE.
       <tdml:dfdlInfoset>
         <milstd2045_application_header>
           <version>
-            <value>3</value>
+            <value>4</value>
           </version>
           <originator_address_group>
             <urn>
@@ -329,7 +329,7 @@ SOFTWARE.
     root="milstd2045_application_header" model="hdr">
     <tdml:document bitOrder="LSBFirst">
       <tdml:documentPart type="bits" byteOrder="RTL">
-        00000000 00000000 00000111 11111000 11111111 10000000 00000000 00010011 00000011
+        00000000 00000000 00000111 11111000 11111111 10000000 00000000 00010011 00000100
       </tdml:documentPart>
     </tdml:document>
 
@@ -337,7 +337,7 @@ SOFTWARE.
       <tdml:dfdlInfoset>
         <milstd2045_application_header>
           <version>
-            <value>3</value>
+            <value>4</value>
           </version>
           <header_size>
             <value>9</value>
@@ -367,19 +367,8 @@ SOFTWARE.
     </tdml:infoset>
   </tdml:parserTestCase>
 
-<!--
-  Rev D (aka Revision D with Change 1) is default. Some tests use rev C however, and for that we need 
-  this config to be used. 
-  -->
-
-<tdml:defineConfig name="revC">
-  <daf:externalVariableBindings>
-    <daf:bind name="ms:versionSpec">C</daf:bind>
-  </daf:externalVariableBindings>
-</tdml:defineConfig>
-
   <tdml:parserTestCase name="test_2045_C_msghdr1" root="milstd2045_application_header"
-    model="hdr" config="revC" >
+    model="hdr">
     <tdml:document bitOrder="LSBFirst">
       <!-- From K02.1_1.1.VMB modified to have zero message size. -->
       <tdml:documentPart type="byte" byteOrder="LTR"><![CDATA[
@@ -481,7 +470,7 @@ SOFTWARE.
   </tdml:parserTestCase>
 
   <tdml:parserTestCase name="test_2045_C_msghdr2" root="milstd2045_application_header"
-    model="hdr" config="revC">
+    model="hdr">
     <tdml:document bitOrder="LSBFirst">
       <!-- 
       From RevC Spec, Table XVIII page 57.
@@ -516,7 +505,7 @@ SOFTWARE.
       The first 13 bytes are correct.
       -->
       <tdml:documentPart type="byte" byteOrder="LTR"><![CDATA[   
-        E1 67 00 80 55 67 92 1A FC 77 00 00 
+        E2 67 00 80 55 67 92 1A FC 77 00 00
         00 
       ]]></tdml:documentPart>
       <!-- 
@@ -571,7 +560,7 @@ SOFTWARE.
     <tdml:dfdlInfoset>
       <ex:milstd2045_application_header>
         <version>
-          <value>1</value>
+          <value>2</value>
         </version>
         <originator_address_group>
           <urn>

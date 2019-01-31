@@ -45,7 +45,7 @@
   <xs:annotation>
     <xs:appinfo source="http://www.ogf.org/dfdl/">
       <dfdl:format ref="tns:msCommon"/>
-      <dfdl:defineVariable name="versionSpec" external="true" type="xs:string">D1</dfdl:defineVariable>
+      <dfdl:defineVariable name="versionSpec" type="xs:string" />
     </xs:appinfo>
   </xs:annotation>
   
@@ -70,7 +70,19 @@
       <xs:element name="version" dfdl:lengthKind="implicit">
         <xs:complexType>
           <xs:sequence>
-            <xs:element name="value" type="tns:tIntField" dfdl:length="4" />
+            <xs:element name="value" type="tns:tIntField" dfdl:length="4">
+              <xs:annotation>
+                <xs:appinfo source="http://www.ogf.org/dfdl/">
+                  <dfdl:setVariable ref="tns:versionSpec">
+{
+       if (. eq 2) then "C"
+  else if (. eq 4) then "D1"
+  else fn:error(fn:concat("Unsupported MIL-STD-2045 version: ", .))
+}
+                  </dfdl:setVariable>
+                </xs:appinfo>
+              </xs:annotation>
+            </xs:element>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
