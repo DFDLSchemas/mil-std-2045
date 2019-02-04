@@ -118,6 +118,16 @@
 
   <!-- MS2045 String Model -->
 
+  <xs:group name="tString32">
+    <xs:sequence>
+      <xs:element name="value" type="xs:string" dfdl:lengthKind="pattern"
+        dfdl:lengthPattern="[^\x7F]{0,31}(?=\x7F)|.{32}" />
+      <xs:sequence
+        dfdl:terminator="{if (fn:string-length(./value) eq 32) then '%WSP*;' else '%DEL;'}" />
+      <!-- can replace %ES with WSP* if ES doesn't work -->
+    </xs:sequence>
+  </xs:group>
+
   <xs:group name="tString50">
     <xs:sequence>
       <xs:element name="value" type="xs:string" dfdl:lengthKind="pattern"

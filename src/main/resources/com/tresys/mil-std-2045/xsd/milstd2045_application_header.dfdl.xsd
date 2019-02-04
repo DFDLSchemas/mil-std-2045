@@ -379,35 +379,34 @@
             <xs:choice>
               <xs:sequence>
                 <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element maxOccurs="unbounded" minOccurs="1" name="control_release_marking"
-                  dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
-                  <xs:annotation>
-                    <xs:appinfo source="http://www.ogf.org/dfdl/">
-                      <dfdl:assert>
-                        { if ($tns:versionSpec ne 'D1') then
-                        (fn:count(../control_release_marking) eq 1) else fn:true() }
-                      </dfdl:assert>
-                    </xs:appinfo>
-                  </xs:annotation>
-                  <xs:complexType>
-                    <xs:sequence>
+                <xs:choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+                  <xs:element dfdl:choiceBranchKey="D1" maxOccurs="unbounded" minOccurs="1" name="control_release_marking_D1"
+                    dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
+                    <xs:complexType>
                       <xs:sequence>
-                        <xs:annotation>
-                          <xs:appinfo source="http://www.ogf.org/dfdl/">
-                            <dfdl:discriminator>{ if (dfdl:occursIndex() eq 1)
-                              then
-                              fn:true() else
-                              ../control_release_marking[dfdl:occursIndex()-1]/FRI
-                              eq 1 }
-                            </dfdl:discriminator>
-                          </xs:appinfo>
-                        </xs:annotation>
+                        <xs:sequence>
+                          <xs:annotation>
+                            <xs:appinfo source="http://www.ogf.org/dfdl/">
+                              <dfdl:discriminator>{ if (dfdl:occursIndex() eq 1)
+                                then
+                                fn:true() else
+                                ../control_release_marking_D1[dfdl:occursIndex()-1]/FRI
+                                eq 1 }
+                              </dfdl:discriminator>
+                            </xs:appinfo>
+                          </xs:annotation>
+                        </xs:sequence>
+                        <xs:sequence dfdl:hiddenGroupRef="msi:FRI" />
+                        <xs:element name="value" type="tns:tIntField" dfdl:length="9" />
                       </xs:sequence>
-                      <xs:sequence dfdl:hiddenGroupRef="msi:FRI" />
-                      <xs:element name="value" type="tns:tIntField" dfdl:length="9" />
-                    </xs:sequence>
-                  </xs:complexType>
-                </xs:element>
+                    </xs:complexType>
+                  </xs:element>
+                  <xs:element dfdl:choiceBranchKey="C" name="control_release_marking_C">
+                    <xs:complexType>
+                      <xs:group ref="msi:tString32"/>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:choice>
               </xs:sequence>
               <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
             </xs:choice>
