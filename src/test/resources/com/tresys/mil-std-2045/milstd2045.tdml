@@ -201,6 +201,7 @@ SOFTWARE.
               <value>3</value>
             </urn>
           </recipient_address_group>
+          <futureUseGroup1/>
           <message_handling_group>
             <umf>
               <value>2</value>
@@ -256,7 +257,9 @@ SOFTWARE.
                 <value>0</value>
               </operator_reply_request_indicator>
             </acknowledgement_request_group>
+            <futureUseGroup2/>
           </message_handling_group>
+          <futureUseGroup3/>
         </milstd2045_application_header>
       </tdml:dfdlInfoset>
     </tdml:infoset>
@@ -342,6 +345,7 @@ SOFTWARE.
           <header_size>
             <value>9</value>
           </header_size>
+          <futureUseGroup1/>
           <message_handling_group>
             <umf>
               <value>15</value>
@@ -361,7 +365,9 @@ SOFTWARE.
             <security_classification>
               <value>3</value>
             </security_classification>
+            <futureUseGroup2/>
           </message_handling_group>
+          <futureUseGroup3/>
         </milstd2045_application_header>
       </tdml:dfdlInfoset>
     </tdml:infoset>
@@ -396,7 +402,6 @@ SOFTWARE.
           <header_size>
             <value>24</value>
           </header_size>
-          <formatRevC_UPA>1</formatRevC_UPA>
           <message_handling_group>
             <umf>
               <value>2</value>
@@ -461,9 +466,7 @@ SOFTWARE.
                 <value>0</value>
               </operator_reply_request_indicator>
             </acknowledgement_request_group>
-            <formatRevC_UPA>1</formatRevC_UPA>
           </message_handling_group>
-          <formatRevC_UPA>1</formatRevC_UPA>
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
     </tdml:infoset>
@@ -575,7 +578,6 @@ SOFTWARE.
             <value>3</value>
           </urn>
         </recipient_address_group>
-        <formatRevC_UPA>1</formatRevC_UPA>
         <message_handling_group>
           <umf>
             <value>2</value>
@@ -631,9 +633,7 @@ SOFTWARE.
               <value>0</value>
             </operator_reply_request_indicator>
           </acknowledgement_request_group>
-          <formatRevC_UPA>1</formatRevC_UPA>
         </message_handling_group>
-        <formatRevC_UPA>1</formatRevC_UPA>
       </ex:milstd2045_application_header>
     </tdml:dfdlInfoset>
   </tdml:infoset>
