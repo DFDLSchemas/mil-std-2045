@@ -98,9 +98,92 @@ SOFTWARE.
     </xs:complexType>
   </xs:element>
 
+  <xs:element name="string1" dfdl:lengthKind="implicit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="msi:tString32" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="stringInt" dfdl:lengthKind="implicit">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="msi:tString32" />
+        <xs:element name="int" type="xs:int" dfdl:lengthKind="explicit" dfdl:length="14"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+
 </tdml:defineSchema>
 
-
+ <tdml:parserTestCase name="stringMaxLength" root="string1"
+    model="unit" roundTrip="none">
+    <tdml:document>
+      <tdml:documentPart type="text" 
+        encoding="X-DFDL-US-ASCII-7-BIT-PACKED"
+        bitOrder="LSBFirst"><![CDATA[12345678901234567890123456789012]]></tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:string1><value>12345678901234567890123456789012</value></ex:string1>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+  
+   <tdml:unparserTestCase name="stringMaxLengthUnparse" root="string1"
+    model="unit" roundTrip="none">
+    <tdml:document>
+      <tdml:documentPart type="text" 
+        encoding="X-DFDL-US-ASCII-7-BIT-PACKED"
+        bitOrder="LSBFirst"><![CDATA[12345678901234567890123456789012]]></tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:string1><value>12345678901234567890123456789012</value></ex:string1>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:unparserTestCase>
+  
+  <!-- 
+  
+  This test is about bug DAFFODIL-1493 and DAFFODIL-1477 
+  
+  Strings that are the maxLength have no terminator. This is supposed to be expressed
+  by having '%ES;' as terminator, but that is broken in Daffodil (looks literally 
+  for characters "%" "E" "S" ";", not no terminator.) 
+  
+  Since %ES; doesn't work right as terminator, our maxLength strings are using
+  %WSP*; instead. However, this will spuriously consume data after the string
+  if it just so happens to have the value of whitespace characters. 
+  
+  This is a bug. Nothing stops the binary data after the string from looking just
+  like the bits of whitespace characters.
+  
+  This test puts binary data after a maxLength string where that binary data
+  looks like space characters. 
+  
+  This test will fail until the DAFFODIL-1493 and DAFFODIL-1477 bugs are fixed
+  and the tStringNN types are modified to use '%ES;' instead of '%WSP*;'. 
+   
+  -->
+   <tdml:parserTestCase name="stringWSPBug" root="stringInt"
+    model="unit" roundTrip="none">
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="text" encoding="X-DFDL-US-ASCII-7-BIT-PACKED" bitOrder="LSBFirst"
+        replaceDFDLEntities="true"><![CDATA[12345678901234567890123456789012%#x20;%#x20;]]></tdml:documentPart>
+    </tdml:document>
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:stringInt>
+          <value>12345678901234567890123456789012</value>
+          <int>4128</int>
+        </ex:stringInt>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+  
   <tdml:parserTestCase name="presenceByChoice1" root="x"
     model="unit">
     <tdml:document bitOrder="LSBFirst">
