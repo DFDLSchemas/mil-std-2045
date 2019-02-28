@@ -2,7 +2,7 @@ lazy val root = (project in file(".")).
   settings(
     inThisBuild(List(
       organization := "com.tresys",
-      version      := "0.0.2",
+      version      := "0.0.3",
       scalaVersion := "2.12.6",
       crossPaths := false,
       testOptions += Tests.Argument(TestFrameworks.JUnit, "-v"),
