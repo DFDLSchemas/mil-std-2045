@@ -45,7 +45,7 @@
   <xs:annotation>
     <xs:appinfo source="http://www.ogf.org/dfdl/">
       <dfdl:format ref="tns:msCommon"/>
-      <dfdl:defineVariable name="versionSpec" type="xs:string" />
+      <dfdl:defineVariable name="versionSpec" type="xs:string" defaultValue="C"/>
     </xs:appinfo>
   </xs:annotation>
   
@@ -74,11 +74,11 @@
               <xs:annotation>
                 <xs:appinfo source="http://www.ogf.org/dfdl/">
                   <dfdl:setVariable ref="tns:versionSpec">
-{
-       if (. eq 2) then "C"
-  else if (. eq 4) then "D1"
-  else fn:error(fn:concat("Unsupported MIL-STD-2045 version: ", .))
-}
+                    {
+                      if (. eq 2) then "C"
+                      else if (. eq 4) then "D1"
+                      else fn:error(fn:concat("Unsupported MIL-STD-2045 version: ", .))
+                    }
                   </dfdl:setVariable>
                 </xs:appinfo>
               </xs:annotation>
