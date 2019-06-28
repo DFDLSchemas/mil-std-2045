@@ -150,23 +150,14 @@ SOFTWARE.
   
   This test is about bug DAFFODIL-1493 and DAFFODIL-1477 
   
-  Strings that are the maxLength have no terminator. This is supposed to be expressed
-  by having '%ES;' as terminator, but that is broken in Daffodil (looks literally 
-  for characters "%" "E" "S" ";", not no terminator.) 
+  Strings that are the maxLength have no terminator. This is expressed
+  by having '%ES;' as terminator, but was broken in older versions of
+  daffodil, and workarounds were used that causes spaces following the
+  termination of the string to be incorrectly consumed.
+
+  Now that ES an be used since Daffodil 2.4.0, this test ensures that
+  whitepsace following the terminator is not consumed.
   
-  Since %ES; doesn't work right as terminator, our maxLength strings are using
-  %WSP*; instead. However, this will spuriously consume data after the string
-  if it just so happens to have the value of whitespace characters. 
-  
-  This is a bug. Nothing stops the binary data after the string from looking just
-  like the bits of whitespace characters.
-  
-  This test puts binary data after a maxLength string where that binary data
-  looks like space characters. 
-  
-  This test will fail until the DAFFODIL-1493 and DAFFODIL-1477 bugs are fixed
-  and the tStringNN types are modified to use '%ES;' instead of '%WSP*;'. 
-   
   -->
    <tdml:parserTestCase name="stringWSPBug" root="stringInt"
     model="unit" roundTrip="none">

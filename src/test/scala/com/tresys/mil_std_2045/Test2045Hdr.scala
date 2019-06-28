@@ -22,13 +22,9 @@ class Test2045Hdr {
     runner.runOneTest("stringMaxLengthUnparse")
   }
 
-  // Fixes are needed to Daffodil, which enable the fix to mil-std-2045 schema
-  // in order for this test to work.
-  //
-  // Also affects VMF - see JIRA https://jira.di2e.net/browse/DFDL-18 for VMF
-  // github https://github.com/DFDLSchemas/mil-std-2045/issues/4 for mil-std-2045
-  // Apache Daffodil JIRA DAFFODIL-1493 and DAFFODIL-1477
-  // @Test def test_stringWSPBug() { runner.runOneTest("stringWSPBug") }
+  @Test def test_stringWSPBug() {
+    runner.runOneTest("stringWSPBug")
+  }
 
   @Test def test_presenceByChoice1() {
     runner.runOneTest("presenceByChoice1")
