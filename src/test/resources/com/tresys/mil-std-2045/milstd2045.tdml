@@ -151,15 +151,7 @@ SOFTWARE.
   This test is about bug DAFFODIL-1493 and DAFFODIL-1477 
   
   Strings that are the maxLength have no terminator. This is supposed to be expressed
-  by having '%ES;' as terminator, but that is broken in Daffodil (looks literally 
-  for characters "%" "E" "S" ";", not no terminator.) 
-  
-  Since %ES; doesn't work right as terminator, our maxLength strings are using
-  %WSP*; instead. However, this will spuriously consume data after the string
-  if it just so happens to have the value of whitespace characters. 
-  
-  This is a bug. Nothing stops the binary data after the string from looking just
-  like the bits of whitespace characters.
+  by having '%ES;' as terminator.
   
   This test puts binary data after a maxLength string where that binary data
   looks like space characters. 
