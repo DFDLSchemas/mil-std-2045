@@ -48,26 +48,10 @@
       <dfdl:defineVariable name="versionSpec" type="xs:string" defaultValue="C"/>
     </xs:appinfo>
   </xs:annotation>
-  
-  <xs:complexType name="future_use_group_type">
-    <xs:sequence>
-      <xs:element name="group_size" type="tns:tIntField" dfdl:length="12" dfdl:outputValueCalc=" { (fn:count(../future_use_group_data/word) * 32) +   (fn:count(../future_use_group_data/partialWord) * dfdl:valueLength(../future_use_group_data/partialWord, 'bits')) }"/>
-      <!-- DFDL doesn't allow length units of 'bits' for xs:nonNegativeInteger, 
-           So we use an array of unsigned int, for this opaque region. -->
-      <xs:element name="future_use_group_data">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element maxOccurs="128" minOccurs="0" name="word" type="tns:tIntField" dfdl:length="32" dfdl:occursCount="{ ../../group_size idiv 32 }" dfdl:occursCountKind="expression"/>
-            <xs:element maxOccurs="1" minOccurs="0" name="partialWord" type="tns:tIntField" dfdl:length="{ ../../group_size mod 32 }" dfdl:occursCount="{ if ((../../group_size mod 32) ne 0) then 1 else 0 }" dfdl:occursCountKind="expression"/>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
 
   <xs:complexType name="milstd2045_application_header_type">
     <xs:sequence>
-      <xs:element name="version" dfdl:lengthKind="implicit">
+      <xs:element name="version">
         <xs:complexType>
           <xs:sequence>
             <xs:element name="value" type="tns:tIntField" dfdl:length="4">
@@ -89,10 +73,19 @@
       <xs:choice>
         <xs:sequence>
           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-          <xs:element name="data_compression_type" dfdl:lengthKind="implicit">
+          <xs:element name="data_compression_type">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="value" type="tns:tIntField" dfdl:length="2" />
+                <xs:element name="value" type="tns:tIntField" dfdl:length="2">
+                  <xs:annotation>
+                    <xs:appinfo source="http://www.ogf.org/dfdl/">
+                      <dfdl:assert 
+                        message="Compression is not supported in this version of the mil-std-2045 header DFDL schema.">{
+                       fn:true() 
+                      }</dfdl:assert>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
               </xs:sequence>
             </xs:complexType>
           </xs:element>
@@ -108,7 +101,7 @@
                 <xs:choice>
                   <xs:sequence>
                     <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                    <xs:element name="urn" dfdl:lengthKind="implicit">
+                    <xs:element name="urn">
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element name="value" type="tns:tIntField" dfdl:length="24" />
@@ -139,7 +132,7 @@
         <xs:sequence>
           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
           <xs:element maxOccurs="unbounded" minOccurs="1" name="recipient_address_group"
-            dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
+            dfdl:occursCountKind="implicit">
             <xs:complexType>
               <xs:sequence>
                 <xs:sequence>
@@ -157,7 +150,7 @@
                 <xs:choice>
                   <xs:sequence>
                     <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                    <xs:element name="urn" dfdl:lengthKind="implicit">
+                    <xs:element name="urn">
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element name="value" type="tns:tIntField" dfdl:length="24" />
@@ -188,7 +181,7 @@
         <xs:sequence>
           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
           <xs:element maxOccurs="unbounded" minOccurs="1" name="information_address_group"
-            dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
+            dfdl:occursCountKind="implicit">
             <xs:complexType>
               <xs:sequence>
                 <xs:sequence>
@@ -206,7 +199,7 @@
                 <xs:choice>
                   <xs:sequence>
                     <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                    <xs:element name="urn" dfdl:lengthKind="implicit">
+                    <xs:element name="urn">
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element name="value" type="tns:tIntField" dfdl:length="24" />
@@ -236,7 +229,7 @@
       <xs:choice>
         <xs:sequence>
           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-          <xs:element name="header_size" dfdl:lengthKind="implicit">
+          <xs:element name="header_size">
             <xs:complexType>
               <xs:sequence>
                 <xs:element name="value" type="tns:tIntField" dfdl:length="16"
@@ -250,7 +243,7 @@
       <xs:group ref="tns:futureUseGroup1To5"/>
       <!-- start message handling group -->
       <xs:element maxOccurs="unbounded" minOccurs="1" name="message_handling_group"
-        dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
+        dfdl:occursCountKind="implicit">
         <xs:complexType>
           <xs:sequence>
             <xs:sequence>
@@ -265,7 +258,7 @@
               </xs:annotation>
             </xs:sequence>
             <xs:sequence dfdl:hiddenGroupRef="msi:GRI" />
-            <xs:element name="umf" dfdl:lengthKind="implicit">
+            <xs:element name="umf">
               <xs:complexType>
                 <xs:sequence>
                   <xs:element name="value" type="tns:tIntField" dfdl:length="4" />
@@ -275,7 +268,7 @@
             <xs:choice>
               <xs:sequence>
                 <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="message_standard_version" dfdl:lengthKind="implicit">
+                <xs:element name="message_standard_version">
                   <xs:complexType>
                     <xs:sequence>
                       <xs:element name="value" type="tns:tIntField" dfdl:length="4" />
@@ -291,7 +284,7 @@
                 <xs:element name="vmf_message_identification_group">
                   <xs:complexType>
                     <xs:sequence>
-                      <xs:element name="fad" dfdl:lengthKind="implicit">
+                      <xs:element name="fad">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -299,7 +292,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="message_number" dfdl:lengthKind="implicit">
+                      <xs:element name="message_number">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -310,7 +303,7 @@
                       <xs:choice>
                         <xs:sequence>
                           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                          <xs:element name="message_subtype" dfdl:lengthKind="implicit">
+                          <xs:element name="message_subtype">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
@@ -348,28 +341,28 @@
               </xs:sequence>
               <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
             </xs:choice>
-            <xs:element name="operation_indicator" dfdl:lengthKind="implicit">
+            <xs:element name="operation_indicator">
               <xs:complexType>
                 <xs:sequence>
                   <xs:element name="value" type="tns:tIntField" dfdl:length="2" />
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
-            <xs:element name="retransmit_indicator" dfdl:lengthKind="implicit">
+            <xs:element name="retransmit_indicator">
               <xs:complexType>
                 <xs:sequence>
                   <xs:element name="value" type="tns:tIntField" dfdl:length="1" />
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
-            <xs:element name="message_precedence_codes" dfdl:lengthKind="implicit">
+            <xs:element name="message_precedence_codes">
               <xs:complexType>
                 <xs:sequence>
                   <xs:element name="value" type="tns:tIntField" dfdl:length="3" />
                 </xs:sequence>
               </xs:complexType>
             </xs:element>
-            <xs:element name="security_classification" dfdl:lengthKind="implicit">
+            <xs:element name="security_classification">
               <xs:complexType>
                 <xs:sequence>
                   <xs:element name="value" type="tns:tIntField" dfdl:length="2" />
@@ -381,7 +374,7 @@
                 <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
                 <xs:choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
                   <xs:element dfdl:choiceBranchKey="D1" maxOccurs="unbounded" minOccurs="1" name="control_release_marking_D1"
-                    dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
+                    dfdl:occursCountKind="implicit">
                     <xs:complexType>
                       <xs:sequence>
                         <xs:sequence>
@@ -416,7 +409,7 @@
                 <xs:element name="originator_dtg_group">
                   <xs:complexType>
                     <xs:sequence>
-                      <xs:element name="year" dfdl:lengthKind="implicit">
+                      <xs:element name="year">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -424,7 +417,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="month" dfdl:lengthKind="implicit">
+                      <xs:element name="month">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -432,7 +425,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="day" dfdl:lengthKind="implicit">
+                      <xs:element name="day">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -440,7 +433,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="hour" dfdl:lengthKind="implicit">
+                      <xs:element name="hour">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -448,7 +441,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="minute" dfdl:lengthKind="implicit">
+                      <xs:element name="minute">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -456,7 +449,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="second" dfdl:lengthKind="implicit">
+                      <xs:element name="second">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -467,7 +460,7 @@
                       <xs:choice>
                         <xs:sequence>
                           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                          <xs:element name="dtg_extension" dfdl:lengthKind="implicit">
+                          <xs:element name="dtg_extension">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
@@ -490,7 +483,7 @@
                 <xs:element name="perishability_dtg_group">
                   <xs:complexType>
                     <xs:sequence>
-                      <xs:element name="year" dfdl:lengthKind="implicit">
+                      <xs:element name="year">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -498,7 +491,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="month" dfdl:lengthKind="implicit">
+                      <xs:element name="month">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -506,7 +499,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="day" dfdl:lengthKind="implicit">
+                      <xs:element name="day">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -514,7 +507,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="hour" dfdl:lengthKind="implicit">
+                      <xs:element name="hour">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -522,7 +515,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="minute" dfdl:lengthKind="implicit">
+                      <xs:element name="minute">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -530,7 +523,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="second" dfdl:lengthKind="implicit">
+                      <xs:element name="second">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -551,7 +544,7 @@
                   <xs:complexType>
                     <xs:sequence>
                       <xs:element name="machine_acknowledge_request_indicator"
-                        dfdl:lengthKind="implicit">
+                       >
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -560,7 +553,7 @@
                         </xs:complexType>
                       </xs:element>
                       <xs:element name="operator_acknowledge_request_indicator"
-                        dfdl:lengthKind="implicit">
+                       >
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -569,7 +562,7 @@
                         </xs:complexType>
                       </xs:element>
                       <xs:element name="operator_reply_request_indicator"
-                        dfdl:lengthKind="implicit">
+                       >
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -589,7 +582,7 @@
                 <xs:element name="response_data_group">
                   <xs:complexType>
                     <xs:sequence>
-                      <xs:element name="year" dfdl:lengthKind="implicit">
+                      <xs:element name="year">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -597,7 +590,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="month" dfdl:lengthKind="implicit">
+                      <xs:element name="month">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -605,7 +598,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="day" dfdl:lengthKind="implicit">
+                      <xs:element name="day">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -613,7 +606,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="hour" dfdl:lengthKind="implicit">
+                      <xs:element name="hour">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -621,7 +614,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="minute" dfdl:lengthKind="implicit">
+                      <xs:element name="minute">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -629,7 +622,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="second" dfdl:lengthKind="implicit">
+                      <xs:element name="second">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -640,7 +633,7 @@
                       <xs:choice>
                         <xs:sequence>
                           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                          <xs:element name="dtg_extension" dfdl:lengthKind="implicit">
+                          <xs:element name="dtg_extension">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
@@ -651,7 +644,7 @@
                         </xs:sequence>
                         <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
                       </xs:choice>
-                      <xs:element name="r_c" dfdl:lengthKind="implicit">
+                      <xs:element name="r_c">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -662,7 +655,7 @@
                       <xs:choice>
                         <xs:sequence>
                           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                          <xs:element name="cantco_reason_code" dfdl:lengthKind="implicit">
+                          <xs:element name="cantco_reason_code">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
@@ -676,7 +669,7 @@
                       <xs:choice>
                         <xs:sequence>
                           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                          <xs:element name="cantpro_reason_code" dfdl:lengthKind="implicit">
+                          <xs:element name="cantpro_reason_code">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
@@ -708,7 +701,7 @@
               <xs:sequence>
                 <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
                 <xs:element maxOccurs="unbounded" minOccurs="1"
-                  name="reference_message_data_group" dfdl:lengthKind="implicit"
+                  name="reference_message_data_group"
                   dfdl:occursCountKind="implicit">
                   <xs:complexType>
                     <xs:sequence>
@@ -728,7 +721,7 @@
                       <xs:choice>
                         <xs:sequence>
                           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                          <xs:element name="urn" dfdl:lengthKind="implicit">
+                          <xs:element name="urn">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
@@ -750,7 +743,7 @@
                         </xs:sequence>
                         <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
                       </xs:choice>
-                      <xs:element name="year" dfdl:lengthKind="implicit">
+                      <xs:element name="year">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -758,7 +751,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="month" dfdl:lengthKind="implicit">
+                      <xs:element name="month">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -766,7 +759,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="day" dfdl:lengthKind="implicit">
+                      <xs:element name="day">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -774,7 +767,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="hour" dfdl:lengthKind="implicit">
+                      <xs:element name="hour">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -782,7 +775,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="minute" dfdl:lengthKind="implicit">
+                      <xs:element name="minute">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -790,7 +783,7 @@
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>
-                      <xs:element name="second" dfdl:lengthKind="implicit">
+                      <xs:element name="second">
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
@@ -801,7 +794,7 @@
                       <xs:choice>
                         <xs:sequence>
                           <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                          <xs:element name="dtg_extension" dfdl:lengthKind="implicit">
+                          <xs:element name="dtg_extension">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField"
@@ -845,7 +838,7 @@
           <xs:element name="message_security_group">
             <xs:complexType>
               <xs:sequence>
-                <xs:element name="security_parameters_information" dfdl:lengthKind="implicit">
+                <xs:element name="security_parameters_information">
                   <xs:complexType>
                     <xs:sequence>
                       <xs:element name="value" type="tns:tIntField" dfdl:length="4"/>
@@ -858,14 +851,14 @@
                     <xs:element name="keying_material_group">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="keying_material_id_length" dfdl:lengthKind="implicit">
+                          <xs:element name="keying_material_id_length">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField" dfdl:length="3" dfdl:outputValueCalc="{ dfdl:valueLength(../../keying_material_id/value, 'bytes') - 1 }"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="keying_material_id" dfdl:lengthKind="implicit">
+                          <xs:element name="keying_material_id">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tHexBinary" dfdl:length="{ ../../keying_material_id_length/value + 1 }" dfdl:lengthUnits="bytes"/>
@@ -884,14 +877,14 @@
                     <xs:element name="cryptographic_initialization_group">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="cryptographic_initialization_length" dfdl:lengthKind="implicit">
+                          <xs:element name="cryptographic_initialization_length">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField" dfdl:length="4" dfdl:outputValueCalc="{ (dfdl:valueLength(../../cryptographic_initialization/value, 'bytes') idiv 8) - 1 }"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="cryptographic_initialization" dfdl:lengthKind="implicit">
+                          <xs:element name="cryptographic_initialization">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tHexBinary" dfdl:length="{ (../../cryptographic_initialization_length/value + 1) * 8 }" dfdl:lengthUnits="bytes"/>
@@ -910,14 +903,14 @@
                     <xs:element name="key_token_group">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="key_token_length" dfdl:lengthKind="implicit">
+                          <xs:element name="key_token_length">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField" dfdl:length="8" dfdl:outputValueCalc="{ (dfdl:valueLength(../../key_token[1]/value, 'bytes') idiv 8) - 1 }"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element maxOccurs="unbounded" minOccurs="1" name="key_token" dfdl:lengthKind="implicit" dfdl:occursCountKind="implicit">
+                          <xs:element maxOccurs="unbounded" minOccurs="1" name="key_token" dfdl:occursCountKind="implicit">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:sequence>
@@ -951,14 +944,14 @@
                     <xs:element name="authentication_data_a_group">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="authentication_data_a_length" dfdl:lengthKind="implicit">
+                          <xs:element name="authentication_data_a_length">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField" dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data_a/value, 'bytes') idiv 8) - 1 }"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="authentication_data_a" dfdl:lengthKind="implicit">
+                          <xs:element name="authentication_data_a">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tHexBinary" dfdl:length="{ (../../authentication_data_a_length/value + 1) * 8 }" dfdl:lengthUnits="bytes"/>
@@ -977,14 +970,14 @@
                     <xs:element name="authentication_data_b_group">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="authentication_data_b_length" dfdl:lengthKind="implicit">
+                          <xs:element name="authentication_data_b_length">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField" dfdl:length="7" dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data_b/value, 'bytes') idiv 8) - 1}"/>
                               </xs:sequence>
                             </xs:complexType>
                           </xs:element>
-                          <xs:element name="authentication_data_b" dfdl:lengthKind="implicit">
+                          <xs:element name="authentication_data_b">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tHexBinary" dfdl:length="{ (../../authentication_data_b_length/value + 1) * 8 }" dfdl:lengthUnits="bytes"/>
@@ -997,7 +990,7 @@
                   </xs:sequence>
                   <xs:sequence dfdl:hiddenGroupRef="msi:PI_false"/>
                 </xs:choice>
-                <xs:element name="signed_acknowledge_request_indicator" dfdl:lengthKind="implicit">
+                <xs:element name="signed_acknowledge_request_indicator">
                   <xs:complexType>
                     <xs:sequence>
                       <xs:element name="value" type="tns:tIntField" dfdl:length="1"/>
@@ -1010,7 +1003,7 @@
                     <xs:element name="message_security_padding_group">
                       <xs:complexType>
                         <xs:sequence>
-                          <xs:element name="message_security_padding_length" dfdl:lengthKind="implicit">
+                          <xs:element name="message_security_padding_length">
                             <xs:complexType>
                               <xs:sequence>
                                 <xs:element name="value" type="tns:tIntField" dfdl:length="8" dfdl:outputValueCalc=" { if (fn:exists(../../message_security_padding))   then ((dfdl:valueLength(../../message_security_padding/value, 'bits') idiv 8) - 1)   else 0 }"/>
@@ -1020,7 +1013,7 @@
                           <xs:choice>
                             <xs:sequence>
                               <xs:sequence dfdl:hiddenGroupRef="msi:PI_true"/>
-                              <xs:element name="message_security_padding" dfdl:lengthKind="implicit">
+                              <xs:element name="message_security_padding">
                                 <xs:complexType>
                                   <xs:sequence>
                                     <xs:element name="value" type="tns:tIntField" dfdl:length="{ (../../message_security_padding_length/value + 1) * 8}"/>
@@ -1047,157 +1040,158 @@
 
   <xs:group name="futureUseGroup1To5">
     <xs:sequence>
-      <xs:element name="futureUseGroup1" minOccurs="0" dfdl:occursCountKind="expression"
-        dfdl:occursCount='{ if ($tns:versionSpec eq "D1") then 1 else 0 }'>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_1" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_2" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_3" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_4" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_5" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_1" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_2" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_3" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_4" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_5" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
     </xs:sequence>
   </xs:group>
 
   <xs:group name="futureUseGroup6To10">
     <xs:sequence>
-      <xs:element name="futureUseGroup2" minOccurs="0" dfdl:occursCountKind="expression"
-        dfdl:occursCount='{ if ($tns:versionSpec eq "D1") then 1 else 0 }'>
-        <xs:complexType>
-          <xs:sequence>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_6" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_7" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_8" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_9" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_10" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_6" type="tns:future_use_group_type" />
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_7" type="tns:future_use_group_type" />
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_8" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_9" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_10" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
     </xs:sequence>
   </xs:group>
 
   <xs:group name="futureUseGroup11To15">
     <xs:sequence>
-      <xs:element name="futureUseGroup3" minOccurs="0" dfdl:occursCountKind="expression"
-        dfdl:occursCount='{ if ($tns:versionSpec eq "D1") then 1 else 0 }'>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_11" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_12" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_13" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_14" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+      <xs:choice>
+        <xs:sequence>
+          <xs:sequence dfdl:hiddenGroupRef="tns:PI_true_version_D1" />
+          <xs:element name="future_use_15" type="tns:future_use_group_type"/>
+        </xs:sequence>
+        <xs:sequence dfdl:hiddenGroupRef="tns:PI_false_version_D1" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  
+  <xs:complexType name="future_use_group_type">
+    <xs:sequence>
+      <xs:element name="group_size" type="tns:tIntField" dfdl:length="12" dfdl:outputValueCalc=" { (fn:count(../future_use_group_data/word) * 32) +   (fn:count(../future_use_group_data/partialWord) * dfdl:valueLength(../future_use_group_data/partialWord, 'bits')) }"/>
+      <!-- DFDL doesn't allow length units of 'bits' for xs:nonNegativeInteger, 
+           So we use an array of unsigned int, for this opaque region. -->
+      <xs:element name="future_use_group_data">
         <xs:complexType>
           <xs:sequence>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_11" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_12" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_13" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_14" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
-            <xs:choice>
-              <xs:sequence>
-                <xs:sequence dfdl:hiddenGroupRef="msi:PI_true" />
-                <xs:element name="future_use_15" type="tns:future_use_group_type"
-                  dfdl:lengthKind="implicit" />
-              </xs:sequence>
-              <xs:sequence dfdl:hiddenGroupRef="msi:PI_false" />
-            </xs:choice>
+            <xs:element maxOccurs="128" minOccurs="0" name="word" type="tns:tIntField" dfdl:length="32" dfdl:occursCount="{ ../../group_size idiv 32 }" dfdl:occursCountKind="expression"/>
+            <xs:element maxOccurs="1" minOccurs="0" name="partialWord" type="tns:tIntField" dfdl:length="{ ../../group_size mod 32 }" dfdl:occursCount="{ if ((../../group_size mod 32) ne 0) then 1 else 0 }" dfdl:occursCountKind="expression"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:group name="PI_true_version_D1">
+    <xs:sequence>
+      <xs:element name="PI_true_D1" type="msi:presenceIndicator" dfdl:outputValueCalc="{ 1 }">
+        <xs:annotation>
+          <xs:appinfo source="http://www.ogf.org/dfdl/">
+            <dfdl:discriminator test="{ (. eq 1) and ($tns:versionSpec eq 'D1')  }" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+
+  <xs:group name="PI_false_version_D1">
+    <xs:sequence>
+      <xs:element name="PI_false_D1" type="xs:unsignedInt"
+      dfdl:lengthKind="explicit" 
+      dfdl:length="{ if ($tns:versionSpec eq 'D1') then 1 else 0 }" 
+      dfdl:outputValueCalc="{ 0 }" />
     </xs:sequence>
   </xs:group>
   

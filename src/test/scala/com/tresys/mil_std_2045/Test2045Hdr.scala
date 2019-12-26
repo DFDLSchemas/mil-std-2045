@@ -74,6 +74,10 @@ class Test2045Hdr {
     runner.runOneTest("test_2045_D1_control_release_marking1")
   }
 
+  @Test def test_2045_D1_control_release_marking2() {
+    runner.runOneTest("test_2045_D1_control_release_marking2")
+  }
+
   @Test def test_2045_C_control_release_marking1() {
     runner.runOneTest("test_2045_C_control_release_marking1")
   }
