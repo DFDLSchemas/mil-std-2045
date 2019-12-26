@@ -61,4 +61,20 @@ class Test2045Hdr {
   @Test def test_2045_C_msghdr2() {
     runner.runOneTest("test_2045_C_msghdr2")
   }
+
+  @Test def test_2045_D1_minimum_size_header() {
+    runner.runOneTest("test_2045_D1_minimum_size_header")
+  }
+
+  @Test def test_2045_C_minimum_size_header() {
+    runner.runOneTest("test_2045_C_minimum_size_header")
+  }
+
+  @Test def test_2045_D1_control_release_marking1() {
+    runner.runOneTest("test_2045_D1_control_release_marking1")
+  }
+
+  @Test def test_2045_C_control_release_marking1() {
+    runner.runOneTest("test_2045_C_control_release_marking1")
+  }
 }
