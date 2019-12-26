@@ -2,7 +2,7 @@
 /.cache
 /bin
 /lib_managed
-target/
+/target
 project/target/
 .cache-tests
 .cache-main
