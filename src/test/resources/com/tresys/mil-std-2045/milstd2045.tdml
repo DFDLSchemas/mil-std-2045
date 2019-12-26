@@ -712,5 +712,301 @@ SOFTWARE.
     </tdml:dfdlInfoset>
   </tdml:infoset>
   </tdml:parserTestCase>
+
+  <tdml:parserTestCase 
+    name="test_2045_D1_minimum_size_header" 
+    root="milstd2045_application_header"
+    model="hdr" 
+    description='Smallest possible header'
+    roundTrip="none">
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Version                       0100]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI Data compression type        0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Originator address group     0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Recipient address group      0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Information address group    0]]></tdml:documentPart><!-- 8 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI header_size                  0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use One               0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use 2                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use 3                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use 4                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use 5                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GRI message handling group (last)0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[UMF                           0000]]></tdml:documentPart><!-- 16 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI message standard version     0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI vmf message ident group      0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI file name                    0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI message size                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Operation Indicator             00]]></tdml:documentPart><!-- 24 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Retransmit Indicator             0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Message Precendence Code       000]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Security Classification         00]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI C/R marking                  0]]></tdml:documentPart><!-- 32 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Originator DTG               0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Perisability DTG             0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Acknowledgment Request grp   0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Response data group          0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Reference message data grp   0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use 6                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use 7                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use 8                 0]]></tdml:documentPart><!-- 40 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use 9                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Ten               0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Message Security group       0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Eleven            0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Twelve            0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Thirteen          0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Fourteen          0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Fifteen           0]]></tdml:documentPart><!-- 48 -->
+    </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+          <version>
+            <value>4</value>
+          </version>
+          <futureUseGroup1/>
+          <message_handling_group>
+            <umf>
+              <value>0</value>
+            </umf>
+            <operation_indicator>
+              <value>0</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>0</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+            <futureUseGroup2/>
+          </message_handling_group>
+          <futureUseGroup3/>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+
+  <tdml:parserTestCase 
+    name="test_2045_C_minimum_size_header" 
+    root="milstd2045_application_header"
+    model="hdr" 
+    description='Smallest possible header'
+    roundTrip="none">
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Version                       0010]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI Data compression type        0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Originator address group     0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Recipient address group      0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Information address group    0]]></tdml:documentPart><!-- 8 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI header_size                  0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GRI message handling group (last)0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[UMF                           0000]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI message standard version     0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI vmf message ident group      0]]></tdml:documentPart><!-- 16 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI file name                    0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI message size                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Operation Indicator             00]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Retransmit Indicator             0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Message Precendence Code       000]]></tdml:documentPart><!-- ends at 24 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Security Classification         00]]></tdml:documentPart><!-- 25 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI C/R marking                  0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Originator DTG               0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Perisability DTG             0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Acknowledgment Request grp   0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Response data group          0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Reference message data grp   0]]></tdml:documentPart><!-- 32 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Message Security group       0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Padding                    0000000]]></tdml:documentPart><!-- 40 -->
+    </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+          <version>
+            <value>2</value>
+          </version>
+          <message_handling_group>
+            <umf>
+              <value>0</value>
+            </umf>
+            <operation_indicator>
+              <value>0</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>0</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+          </message_handling_group>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+
+
+
+  <tdml:parserTestCase 
+    name="test_2045_D1_control_release_marking1" 
+    root="milstd2045_application_header"
+    model="hdr" 
+    description='Exercises the control_release_marking_D1  element which is inside a choice.'>
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Version                       0100]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI Data compression type        0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Originator address group     0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Recipient address group      0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Information address group    0]]></tdml:documentPart><!-- 8 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI header_size                  0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use One               0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use 2                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use 3                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use 4                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI future use 5                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GRI message handling group (last)0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[UMF                          000 0]]></tdml:documentPart><!-- 16 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI message standard version     0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI vmf message ident group      0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI file name                    0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI message size                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Operation Indicator             00]]></tdml:documentPart><!-- 24 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Retransmit Indicator             0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Message Precendence Code       000]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Security Classification         00]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI C/R marking                  1]]></tdml:documentPart><!-- 32 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FRI C/R Marking (Last)           0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[C/R Marking             00000 0000]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Originator DTG               0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Perisability DTG             0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Acknowledgment Request grp   0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Response data group          0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Reference message data grp   0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use 6                 0]]></tdml:documentPart><!-- 48 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use 7                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use 8                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use 9                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Ten               0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Message Security group       0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Eleven            0]]></tdml:documentPart><!-- 54 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Twelve            0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Thirteen          0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Fourteen          0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Future use Fifteen           0]]></tdml:documentPart><!-- 58 -->
+      
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Padding                     000000]]></tdml:documentPart><!-- 64 -->
+      
+    </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+          <version>
+            <value>4</value>
+          </version>
+          <futureUseGroup1/>
+          <message_handling_group>
+            <umf>
+              <value>0</value>
+            </umf>
+            <operation_indicator>
+              <value>0</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>0</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+            <control_release_marking_D1>
+              <value>0</value>
+            </control_release_marking_D1>
+            <futureUseGroup2/>
+          </message_handling_group>
+          <futureUseGroup3/>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+  
+    <tdml:parserTestCase 
+    name="test_2045_C_control_release_marking1" 
+    root="milstd2045_application_header"
+    model="hdr" 
+    description='Exercises the control_release_marking_D1  element which is inside a choice.'>
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Version                       0010]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI Data compression type        0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Originator address group     0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Recipient address group      0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Information address group    0]]></tdml:documentPart><!-- 8 -->
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI header_size                  0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GRI message handling group (last)0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[UMF                          000 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI message standard version     0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI vmf message ident group      0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI file name                    0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI message size                 0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Operation Indicator             00]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Retransmit Indicator             0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Message Precendence Code       000]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Security Classification         00]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[FPI C/R marking                  1]]></tdml:documentPart>
+      <tdml:documentPart type="text" 
+        encoding="X-DFDL-US-ASCII-7-BIT-PACKED"
+        bitOrder="LSBFirst" replaceDFDLEntities="true"><![CDATA[MARKING%DEL;]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Originator DTG               0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Perisability DTG             0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Acknowledgment Request grp   0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Response data group          0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Reference message data grp   0]]></tdml:documentPart>
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[GPI Message Security group       0]]></tdml:documentPart>
+      
+      <tdml:documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL"><![CDATA[Padding                    0000000]]></tdml:documentPart>
+      
+    </tdml:document>
+
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+          <version>
+            <value>2</value>
+          </version>
+          <message_handling_group>
+            <umf>
+              <value>0</value>
+            </umf>
+            <operation_indicator>
+              <value>0</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>0</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+            <control_release_marking_C>
+              <value>MARKING</value>
+            </control_release_marking_C>
+          </message_handling_group>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+  </tdml:parserTestCase>
+  
+
 </tdml:testSuite>
 
