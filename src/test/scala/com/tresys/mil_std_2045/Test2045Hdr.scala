@@ -46,6 +46,14 @@ class Test2045Hdr {
     runner.runOneTest("test2045msghdr1")
   }
 
+  @Test def test_2045msghdr1_unparsed() {
+    runner.runOneTest("test2045msghdr1_unparsed")
+  }
+
+  @Test def test_2045msghdr1_variant_unparsed() {
+    runner.runOneTest("test2045msghdr1_variant_unparsed")
+  }
+
   @Test def test_2045msghdr2() {
     runner.runOneTest("test2045msghdr2")
   }
@@ -56,6 +64,14 @@ class Test2045Hdr {
 
   @Test def test_2045_C_msghdr1() {
     runner.runOneTest("test_2045_C_msghdr1")
+  }
+
+  @Test def test_2045_C_msghdr1_unparsed() {
+    runner.runOneTest("test_2045_C_msghdr1_unparsed")
+  }
+
+  @Test def test_2045_C_msghdr1_variant_unparsed() {
+    runner.runOneTest("test_2045_C_msghdr1_variant_unparsed")
   }
 
   @Test def test_2045_C_msghdr2() {

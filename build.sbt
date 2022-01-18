@@ -2,7 +2,7 @@ name := "dfdl-mil-std-2045"
  
 organization := "com.tresys"
  
-version := "0.0.6"
+version := "0.0.7"
  
 scalaVersion := "2.12.11"
  

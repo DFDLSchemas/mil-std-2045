@@ -566,7 +566,7 @@
                         <xs:complexType>
                           <xs:sequence>
                             <xs:element name="value" type="tns:tIntField"
-                              dfdl:length="2" />
+                              dfdl:length="1" />
                           </xs:sequence>
                         </xs:complexType>
                       </xs:element>

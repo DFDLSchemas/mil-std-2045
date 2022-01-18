@@ -251,7 +251,7 @@ SOFTWARE.
       <tdml:documentPart type="byte" byteOrder="LTR">
         E4 67 00 80 55
         67 92 1A FC 77 00
-        00 00 80 F8 63 44 48 10 FE B6 9B 01 00 00
+        00 00 80 F8 63 44 48 10 FE B6 9B 01 00
       </tdml:documentPart>
     </tdml:document>
 
@@ -334,6 +334,186 @@ SOFTWARE.
       </tdml:dfdlInfoset>
     </tdml:infoset>
   </tdml:parserTestCase>
+
+  <tdml:unparserTestCase name="test2045msghdr1_unparsed"
+                       root="milstd2045_application_header" model="hdr">
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+          <version>
+            <value>4</value>
+          </version>
+          <originator_address_group>
+            <urn>
+              <value>207</value>
+            </urn>
+            <unit_name>
+              <value>UNITA</value>
+            </unit_name>
+          </originator_address_group>
+          <recipient_address_group>
+            <urn>
+              <value>3</value>
+            </urn>
+          </recipient_address_group>
+          <message_handling_group>
+            <umf>
+              <value>2</value>
+            </umf>
+            <vmf_message_identification_group>
+              <fad>
+                <value>15</value>
+              </fad>
+              <message_number>
+                <value>99</value>
+              </message_number>
+            </vmf_message_identification_group>
+            <operation_indicator>
+              <value>1</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>2</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+            <originator_dtg_group>
+              <year>
+                <value>4</value>
+              </year>
+              <month>
+                <value>2</value>
+              </month>
+              <day>
+                <value>28</value>
+              </day>
+              <hour>
+                <value>15</value>
+              </hour>
+              <minute>
+                <value>27</value>
+              </minute>
+              <second>
+                <value>55</value>
+              </second>
+            </originator_dtg_group>
+            <acknowledgement_request_group>
+              <machine_acknowledge_request_indicator>
+                <value>1</value>
+              </machine_acknowledge_request_indicator>
+              <operator_acknowledge_request_indicator>
+                <value>0</value>
+              </operator_acknowledge_request_indicator>
+              <operator_reply_request_indicator>
+                <value>0</value>
+              </operator_reply_request_indicator>
+            </acknowledgement_request_group>
+          </message_handling_group>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="byte" byteOrder="LTR">
+        E4 67 00 80 55
+        67 92 1A FC 77 00
+        00 00 80 F8 63 44 48 10 FE B6 9B 01 00
+      </tdml:documentPart>
+    </tdml:document>
+  </tdml:unparserTestCase>
+
+  <tdml:unparserTestCase name="test2045msghdr1_variant_unparsed"
+                       root="milstd2045_application_header" model="hdr">
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+          <version>
+            <value>4</value>
+          </version>
+          <originator_address_group>
+            <urn>
+              <value>207</value>
+            </urn>
+            <unit_name>
+              <value>UNITA</value>
+            </unit_name>
+          </originator_address_group>
+          <recipient_address_group>
+            <urn>
+              <value>3</value>
+            </urn>
+          </recipient_address_group>
+          <message_handling_group>
+            <umf>
+              <value>2</value>
+            </umf>
+            <vmf_message_identification_group>
+              <fad>
+                <value>15</value>
+              </fad>
+              <message_number>
+                <value>99</value>
+              </message_number>
+            </vmf_message_identification_group>
+            <operation_indicator>
+              <value>1</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>2</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+            <originator_dtg_group>
+              <year>
+                <value>4</value>
+              </year>
+              <month>
+                <value>2</value>
+              </month>
+              <day>
+                <value>28</value>
+              </day>
+              <hour>
+                <value>15</value>
+              </hour>
+              <minute>
+                <value>27</value>
+              </minute>
+              <second>
+                <value>55</value>
+              </second>
+            </originator_dtg_group>
+            <acknowledgement_request_group>
+              <machine_acknowledge_request_indicator>
+                <value>1</value>
+              </machine_acknowledge_request_indicator>
+              <operator_acknowledge_request_indicator>
+                <value>0</value>
+              </operator_acknowledge_request_indicator>
+              <operator_reply_request_indicator>
+                <value>1</value>
+              </operator_reply_request_indicator>
+            </acknowledgement_request_group>
+          </message_handling_group>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+
+    <tdml:document bitOrder="LSBFirst">
+      <tdml:documentPart type="byte" byteOrder="LTR">
+        E4 67 00 80 55
+        67 92 1A FC 77 00
+        00 00 80 F8 63 44 48 10 FE B6 9B 05 00
+      </tdml:documentPart>
+    </tdml:document>
+  </tdml:unparserTestCase>
 
   <tdml:defineSchema name="SPI" >
     <xs:import namespace="urn:milstd2045DFDL" schemaLocation="com/tresys/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd" />
@@ -538,6 +718,204 @@ SOFTWARE.
       </tdml:dfdlInfoset>
     </tdml:infoset>
   </tdml:parserTestCase>
+
+  <tdml:unparserTestCase name="test_2045_C_msghdr1_unparsed" root="milstd2045_application_header"
+                       model="hdr">
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+          <version>
+            <value>2</value>
+          </version>
+          <originator_address_group>
+            <urn>
+              <value>1229623</value>
+            </urn>
+          </originator_address_group>
+          <recipient_address_group>
+            <urn>
+              <value>665132</value>
+            </urn>
+          </recipient_address_group>
+          <header_size>
+            <value>24</value>
+          </header_size>
+          <message_handling_group>
+            <umf>
+              <value>2</value>
+            </umf>
+            <message_standard_version>
+              <value>7</value>
+            </message_standard_version>
+            <vmf_message_identification_group>
+              <fad>
+                <value>2</value>
+              </fad>
+              <message_number>
+                <value>1</value>
+              </message_number>
+            </vmf_message_identification_group>
+            <message_size>
+              <value>0</value>
+            </message_size>
+            <operation_indicator>
+              <value>1</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>4</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+            <originator_dtg_group>
+              <year>
+                <value>18</value>
+              </year>
+              <month>
+                <value>10</value>
+              </month>
+              <day>
+                <value>12</value>
+              </day>
+              <hour>
+                <value>20</value>
+              </hour>
+              <minute>
+                <value>48</value>
+              </minute>
+              <second>
+                <value>1</value>
+              </second>
+              <dtg_extension>
+                <value>30</value>
+              </dtg_extension>
+            </originator_dtg_group>
+            <acknowledgement_request_group>
+              <machine_acknowledge_request_indicator>
+                <value>0</value>
+              </machine_acknowledge_request_indicator>
+              <operator_acknowledge_request_indicator>
+                <value>0</value>
+              </operator_acknowledge_request_indicator>
+              <operator_reply_request_indicator>
+                <value>0</value>
+              </operator_reply_request_indicator>
+            </acknowledgement_request_group>
+          </message_handling_group>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+
+    <tdml:document bitOrder="LSBFirst">
+      <!-- From K02.1_1.1.VMB modified to have zero message size. -->
+      <tdml:documentPart type="byte" byteOrder="LTR"><![CDATA[
+       e29b 6109 6531 5120 0600 7925 4000 0008
+       51a2 8cc2 410f 1000
+      ]]></tdml:documentPart>
+    </tdml:document>
+  </tdml:unparserTestCase>
+
+  <tdml:unparserTestCase name="test_2045_C_msghdr1_variant_unparsed" root="milstd2045_application_header"
+                         model="hdr">
+    <tdml:infoset>
+      <tdml:dfdlInfoset>
+        <ex:milstd2045_application_header>
+          <version>
+            <value>2</value>
+          </version>
+          <originator_address_group>
+            <urn>
+              <value>1229623</value>
+            </urn>
+          </originator_address_group>
+          <recipient_address_group>
+            <urn>
+              <value>665132</value>
+            </urn>
+          </recipient_address_group>
+          <header_size>
+            <value>24</value>
+          </header_size>
+          <message_handling_group>
+            <umf>
+              <value>2</value>
+            </umf>
+            <message_standard_version>
+              <value>7</value>
+            </message_standard_version>
+            <vmf_message_identification_group>
+              <fad>
+                <value>2</value>
+              </fad>
+              <message_number>
+                <value>1</value>
+              </message_number>
+            </vmf_message_identification_group>
+            <message_size>
+              <value>0</value>
+            </message_size>
+            <operation_indicator>
+              <value>1</value>
+            </operation_indicator>
+            <retransmit_indicator>
+              <value>0</value>
+            </retransmit_indicator>
+            <message_precedence_codes>
+              <value>4</value>
+            </message_precedence_codes>
+            <security_classification>
+              <value>0</value>
+            </security_classification>
+            <originator_dtg_group>
+              <year>
+                <value>18</value>
+              </year>
+              <month>
+                <value>10</value>
+              </month>
+              <day>
+                <value>12</value>
+              </day>
+              <hour>
+                <value>20</value>
+              </hour>
+              <minute>
+                <value>48</value>
+              </minute>
+              <second>
+                <value>1</value>
+              </second>
+              <dtg_extension>
+                <value>30</value>
+              </dtg_extension>
+            </originator_dtg_group>
+            <acknowledgement_request_group>
+              <machine_acknowledge_request_indicator>
+                <value>1</value>
+              </machine_acknowledge_request_indicator>
+              <operator_acknowledge_request_indicator>
+                <value>0</value>
+              </operator_acknowledge_request_indicator>
+              <operator_reply_request_indicator>
+                <value>1</value>
+              </operator_reply_request_indicator>
+            </acknowledgement_request_group>
+          </message_handling_group>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </tdml:infoset>
+
+    <tdml:document bitOrder="LSBFirst">
+      <!-- From K02.1_1.1.VMB modified to have zero message size. -->
+      <tdml:documentPart type="byte" byteOrder="LTR"><![CDATA[
+       e29b 6109 6531 5120 0600 7925 4000 0008
+       51a2 8cc2 410f b000
+      ]]></tdml:documentPart>
+    </tdml:document>
+  </tdml:unparserTestCase>
 
   <tdml:parserTestCase name="test_2045_C_msghdr2" root="milstd2045_application_header"
     model="hdr">
