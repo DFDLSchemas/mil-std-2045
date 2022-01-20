@@ -50,8 +50,8 @@ class Test2045Hdr {
     runner.runOneTest("test2045msghdr1_unparsed")
   }
 
-  @Test def test_2045msghdr1_variant_unparsed() {
-    runner.runOneTest("test2045msghdr1_variant_unparsed")
+  @Test def test_2045D1_operator_ind_on_unparsed() {
+    runner.runOneTest("test2045D1_operator_ind_on_unparsed")
   }
 
   @Test def test_2045msghdr2() {
@@ -70,8 +70,8 @@ class Test2045Hdr {
     runner.runOneTest("test_2045_C_msghdr1_unparsed")
   }
 
-  @Test def test_2045_C_msghdr1_variant_unparsed() {
-    runner.runOneTest("test_2045_C_msghdr1_variant_unparsed")
+  @Test def test_2045_C_operator_machine_ind_on_unparsed() {
+    runner.runOneTest("test_2045_C_operator_machine_ind_on_unparsed")
   }
 
   @Test def test_2045_C_msghdr2() {
