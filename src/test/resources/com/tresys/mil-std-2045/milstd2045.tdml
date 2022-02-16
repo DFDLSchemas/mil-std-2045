@@ -251,7 +251,7 @@ SOFTWARE.
       <tdml:documentPart type="byte" byteOrder="LTR">
         E4 67 00 80 55
         67 92 1A FC 77 00
-        00 00 80 F8 63 44 48 10 FE B6 9B 01 00 00
+        00 00 80 F8 63 44 48 10 FE B6 9B 01 00
       </tdml:documentPart>
     </tdml:document>
 
