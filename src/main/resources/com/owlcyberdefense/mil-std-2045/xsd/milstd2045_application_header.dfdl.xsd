@@ -1,0 +1,614 @@
+<?xml version="1.0"?>
+<!-- <![CDATA[
+Copyright (c) 2014-2022 Owl Cyber Defense. All rights reserved.
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal with
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimers.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimers in the
+    documentation and/or other materials provided with the distribution.
+
+ 3. Neither the names of Owl Cyber Defense, nor the names of its contributors
+    may be used to endorse or promote products derived from this Software
+  without specific prior written permission.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+SOFTWARE.
+  ]]>
+-->
+<schema
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  xmlns:msi="urn:milstd2045DFDLInternal"
+  xmlns:msms="urn:milstd2045DFDLMessageSize"
+  xmlns:tns="urn:milstd2045DFDL"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  elementFormDefault="unqualified"
+  targetNamespace="urn:milstd2045DFDL">
+
+  <include schemaLocation="milstd2045.common.dfdl.xsd"/>
+  <import namespace="urn:milstd2045DFDLInternal"
+          schemaLocation="milstd2045.internal.dfdl.xsd"/>
+  <import namespace="urn:milstd2045DFDLMessageSize"
+          schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_message_size.dfdl.xsd"/>
+  <include schemaLocation="milstd2045_future_use_groups.dfdl.xsd"/>
+  <annotation>
+    <appinfo source="http://www.ogf.org/dfdl/">
+      <dfdl:format ref="tns:msCommon"/>
+      <dfdl:defineVariable name="hdrLen" type="xs:unsignedInt"/>
+    </appinfo>
+  </annotation>
+
+  <complexType name="milstd2045_application_header_type">
+    <sequence>
+      <annotation>
+        <appinfo source="http://www.ogf.org/dfdl/">
+          <dfdl:newVariableInstance ref="tns:hdrLen"/>
+        </appinfo>
+      </annotation>
+      <element name="contents">
+        <complexType>
+          <sequence>
+            <element name="version">
+              <complexType>
+                <sequence>
+                  <element name="value" type="tns:versionEnum"/>
+                </sequence>
+              </complexType>
+            </element>
+            <sequence>
+              <annotation>
+                <appinfo source="http://www.ogf.org/dfdl/">
+                  <dfdl:newVariableInstance ref="tns:versionSpec"
+                                            defaultValue="{ version/value }"/>
+                </appinfo>
+              </annotation>
+              <sequence dfdl:hiddenGroupRef="msi:data_compression_type_PI"/>
+              <element name="data_compression_type"
+                       minOccurs="0"
+                       dfdl:occursCountKind="expression"
+                       dfdl:occursCount="{ ../data_compression_type_PI/value }">
+                <complexType>
+                  <sequence>
+                    <element name="value" type="tns:dataCompressionEnum"/>
+                  </sequence>
+                </complexType>
+              </element>
+              <sequence dfdl:hiddenGroupRef="msi:originator_address_group_PI"/>
+              <element name="originator_address_group"
+                       minOccurs="0"
+                       dfdl:occursCountKind="expression"
+                       dfdl:occursCount="{ ../originator_address_group_PI/value }">
+                <complexType>
+                  <group ref="tns:urn_unit_name_group"/>
+                </complexType>
+              </element>
+              <sequence dfdl:hiddenGroupRef="msi:recipient_address_group_PI"/>
+              <element name="recipient_address_group" type="tns:address_group_type"
+                       minOccurs="0"
+                       dfdl:occursCountKind="expression"
+                       dfdl:occursCount="{ ../recipient_address_group_PI/value }"/>
+              <sequence dfdl:hiddenGroupRef="msi:information_address_group_PI"/>
+              <element name="information_address_group" type="tns:address_group_type"
+                       minOccurs="0"
+                       dfdl:occursCountKind="expression"
+                       dfdl:occursCount="{ ../information_address_group_PI/value }"/>
+              <sequence dfdl:hiddenGroupRef="msi:header_size_PI"/>
+              <element name="header_size"
+                       minOccurs="0"
+                       dfdl:occursCountKind="expression"
+                       dfdl:occursCount="{ ../header_size_PI/value }">
+                <complexType>
+                  <sequence>
+                    <element name="value" type="tns:tIntField" dfdl:length="16"
+                             dfdl:outputValueCalc="{ $tns:hdrLen }"/>
+                  </sequence>
+                </complexType>
+              </element>
+              <group ref="tns:futureUseGroup"/>
+              <!-- start message handling group -->
+              <element name="message_handling_group">
+                <complexType>
+                  <sequence>
+                    <element name="item"
+                             minOccurs="1" maxOccurs="unbounded"
+                             dfdl:occursCountKind="implicit">
+                      <complexType>
+                        <sequence>
+                          <sequence dfdl:hiddenGroupRef="msi:GRI_discriminator"/>
+                          <element name="umf">
+                            <complexType>
+                              <sequence>
+                                <element name="value" type="tns:umfEnum"/>
+                              </sequence>
+                            </complexType>
+                          </element>
+                          <sequence dfdl:hiddenGroupRef="msi:message_standard_version_PI"/>
+                          <element name="message_standard_version"
+                                   minOccurs="0"
+                                   dfdl:occursCountKind="expression"
+                                   dfdl:occursCount='{
+                                  if (../umf/value eq "OK_Binary_File" or
+                                      ../umf/value eq "OK_RDM" or
+                                      ../umf/value eq "OK_USMTF-DOI-103" or
+                                      fn:starts-with(../umf/value, "Undefined") )
+                                      then 0
+                                      else ../message_standard_version_PI/value
+                                }'>
+                            <complexType>
+                              <choice dfdl:choiceDispatchKey="{ ../umf/value }">
+                                <element dfdl:choiceBranchKey="OK_Link_16" name="link16"
+                                         type="tns:messsageStandardVersionLink16Enum"/>
+                                <element dfdl:choiceBranchKey="OK_VMF" name="vmf"
+                                         type="tns:messsageStandardVersionVMFEnum"/>
+                                <element dfdl:choiceBranchKey="OK_NITFS" name="nitfs"
+                                         type="tns:messsageStandardVersionNITFSEnum"/>
+                                <element dfdl:choiceBranchKey="OK_USMTF" name="usmtf"
+                                         type="tns:messsageStandardVersionUSMTFEnum"/>
+                                <element dfdl:choiceBranchKey="OK_XML-MTF" name="xml-mtf"
+                                         type="tns:messsageStandardVersionXML_MTFEnum"/>
+                                <element dfdl:choiceBranchKey="OK_XML-VMF" name="xml-vmf"
+                                         type="tns:messsageStandardVersionXML_VMFEnum"/>
+                              </choice>
+                            </complexType>
+                          </element>
+                          <sequence dfdl:hiddenGroupRef="msi:vmf_message_identification_group_PI"/>
+                          <element name="vmf_message_identification_group"
+                                   minOccurs="0"
+                                   dfdl:occursCountKind="expression"
+                                   dfdl:occursCount="{ ../vmf_message_identification_group_PI/value }">
+                            <complexType>
+                              <sequence>
+                                <element name="fad">
+                                  <complexType>
+                                    <sequence>
+                                      <element name="value" type="tns:tIntField"
+                                               dfdl:length="4"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                                <element name="message_number">
+                                  <complexType>
+                                    <sequence>
+                                      <element name="value" type="tns:tIntField"
+                                               dfdl:length="7"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                                <sequence dfdl:hiddenGroupRef="msi:message_subtype_PI"/>
+                                <element name="message_subtype"
+                                         minOccurs="0"
+                                         dfdl:occursCountKind="expression"
+                                         dfdl:occursCount="{ ../message_subtype_PI/value }">
+                                  <complexType>
+                                    <sequence>
+                                      <element name="value" type="tns:tIntField"
+                                               dfdl:length="7"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                                <element name="K_ID" type="tns:K_ID"
+                                         dfdl:inputValueCalc='{
+                                   fn:concat(
+                                     "K",
+                                     (if (../fad/value le 9) then "0" else ""),
+                                     xs:string(../fad/value),
+                                     ".",
+                                     (if (../message_number/value le 9) then "0" else ""),
+                                     xs:string(../message_number/value),
+                                     (if (fn:exists(../message_subtype[1]/value))
+                                       then fn:concat(".", xs:string(../message_subtype[1]/value)) else "")
+                                   )
+                                   }'/>
+                              </sequence>
+                            </complexType>
+                          </element>
+                          <sequence dfdl:hiddenGroupRef="msi:file_name_PI"/>
+                          <element name="file_name"
+                                   minOccurs="0"
+                                   dfdl:occursCountKind="expression"
+                                   dfdl:occursCount="{ ../file_name_PI/value }">
+                            <complexType>
+                              <group ref="msi:tString64"/>
+                            </complexType>
+                          </element>
+                          <sequence dfdl:hiddenGroupRef="msi:message_size_PI"/>
+                          <!-- The user of milstd2045 header must define the message size. Typically, message
+                                size is of type tns:tIntField with a dfdl:length of 20. See milstd2045_message_size.dfdl.xsd for
+                                the typical implementation -->
+                          <element name="message_size" type="msms:message_size_type"
+                                   minOccurs="0"
+                                   dfdl:occursCountKind="expression"
+                                   dfdl:occursCount="{ ../message_size_PI/value }"/>
+                          <element name="operation_indicator">
+                            <complexType>
+                              <sequence>
+                                <element name="value" type="tns:operationIndicatorEnum"/>
+                              </sequence>
+                            </complexType>
+                          </element>
+                          <element name="retransmit_indicator">
+                            <complexType>
+                              <sequence>
+                                <element name="value" type="tns:retransmitIndicatorEnum"/>
+                              </sequence>
+                            </complexType>
+                          </element>
+                          <element name="message_precedence_codes">
+                            <complexType>
+                              <sequence>
+                                <element name="value" type="tns:messagePrecedenceEnum"/>
+                              </sequence>
+                            </complexType>
+                          </element>
+                          <element name="security_classification">
+                            <complexType>
+                              <sequence>
+                                <element name="value" type="tns:securityClassificationEnum"/>
+                              </sequence>
+                            </complexType>
+                          </element>
+                          <sequence dfdl:hiddenGroupRef="msi:control_release_marking_PI"/>
+                          <choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+                            <element dfdl:choiceBranchKey="D1"
+                                     name="control_release_marking_D1"
+                                     minOccurs="0"
+                                     dfdl:occursCountKind="expression"
+                                     dfdl:occursCount="{ ../control_release_marking_PI/value }">
+                              <complexType>
+                                <sequence>
+                                  <element dfdl:choiceBranchKey="D1"
+                                           name="item"
+                                           minOccurs="1" maxOccurs="unbounded"
+                                           dfdl:occursCountKind="implicit">
+                                    <complexType>
+                                      <sequence>
+                                        <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
+                                        <element name="value" type="tns:dfi4127_dui005_nationality_Enum"/>
+                                      </sequence>
+                                    </complexType>
+                                  </element>
+                                </sequence>
+                              </complexType>
+                            </element>
+                            <element dfdl:choiceBranchKey="C" name="control_release_marking_C"
+                                     minOccurs="0"
+                                     dfdl:occursCountKind="expression"
+                                     dfdl:occursCount="{ ../control_release_marking_PI/value }">
+                              <complexType>
+                                <group ref="msi:tString32"/>
+                              </complexType>
+                            </element>
+                          </choice>
+                          <sequence dfdl:hiddenGroupRef="msi:originator_dtg_group_PI"/>
+                          <element name="originator_dtg_group"
+                                   minOccurs="0"
+                                   dfdl:occursCountKind="expression"
+                                   dfdl:occursCount="{ ../originator_dtg_group_PI/value }">
+                            <complexType>
+                              <group ref="tns:dtg_group"/>
+                            </complexType>
+                          </element>
+                          <sequence dfdl:hiddenGroupRef="msi:perishability_dtg_group_PI"/>
+                          <element name="perishability_dtg_group"
+                                   minOccurs="0"
+                                   dfdl:occursCountKind="expression"
+                                   dfdl:occursCount="{ ../perishability_dtg_group_PI/value }">
+                            <complexType>
+                              <group ref="tns:dateTime"/>
+                            </complexType>
+                          </element>
+                          <sequence dfdl:hiddenGroupRef="msi:acknowledgement_request_group_PI"/>
+                          <element name="acknowledgement_request_group"
+                                   minOccurs="0"
+                                   dfdl:occursCountKind="expression"
+                                   dfdl:occursCount="{ ../acknowledgement_request_group_PI/value }">
+                            <complexType>
+                              <sequence>
+                                <element name="machine_acknowledge_request_indicator">
+                                  <complexType>
+                                    <sequence>
+                                      <element name="value" type="tns:acknowledgeRequestIndicatorEnum"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                                <element name="operator_acknowledge_request_indicator">
+                                  <complexType>
+                                    <sequence>
+                                      <element name="value" type="tns:acknowledgeRequestIndicatorEnum"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                                <element name="operator_reply_request_indicator">
+                                  <complexType>
+                                    <sequence>
+                                      <element name="value" type="tns:replyRequestIndicatorEnum"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                              </sequence>
+                            </complexType>
+                          </element>
+                          <sequence dfdl:hiddenGroupRef="msi:response_data_group_PI"/>
+                          <element name="response_data_group"
+                                   minOccurs="0"
+                                   dfdl:occursCountKind="expression"
+                                   dfdl:occursCount="{ ../response_data_group_PI/value }">
+                            <complexType>
+                              <sequence>
+                                <group ref="tns:dtg_group"/>
+                                <element name="r_c">
+                                  <complexType>
+                                    <sequence>
+                                      <element name="value" type="tns:receiptComplianceEnum"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                                <sequence dfdl:hiddenGroupRef="msi:cantco_reason_code_PI"/>
+                                <element name="cantco_reason_code"
+                                         minOccurs="0"
+                                         dfdl:occursCountKind="expression"
+                                         dfdl:occursCount="{ ../cantco_reason_code_PI/value }">
+                                  <complexType>
+                                    <sequence>
+                                      <element name="value" type="tns:cantcoReasonCodewordsEnum"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                                <sequence dfdl:hiddenGroupRef="msi:cantpro_reason_code_PI"/>
+                                <element name="cantpro_reason_code"
+                                         minOccurs="0"
+                                         dfdl:occursCountKind="expression"
+                                         dfdl:occursCount="{ ../cantpro_reason_code_PI/value }">
+                                  <complexType>
+                                    <sequence>
+                                      <element name="value" type="tns:cantproReasonCodewordsEnum"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                                <sequence dfdl:hiddenGroupRef="msi:reply_amplification_PI"/>
+                                <element name="reply_amplification"
+                                         minOccurs="0"
+                                         dfdl:occursCountKind="expression"
+                                         dfdl:occursCount="{ ../reply_amplification_PI/value }">
+                                  <complexType>
+                                    <group ref="msi:tString50"/>
+                                  </complexType>
+                                </element>
+                              </sequence>
+                            </complexType>
+                          </element>
+                          <sequence dfdl:hiddenGroupRef="msi:reference_message_data_group_PI"/>
+                          <element name="reference_message_data_group"
+                                   minOccurs="0"
+                                   dfdl:occursCountKind="expression"
+                                   dfdl:occursCount="{ ../reference_message_data_group_PI/value }">
+                            <complexType>
+                              <sequence>
+                                <element name="item"
+                                         minOccurs="1" maxOccurs="unbounded"
+                                         dfdl:occursCountKind="implicit">
+                                  <complexType>
+                                    <sequence>
+                                      <sequence dfdl:hiddenGroupRef="msi:GRI_discriminator"/>
+                                      <group ref="tns:urn_unit_name_group"/>
+                                      <group ref="tns:dtg_group"/>
+                                    </sequence>
+                                  </complexType>
+                                </element>
+                              </sequence>
+                            </complexType>
+                          </element>
+                          <group ref="tns:futureUseGroup"/>
+                          <group ref="tns:message_security_group"/>
+                        </sequence>
+                      </complexType>
+                    </element>
+                  </sequence>
+                </complexType>
+              </element>
+              <group ref="tns:futureUseGroup"/>
+              <!-- end message handling group -->
+              <sequence dfdl:alignment="1" dfdl:alignmentUnits="bytes"/>
+            </sequence>
+          </sequence>
+        </complexType>
+      </element>
+      <sequence>
+        <annotation>
+          <appinfo source="http://www.ogf.org/dfdl/">
+            <dfdl:setVariable ref="tns:hdrLen" value="{ dfdl:valueLength(contents, 'bytes') }"/>
+          </appinfo>
+        </annotation>
+      </sequence>
+    </sequence>
+  </complexType>
+
+  <!-- for testing this subsection of the header separately against the table D-I 
+    in the spec. -->
+  <element name="message_security_group_with_PI">
+    <complexType>
+      <group ref="tns:message_security_group"/>
+    </complexType>
+  </element>
+
+  <group name="message_security_group">
+    <sequence>
+      <sequence dfdl:hiddenGroupRef="msi:message_security_group_PI"/>
+      <element name="message_security_group"
+               minOccurs="0"
+               dfdl:occursCountKind="expression"
+               dfdl:occursCount="{ ../message_security_group_PI/value }">
+        <complexType>
+          <sequence>
+            <element name="security_parameters_information">
+              <complexType>
+                <sequence>
+                  <element name="value" type="tns:securityParameterInformationEnum"/>
+                </sequence>
+              </complexType>
+            </element>
+            <sequence dfdl:hiddenGroupRef="msi:keying_material_group_PI"/>
+            <element name="keying_material_group"
+                     minOccurs="0"
+                     dfdl:occursCountKind="expression"
+                     dfdl:occursCount="{ ../keying_material_group_PI/value }">
+              <complexType>
+                <sequence>
+                  <element name="keying_material_id_length">
+                    <complexType>
+                      <sequence>
+                        <element name="value" type="tns:tIntField" dfdl:length="3"
+                                 dfdl:outputValueCalc="{ dfdl:valueLength(../../keying_material_id/value, 'bytes') - 1 }"/>
+                      </sequence>
+                    </complexType>
+                  </element>
+                  <element name="keying_material_id">
+                    <complexType>
+                      <sequence>
+                        <element name="value" type="tns:tHexBinary"
+                                 dfdl:length="{ ../../keying_material_id_length/value + 1 }"
+                                 dfdl:lengthUnits="bytes"/>
+                      </sequence>
+                    </complexType>
+                  </element>
+                </sequence>
+              </complexType>
+            </element>
+            <sequence dfdl:hiddenGroupRef="msi:cryptographic_initialization_group_PI"/>
+            <element name="cryptographic_initialization_group"
+                     minOccurs="0"
+                     dfdl:occursCountKind="expression"
+                     dfdl:occursCount="{ ../cryptographic_initialization_group_PI/value }">
+              <complexType>
+                <sequence>
+                  <element name="cryptographic_initialization_length">
+                    <complexType>
+                      <sequence>
+                        <element name="value" type="tns:tIntField" dfdl:length="4"
+                                 dfdl:outputValueCalc="{ (dfdl:valueLength(../../cryptographic_initialization/value, 'bytes') idiv 8) - 1 }"/>
+                      </sequence>
+                    </complexType>
+                  </element>
+                  <element name="cryptographic_initialization">
+                    <complexType>
+                      <sequence>
+                        <element name="value" type="tns:tHexBinary"
+                                 dfdl:length="{ (../../cryptographic_initialization_length/value + 1) * 8 }"
+                                 dfdl:lengthUnits="bytes"/>
+                      </sequence>
+                    </complexType>
+                  </element>
+                </sequence>
+              </complexType>
+            </element>
+            <sequence dfdl:hiddenGroupRef="msi:key_token_group_PI"/>
+            <element name="key_token_group"
+                     minOccurs="0"
+                     dfdl:occursCountKind="expression"
+                     dfdl:occursCount="{ ../key_token_group_PI/value }">
+              <complexType>
+                <sequence>
+                  <element name="key_token_length">
+                    <complexType>
+                      <sequence>
+                        <element name="value" type="tns:tIntField" dfdl:length="8"
+                                 dfdl:outputValueCalc="{ (dfdl:valueLength(../../key_token/item[1]/value, 'bytes') idiv 8) - 1 }"/>
+                      </sequence>
+                    </complexType>
+                  </element>
+                  <element name="key_token">
+                    <complexType>
+                      <sequence>
+                        <element name="item"
+                                 minOccurs="1" maxOccurs="unbounded"
+                                 dfdl:occursCountKind="implicit">
+                          <complexType>
+                            <sequence>
+                              <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
+                              <element name="value" type="tns:tHexBinary"
+                                       dfdl:length="{ (../../../key_token_length/value + 1) * 8 }"
+                                       dfdl:lengthUnits="bytes"/>
+                            </sequence>
+                          </complexType>
+                        </element>
+                      </sequence>
+                    </complexType>
+                  </element>
+                </sequence>
+              </complexType>
+            </element>
+            <sequence dfdl:hiddenGroupRef="msi:authentication_data_a_group_PI"/>
+            <element name="authentication_data_a_group" type="tns:authentication_data"
+                     minOccurs="0"
+                     dfdl:occursCountKind="expression"
+                     dfdl:occursCount="{ ../authentication_data_a_group_PI/value }"/>
+            <sequence dfdl:hiddenGroupRef="msi:authentication_data_b_group_PI"/>
+            <element name="authentication_data_b_group" type="tns:authentication_data"
+                     minOccurs="0"
+                     dfdl:occursCountKind="expression"
+                     dfdl:occursCount="{ ../authentication_data_b_group_PI/value }"/>
+            <element name="signed_acknowledge_request_indicator">
+              <complexType>
+                <sequence>
+                  <element name="value" type="tns:signedAcknowledgeRequestIndicatorEnum"/>
+                </sequence>
+              </complexType>
+            </element>
+            <sequence dfdl:hiddenGroupRef="msi:message_security_padding_group_PI"/>
+            <element name="message_security_padding_group"
+                     minOccurs="0"
+                     dfdl:occursCountKind="expression"
+                     dfdl:occursCount="{ ../message_security_padding_group_PI/value }">
+              <complexType>
+                <sequence>
+                  <element name="message_security_padding_length">
+                    <complexType>
+                      <sequence>
+                        <element name="value" type="tns:tIntField" dfdl:length="8"
+                                 dfdl:outputValueCalc="{
+                                        if (fn:exists(../../message_security_padding[1]))
+                                        then (dfdl:valueLength(../../message_security_padding[1]/value, 'bits') idiv 8)
+                                        else 0 }"/>
+                      </sequence>
+                    </complexType>
+                  </element>
+                  <sequence dfdl:hiddenGroupRef="msi:message_security_padding_PI"/>
+                  <element name="message_security_padding"
+                           minOccurs="0"
+                           dfdl:occursCountKind="expression"
+                           dfdl:occursCount="{ ../message_security_padding_PI/value }">
+                    <complexType>
+                      <sequence>
+                        <element name="value" type="tns:tHexBinary"
+                                 dfdl:length="{ ../../message_security_padding_length/value }"
+                                 dfdl:lengthUnits="bytes"/>
+                      </sequence>
+                    </complexType>
+                  </element>
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </group>
+
+</schema>

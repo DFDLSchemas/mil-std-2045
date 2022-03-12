@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2014-2022 Owl Cyber Defense. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal with
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimers.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimers in the
+    documentation and/or other materials provided with the distribution.
+
+ 3. Neither the names of Owl Cyber Defense, nor the names of its contributors
+    may be used to endorse or promote products derived from this Software
+  without specific prior written permission.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+SOFTWARE.
+-->
+
+<schema targetNamespace="urn:milstd2045DFDL"
+        xmlns:tns="urn:milstd2045DFDL"
+        xmlns:msi="urn:milstd2045DFDLInternal"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+        xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:fn="http://www.w3.org/2005/xpath-functions"
+        elementFormDefault="unqualified">
+
+  <import namespace="urn:milstd2045DFDLInternal"
+          schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd"/>
+  <include schemaLocation="milstd2045.enums.dfdl.xsd"/>
+
+  <annotation>
+    <appinfo source="http://www.ogf.org/dfdl/">
+
+      <dfdl:defineVariable name="yearStr" type="xs:string" dfdlx:direction="parseOnly"/>
+      <dfdl:defineVariable name="monthStr" type="xs:string" dfdlx:direction="parseOnly"/>
+      <dfdl:defineVariable name="dayStr" type="xs:string" dfdlx:direction="parseOnly"/>
+      <dfdl:defineVariable name="hourStr" type="xs:string" dfdlx:direction="parseOnly"/>
+      <dfdl:defineVariable name="minuteStr" type="xs:string" dfdlx:direction="parseOnly"/>
+      <dfdl:defineVariable name="secondStr" type="xs:string" dfdlx:direction="parseOnly"/>
+
+      <dfdl:format lengthKind='implicit' ref="msi:msBase"/>
+    </appinfo>
+  </annotation>
+
+  <simpleType name="checkedString">
+    <annotation>
+      <appinfo source="http://www.ogf.org/dfdl/">
+        <dfdl:assert>{ dfdl:checkConstraints(.) }</dfdl:assert>
+      </appinfo>
+    </annotation>
+    <restriction base="xs:string"/>
+  </simpleType>
+
+  <group name="dateTime">
+    <sequence>
+      <sequence dfdl:hiddenGroupRef="tns:ymdhms"/>
+      <sequence>
+        <annotation>
+          <appinfo source="http://www.ogf.org/dfdl/">
+            <dfdl:newVariableInstance ref="tns:yearStr">{
+              if (year le 9) then fn:concat("200", xs:string(year))
+              else if (year le 94) then fn:concat("20", xs:string(year))
+              else if (year le 99) then fn:concat("19", xs:string(year))
+              else fn:concat("2", xs:string(year))
+              }
+            </dfdl:newVariableInstance>
+            <dfdl:newVariableInstance ref="tns:monthStr">{
+              if (month ge 10) then xs:string(month)
+              else fn:concat("0", xs:string(month))
+              }
+            </dfdl:newVariableInstance>
+            <dfdl:newVariableInstance ref="tns:dayStr">{
+              if (day ge 10) then xs:string(day)
+              else fn:concat("0", xs:string(day))
+              }
+            </dfdl:newVariableInstance>
+            <dfdl:newVariableInstance ref="tns:hourStr">{
+              if (hour ge 10) then xs:string(hour)
+              else fn:concat("0", xs:string(hour))
+              }
+            </dfdl:newVariableInstance>
+            <dfdl:newVariableInstance ref="tns:minuteStr">{
+              if (minute ge 10) then xs:string(minute)
+              else fn:concat("0", xs:string(minute))
+              }
+            </dfdl:newVariableInstance>
+            <!--
+            we map 63, which means no-statement, to 00 so that
+            we can construct a valid DFDL xs:dateTime value
+            -->
+            <dfdl:newVariableInstance ref="tns:secondStr">{
+              if (second eq 63) then "00"
+              else if (second ge 10) then xs:string(second)
+              else fn:concat("0", xs:string(second))
+              }
+            </dfdl:newVariableInstance>
+          </appinfo>
+        </annotation>
+        <sequence>
+          <!--
+            because seconds of 63 means "no statement", we have to
+            somehow convey that information while exhibiting a
+            legal dateTime element that has 00 for seconds
+
+            So this timeStatus element contains nothing with
+            representation. It exists only to allow us to say
+            <timeStatus><seconds>No_Statement</seconds></timeStatus>
+
+            The presence of that informs the consumer that the 00
+            seconds is actually no-statement about the number of
+            seconds.
+            -->
+          <element name="timeStatus"
+                   minOccurs="0"
+                   dfdl:occursCountKind="expression"
+                   dfdl:occursCount='{ if (../second eq 63) then 1 else 0 }'>
+            <complexType>
+              <sequence>
+                <element name="seconds"
+                         dfdl:inputValueCalc='{ "No_Statement" }'>
+                  <simpleType>
+                    <restriction base="xs:string">
+                      <enumeration value="No_Statement"/>
+                    </restriction>
+                  </simpleType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+          <element
+            name="dateTime" type="tns:msDateTime"
+            dfdl:lengthKind="implicit"
+            dfdl:inputValueCalc='{
+            xs:dateTime(fn:concat($tns:yearStr, "-", $tns:monthStr, "-", $tns:dayStr,
+              "T", $tns:hourStr, ":", $tns:minuteStr, ":", $tns:secondStr))
+          }'/>
+        </sequence>
+      </sequence>
+    </sequence>
+  </group>
+
+  <simpleType name="msDateTime">
+    <annotation>
+      <appinfo source="http://www.ogf.org/dfdl/">
+        <dfdl:assert>{ . le xs:dateTime("2094-12-31T23:59:59") and
+          . ge xs:dateTime("1995-01-01T00:00:00") }
+        </dfdl:assert>
+      </appinfo>
+    </annotation>
+    <restriction base="xs:dateTime">
+      <!-- DAFFODIL-2671 prevents this check
+        <maxInclusive value="2094-12-31T23:59:59"/>
+        <minInclusive value="1995-01-01T00:00:00"/>
+       -->
+    </restriction>
+  </simpleType>
+
+  <group name="ymdhms">
+    <sequence>
+      <element name="year" type="tns:year" dfdl:length="7"
+               dfdl:outputValueCalc='{ xs:unsignedInt(fn:year-from-dateTime(../dateTime) mod 100) }'/>
+      <element name="month" type="tns:month" dfdl:length="4"
+               dfdl:outputValueCalc='{ xs:unsignedInt(fn:month-from-dateTime(../dateTime)) }'/>
+      <element name="day" type="tns:day" dfdl:length="5"
+               dfdl:outputValueCalc='{ xs:unsignedInt(fn:day-from-dateTime(../dateTime)) }'/>
+      <element name="hour" type="tns:hour" dfdl:length="5"
+               dfdl:outputValueCalc='{ xs:unsignedInt(fn:hours-from-dateTime(../dateTime)) }'/>
+      <element name="minute" type="tns:minute" dfdl:length="6"
+               dfdl:outputValueCalc='{ xs:unsignedInt(fn:minutes-from-dateTime(../dateTime)) }'/>
+      <element name="second" type="tns:second"
+               dfdl:outputValueCalc='{
+               if (fn:exists(../timeStatus[1]/seconds))
+               then 63
+               else xs:unsignedInt(fn:seconds-from-dateTime(../dateTime))
+               }'/>
+
+    </sequence>
+  </group>
+
+
+  <simpleType name="year">
+    <restriction base="tns:checkedInt">
+      <maxInclusive value="99"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="month">
+    <restriction base="tns:checkedInt">
+      <minInclusive value="1"/>
+      <maxInclusive value="12"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="day">
+    <restriction base="tns:checkedInt">
+      <minInclusive value="1"/>
+      <maxInclusive value="31"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="hour">
+    <restriction base="tns:checkedInt">
+      <minInclusive value="0"/>
+      <maxInclusive value="23"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="minute">
+    <restriction base="tns:checkedInt">
+      <minInclusive value="0"/>
+      <maxInclusive value="59"/>
+    </restriction>
+  </simpleType>
+
+  <!-- DAFFODIL-2672 means we have to put the lengthKind and length here
+  Not on the element -->
+  <simpleType name="second" dfdl:lengthKind="explicit" dfdl:length="6">
+    <union>
+      <simpleType>
+        <restriction base="tns:checkedInt">
+          <maxInclusive value="59"/>
+        </restriction>
+      </simpleType>
+      <simpleType>
+        <restriction base="tns:checkedInt">
+          <enumeration value="63"/>
+        </restriction>
+      </simpleType>
+    </union>
+  </simpleType>
+
+
+</schema>

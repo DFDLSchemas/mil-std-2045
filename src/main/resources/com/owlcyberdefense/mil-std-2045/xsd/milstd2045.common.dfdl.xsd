@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2014-2022 Owl Cyber Defense. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal with
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimers.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimers in the
+    documentation and/or other materials provided with the distribution.
+
+ 3. Neither the names of Owl Cyber Defense, nor the names of its contributors
+    may be used to endorse or promote products derived from this Software
+  without specific prior written permission.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+SOFTWARE.
+-->
+
+<schema targetNamespace="urn:milstd2045DFDL"
+        xmlns:tns="urn:milstd2045DFDL"
+        xmlns:msi="urn:milstd2045DFDLInternal"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+        xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:fn="http://www.w3.org/2005/xpath-functions"
+        elementFormDefault="unqualified">
+
+  <import namespace="urn:milstd2045DFDLInternal"
+          schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd"/>
+  <include schemaLocation="milstd2045.dateTime.dfdl.xsd"/>
+
+  <annotation>
+    <appinfo source="http://www.ogf.org/dfdl/">
+
+      <dfdl:defineFormat name="msCommon">
+        <dfdl:format lengthKind='implicit' ref="msi:msBase"/>
+      </dfdl:defineFormat>
+
+      <!-- the default format makes sequences behave properly, but every 
+        element needs an explicit dfdl:ref to provide its length kind and (if optional 
+        or repeating) occursCountKind. -->
+      <dfdl:format ref="tns:msCommon"/>
+
+    </appinfo>
+  </annotation>
+
+
+  <!-- ************************** TYPES ************************** -->
+
+
+  <simpleType name="tIntField" dfdl:lengthKind="explicit">
+    <restriction base="xs:unsignedInt"/>
+  </simpleType>
+
+  <!-- signed variant -->
+  <simpleType name="tSIntField" dfdl:lengthKind="explicit">
+    <restriction base="xs:int"/>
+  </simpleType>
+
+  <simpleType name="tHexBinary" dfdl:lengthKind="explicit">
+    <restriction base="xs:hexBinary"/>
+  </simpleType>
+
+  <simpleType name="K_ID">
+    <restriction base="xs:string">
+      <pattern value="K\d\d\.\d\d(.\d{1,3})?"/>
+    </restriction>
+  </simpleType>
+
+  <complexType name="address_group_type">
+    <sequence>
+      <element name="item"
+               minOccurs="1" maxOccurs="unbounded"
+               dfdl:occursCountKind="implicit">
+        <complexType>
+          <sequence>
+            <sequence dfdl:hiddenGroupRef="msi:GRI_discriminator"/>
+            <group ref="tns:urn_unit_name_group"/>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+
+  <group name="urn_unit_name_group">
+    <sequence>
+      <sequence dfdl:hiddenGroupRef="msi:urn_PI"/>
+      <element name="urn"
+               minOccurs="0"
+               dfdl:occursCountKind="expression"
+               dfdl:occursCount="{ ../urn_PI/value }">
+        <complexType>
+          <sequence>
+            <element name="value" type="tns:tIntField" dfdl:length="24"/>
+          </sequence>
+        </complexType>
+      </element>
+      <sequence dfdl:hiddenGroupRef="msi:unit_name_PI"/>
+      <element name="unit_name"
+               minOccurs="0"
+               dfdl:occursCountKind="expression"
+               dfdl:occursCount="{ ../unit_name_PI/value }">
+        <complexType>
+          <group ref="msi:tString64"/>
+        </complexType>
+      </element>
+      <element name="invalid"
+               minOccurs="0"
+               dfdl:occursCountKind="expression"
+               dfdl:occursCount="{
+               if (../unit_name_PI/value eq 1 and ../urn_PI/value eq 1)
+               then 1 else 0}">
+        <complexType>
+          <sequence>
+            <element name="value" type="tns:invalidEnum"
+                     dfdl:inputValueCalc='{ "both URN and unit_name exist" }'/>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </group>
+
+  <group name="dtg_group">
+    <sequence>
+      <group ref="tns:dateTime"/>
+      <sequence dfdl:hiddenGroupRef="msi:dtg_extension_PI"/>
+      <element name="dtg_extension"
+               minOccurs="0"
+               dfdl:occursCountKind="expression"
+               dfdl:occursCount="{ ../dtg_extension_PI/value }">
+        <complexType>
+          <sequence>
+            <element name="value" type="tns:tIntField"
+                     dfdl:length="12"/>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </group>
+
+  <complexType name="authentication_data">
+    <sequence>
+      <element name="authentication_data_length">
+        <complexType>
+          <sequence>
+            <element name="value" type="tns:tIntField" dfdl:length="7"
+                     dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data/value, 'bytes') idiv 8) - 1 }"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="authentication_data">
+        <complexType>
+          <sequence>
+            <element name="value" type="tns:tHexBinary"
+                     dfdl:length="{ (../../authentication_data_length/value + 1) * 8 }"
+                     dfdl:lengthUnits="bytes"/>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </complexType>
+
+</schema>

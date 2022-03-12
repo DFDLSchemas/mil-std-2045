@@ -1,0 +1,2216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2014-2022 Owl Cyber Defense, LLC. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal with
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimers.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimers in the
+    documentation and/or other materials provided with the distribution.
+
+ 3. Neither the names of Owl Cyber Defense, nor the names of its contributors
+    may be used to endorse or promote products derived from this Software
+  without specific prior written permission.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+SOFTWARE.
+-->
+<testSuite suiteName="MIL_STD_2045_Unit_Tests"
+           xmlns:ms="urn:milstd2045DFDL"
+           xmlns:msi="urn:milstd2045DFDLInternal"
+           xmlns:tdml="http://www.ibm.com/xmlns/dfdl/testData"
+           xmlns="http://www.ibm.com/xmlns/dfdl/testData"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:gpf="http://www.ibm.com/dfdl/GeneralPurposeFormat"
+           xmlns:fn="http://www.w3.org/2005/xpath-functions"
+           xmlns:daf="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"
+           xmlns:ex="http://example.com"
+           defaultRoundTrip="onePass"
+           defaultValidation="on">
+
+  <tdml:defineSchema name="unit" elementFormDefault="unqualified" useDefaultNamespace="false"
+                     xmlns="http://www.w3.org/2001/XMLSchema">
+
+    <import namespace="urn:milstd2045DFDLInternal"
+            schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd"/>
+
+    <dfdl:format ref="msi:msBase" lengthKind="implicit"/>
+
+    <element name="x" dfdl:lengthKind="implicit">
+      <complexType>
+        <sequence>
+          <sequence dfdl:hiddenGroupRef="ex:y_PI"/>
+          <element name="y"
+                   minOccurs="0"
+                   dfdl:occursCountKind="expression"
+                   dfdl:occursCount="{ ../y_PI/value }">
+            <complexType>
+              <sequence>
+                <element name="value" type="xs:unsignedInt"
+                         dfdl:lengthKind="explicit" dfdl:length="2"/>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </complexType>
+    </element>
+
+    <group name="y_PI">
+      <sequence>
+        <element name="y_PI" dfdl:lengthKind="implicit">
+          <complexType>
+            <sequence>
+              <element name="value" type="msi:presenceIndicator"
+                       dfdl:outputValueCalc='{ fn:count(../../y) }'/>
+            </sequence>
+          </complexType>
+        </element>
+      </sequence>
+    </group>
+
+    <element name="a" dfdl:lengthKind="implicit">
+      <complexType>
+        <sequence>
+          <element name="item"
+                   minOccurs="1" maxOccurs="unbounded"
+                   dfdl:occursCountKind="implicit">
+            <complexType>
+              <sequence>
+                <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
+                <element name="value" type="xs:unsignedInt" dfdl:lengthKind="explicit" dfdl:length="7"/>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </complexType>
+    </element>
+
+    <element name="string1" dfdl:lengthKind="implicit">
+      <complexType>
+        <sequence>
+          <group ref="msi:tString32"/>
+        </sequence>
+      </complexType>
+    </element>
+
+    <element name="stringInt" dfdl:lengthKind="implicit">
+      <complexType>
+        <sequence>
+          <group ref="msi:tString32"/>
+          <element name="int" type="xs:int" dfdl:lengthKind="explicit" dfdl:length="14"/>
+        </sequence>
+      </complexType>
+    </element>
+
+  </tdml:defineSchema>
+
+  <parserTestCase name="stringMaxLength" root="string1"
+                  model="unit" roundTrip="none">
+    <document>
+      <documentPart type="text"
+                    encoding="X-DFDL-US-ASCII-7-BIT-PACKED"
+                    bitOrder="LSBFirst"><![CDATA[12345678901234567890123456789012]]></documentPart>
+    </document>
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:string1>
+          <value>12345678901234567890123456789012</value>
+        </ex:string1>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <unparserTestCase name="stringMaxLengthUnparse" root="string1"
+                    model="unit" roundTrip="none">
+    <document>
+      <documentPart type="text"
+                    encoding="X-DFDL-US-ASCII-7-BIT-PACKED"
+                    bitOrder="LSBFirst"><![CDATA[12345678901234567890123456789012]]></documentPart>
+    </document>
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:string1>
+          <value>12345678901234567890123456789012</value>
+        </ex:string1>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </unparserTestCase>
+
+  <!-- 
+  
+  This test is about bug DAFFODIL-1493 and DAFFODIL-1477 
+  
+  Strings that are the maxLength have no terminator. This is expressed
+  by having '%ES;' as terminator, but was broken in older versions of
+  daffodil, and workarounds were used that causes spaces following the
+  termination of the string to be incorrectly consumed.
+
+  Now that ES an be used since Daffodil 2.4.0, this test ensures that
+  whitepsace following the terminator is not consumed.
+  
+  -->
+  <parserTestCase name="stringWSPBug" root="stringInt"
+                  model="unit" roundTrip="none">
+    <document bitOrder="LSBFirst">
+      <documentPart type="text" encoding="X-DFDL-US-ASCII-7-BIT-PACKED" bitOrder="LSBFirst"
+                    replaceDFDLEntities="true"><![CDATA[12345678901234567890123456789012%#x20;%#x20;]]></documentPart>
+    </document>
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:stringInt>
+          <value>12345678901234567890123456789012</value>
+          <int>4128</int>
+        </ex:stringInt>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <parserTestCase name="presence1" root="x"
+                  model="unit">
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="LTR">111
+      </documentPart>
+    </document>
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:x>
+          <y>
+            <value>3</value>
+          </y>
+        </ex:x>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <parserTestCase name="presence2" root="x"
+                  model="unit">
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="LTR">0
+      </documentPart>
+    </document>
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:x></ex:x>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <parserTestCase name="recurrenceField1" root="a"
+                  model="unit">
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">10101010
+      </documentPart>
+    </document>
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:a>
+          <item>
+            <value>85</value>
+          </item>
+        </ex:a>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <parserTestCase name="recurrenceField2" root="a"
+                  model="unit">
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">00001110 11110001 01010101 10101011
+      </documentPart>
+    </document>
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:a>
+          <item>
+            <value>85</value>
+          </item>
+          <item>
+            <value>42</value>
+          </item>
+          <item>
+            <value>120</value>
+          </item>
+          <item>
+            <value>7</value>
+          </item>
+        </ex:a>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <tdml:defineSchema name="hdr" elementFormDefault="unqualified" useDefaultNamespace="false"
+                     xmlns="http://www.w3.org/2001/XMLSchema">
+    <import namespace="urn:milstd2045DFDL"
+            schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
+    <dfdl:format ref="ms:msCommon"/>
+
+    <element name="milstd2045_application_header" type="ms:milstd2045_application_header_type"/>
+
+  </tdml:defineSchema>
+
+  <parserTestCase name="test2045msghdr1"
+                  root="milstd2045_application_header" model="hdr">
+    <document bitOrder="LSBFirst">
+      <documentPart type="byte" byteOrder="LTR">
+        E4 67 00 80 55
+        67 92 1A FC 77 00
+        00 00 80 F8 63 44 48 10 FE B6 9B 01 00
+      </documentPart>
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>D1</value>
+            </version>
+            <originator_address_group>
+              <urn>
+                <value>207</value>
+              </urn>
+              <unit_name>
+                <value>UNITA</value>
+              </unit_name>
+              <invalid>
+                <value>both URN and unit_name exist</value>
+              </invalid>
+            </originator_address_group>
+            <recipient_address_group>
+              <item>
+                <urn>
+                  <value>3</value>
+                </urn>
+              </item>
+            </recipient_address_group>
+            <future/>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_VMF</value>
+                </umf>
+                <vmf_message_identification_group>
+                  <fad>
+                    <value>15</value>
+                  </fad>
+                  <message_number>
+                    <value>99</value>
+                  </message_number>
+                  <K_ID>K15.99</K_ID>
+                </vmf_message_identification_group>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Immediate</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <originator_dtg_group>
+                  <dateTime>2004-02-28T15:27:55</dateTime>
+                </originator_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>Acknowledgement_Requested</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>No_Reply_Required</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+                <future/>
+              </item>
+            </message_handling_group>
+            <future/>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+    <validationErrors>
+      <error>both URN and unit_name exist</error>
+    </validationErrors>
+  </parserTestCase>
+
+  <unparserTestCase name="test2045msghdr1_unparsed"
+                    root="milstd2045_application_header" model="hdr"
+                    description="unparser test case of test2045msghrd1 (D1) to verify correct bits">
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>D1</value>
+            </version>
+            <originator_address_group>
+              <urn>
+                <value>207</value>
+              </urn>
+              <unit_name>
+                <value>UNITA</value>
+              </unit_name>
+              <invalid>
+                <value>both URN and unit_name exist</value>
+              </invalid>
+            </originator_address_group>
+            <recipient_address_group>
+              <item>
+                <urn>
+                  <value>3</value>
+                </urn>
+              </item>
+            </recipient_address_group>
+            <future/>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_VMF</value>
+                </umf>
+                <vmf_message_identification_group>
+                  <fad>
+                    <value>15</value>
+                  </fad>
+                  <message_number>
+                    <value>99</value>
+                  </message_number>
+                  <K_ID>K15.99</K_ID>
+                </vmf_message_identification_group>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Immediate</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <originator_dtg_group>
+                  <dateTime>2004-02-28T15:27:55</dateTime>
+                </originator_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>Acknowledgement_Requested</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>No_Reply_Required</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+                <future/>
+              </item>
+            </message_handling_group>
+            <future/>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+
+    <!-- the last 16 bits contain the bits for the acknowledgement_request_group as
+well as hidden presence indicators groups-->
+    <document bitOrder="LSBFirst">
+      <documentPart type="byte" byteOrder="LTR">
+        E4 67 00 80 55
+        67 92 1A FC 77 00
+        00 00 80 F8 63 44 48 10 FE B6 9B
+      </documentPart>
+      <documentPart type="bits" byteOrder="RTL">
+        0000 0001
+      </documentPart>
+      <documentPart type="byte" byteOrder="LTR">
+        00
+      </documentPart>
+    </document>
+  </unparserTestCase>
+
+  <unparserTestCase name="test2045D1_operator_ind_on_unparsed"
+                    root="milstd2045_application_header" model="hdr"
+                    description="variant of test2045msghdr1 (D1) unparser test case that has
+operator_reply_request_indicator set to 1">
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header xmlns:ex="http://example.com">
+          <contents>
+            <version>
+              <value>D1</value>
+            </version>
+            <originator_address_group>
+              <urn>
+                <value>207</value>
+              </urn>
+              <unit_name>
+                <value>UNITA</value>
+              </unit_name>
+              <invalid>
+                <value>both URN and unit_name exist</value>
+              </invalid>
+            </originator_address_group>
+            <recipient_address_group>
+              <item>
+                <urn>
+                  <value>3</value>
+                </urn>
+              </item>
+            </recipient_address_group>
+            <future/>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_VMF</value>
+                </umf>
+                <vmf_message_identification_group>
+                  <fad>
+                    <value>15</value>
+                  </fad>
+                  <message_number>
+                    <value>99</value>
+                  </message_number>
+                  <K_ID>K15.99</K_ID>
+                </vmf_message_identification_group>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Immediate</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <originator_dtg_group>
+                  <dateTime>2004-02-28T15:27:55</dateTime>
+                </originator_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>Acknowledgement_Requested</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>Reply_Requested</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+                <future/>
+              </item>
+            </message_handling_group>
+            <future/>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+
+    <!-- the last 16 bits contain the bits for the acknowledgement_request_group as
+    well as hidden presence indicators groups-->
+    <document bitOrder="LSBFirst">
+      <documentPart type="byte" byteOrder="LTR">
+        E4 67 00 80 55
+        67 92 1A FC 77 00
+        00 00 80 F8 63 44 48 10 FE B6 9B
+      </documentPart>
+      <documentPart type="bits" byteOrder="RTL">
+        0000 0101
+      </documentPart>
+      <documentPart type="byte" byteOrder="LTR">
+        00
+      </documentPart>
+    </document>
+  </unparserTestCase>
+
+  <tdml:defineSchema name="SPI" elementFormDefault="unqualified" useDefaultNamespace="false"
+                     xmlns="http://www.w3.org/2001/XMLSchema">
+    <import namespace="urn:milstd2045DFDL"
+            schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
+
+    <dfdl:format ref="ms:msCommon"/>
+
+    <element name="SPI">
+      <complexType>
+        <sequence>
+          <element ref="ms:message_security_group_with_PI"/>
+          <sequence dfdl:alignmentUnits="bytes" dfdl:alignment="1"/>
+        </sequence>
+      </complexType>
+    </element>
+
+  </tdml:defineSchema>
+
+  <parserTestCase name="test2045msghdr2" root="SPI"
+                  model="SPI">
+    <document bitOrder="LSBFirst">
+      <!-- data taken from table D-I (page 180 -->
+      <documentPart type="byte" byteOrder="LTR">
+        01 09 C8 D8 DC B6 2D BA B4 55 D1 26 F4 58 24 DF 56 1F 5F 34 E2 41 C0
+        41 B3 92 7C B9 6A B1 95 1F 18 B7 5C 43 10 64 B6 1A AC 8B 09 C8
+        D8 DC B6 2D BA B4 55 D1 26 F4 58 24 DF 56 1F 5F 34 E2 41 C0 41
+        B3 92 7C B9 6A B1 95 1F 18 B7 5C 43 10 64 B6 1A AC 8B 01
+      </documentPart>
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:SPI>
+          <message_security_group_with_PI>
+            <message_security_group>
+              <security_parameters_information>
+                <value>OK_Authentication_No_Encryption</value>
+              </security_parameters_information>
+              <authentication_data_a_group>
+                <authentication_data_length>
+                  <value>4</value>
+                </authentication_data_length>
+                <authentication_data>
+                  <value>C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B</value>
+                </authentication_data>
+              </authentication_data_a_group>
+              <authentication_data_b_group>
+                <authentication_data_length>
+                  <value>4</value>
+                </authentication_data_length>
+                <authentication_data>
+                  <value>C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B</value>
+                </authentication_data>
+              </authentication_data_b_group>
+              <signed_acknowledge_request_indicator>
+                <value>Signed_Response_Requested</value>
+              </signed_acknowledge_request_indicator>
+            </message_security_group>
+          </message_security_group_with_PI>
+        </ex:SPI>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+
+  <parserTestCase name="test2045msghdr3"
+                  root="milstd2045_application_header" model="hdr">
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">
+        00000000 00000000 01111111 10000111 10000000 00000000 00010001 00000100
+      </documentPart>
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>D1</value>
+            </version>
+            <header_size>
+              <value>8</value>
+            </header_size>
+            <future/>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>Undefined_15</value>
+                </umf>
+                <operation_indicator>
+                  <value>Test</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Retransmitted_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>Reserved_7</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>TS</value>
+                </security_classification>
+                <future/>
+              </item>
+            </message_handling_group>
+            <future/>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+    <validationErrors>
+      <error>Validation error</error>
+      <error>Undefined_15</error>
+    </validationErrors>
+  </parserTestCase>
+
+  <parserTestCase name="test_2045_C_msghdr1" root="milstd2045_application_header"
+                  model="hdr">
+    <document bitOrder="LSBFirst">
+      <!-- From K02.1_1.1.VMB modified to have zero message size. -->
+      <documentPart type="byte" byteOrder="LTR"><![CDATA[
+       e29b 6109 6531 5120 0600 7925 4000 0008
+       51a2 8cc2 410f 1000
+      ]]></documentPart>
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>C</value>
+            </version>
+            <originator_address_group>
+              <urn>
+                <value>1229623</value>
+              </urn>
+            </originator_address_group>
+            <recipient_address_group>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+            </recipient_address_group>
+            <header_size>
+              <value>24</value>
+            </header_size>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_VMF</value>
+                </umf>
+                <message_standard_version>
+                  <vmf>OK_6017A</vmf>
+                </message_standard_version>
+                <vmf_message_identification_group>
+                  <fad>
+                    <value>2</value>
+                  </fad>
+                  <message_number>
+                    <value>1</value>
+                  </message_number>
+                  <K_ID>K02.01</K_ID>
+                </vmf_message_identification_group>
+                <message_size>
+                  <value>0</value>
+                </message_size>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Flash_Override</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <originator_dtg_group>
+                  <dateTime>2018-10-12T20:48:01</dateTime>
+                  <dtg_extension>
+                    <value>30</value>
+                  </dtg_extension>
+                </originator_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>No_Reply_Required</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+              </item>
+            </message_handling_group>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <unparserTestCase name="test_2045_C_msghdr1_unparsed" root="milstd2045_application_header"
+                    model="hdr" description="unparser test case of 2045_C_msghdr1 to verify correct bits">
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>C</value>
+            </version>
+            <originator_address_group>
+              <urn>
+                <value>1229623</value>
+              </urn>
+            </originator_address_group>
+            <recipient_address_group>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+            </recipient_address_group>
+            <header_size>
+              <value>24</value>
+            </header_size>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_VMF</value>
+                </umf>
+                <message_standard_version>
+                  <vmf>OK_6017A</vmf>
+                </message_standard_version>
+                <vmf_message_identification_group>
+                  <fad>
+                    <value>2</value>
+                  </fad>
+                  <message_number>
+                    <value>1</value>
+                  </message_number>
+                  <K_ID>K02.01</K_ID>
+                </vmf_message_identification_group>
+                <message_size>
+                  <value>0</value>
+                </message_size>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Flash_Override</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <originator_dtg_group>
+                  <dateTime>2018-10-12T20:48:01</dateTime>
+                  <dtg_extension>
+                    <value>30</value>
+                  </dtg_extension>
+                </originator_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>No_Reply_Required</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+              </item>
+            </message_handling_group>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+
+    <document bitOrder="LSBFirst">
+      <!-- From K02.1_1.1.VMB modified to have zero message size. -->
+      <documentPart type="byte" byteOrder="LTR"><![CDATA[
+       e29b 6109 6531 5120 0600 7925 4000 0008
+       51a2 8cc2 410f
+      ]]></documentPart>
+      <documentPart type="bits" byteOrder="RTL">
+        0001 0000
+      </documentPart>
+      <documentPart type="byte" byteOrder="LTR">
+        00
+      </documentPart>
+    </document>
+
+  </unparserTestCase>
+
+  <unparserTestCase name="test_2045_C_operator_machine_ind_on_unparsed" root="milstd2045_application_header"
+                    model="hdr"
+                    description="variant of 2045_C_msghdr1 (C) unparser test case that has
+                         machine_acknowledge_request_indicator and operator_reply_request_indicator set to 1">
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>C</value>
+            </version>
+            <originator_address_group>
+              <urn>
+                <value>1229623</value>
+              </urn>
+            </originator_address_group>
+            <recipient_address_group>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+            </recipient_address_group>
+            <header_size>
+              <value>24</value>
+            </header_size>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_VMF</value>
+                </umf>
+                <message_standard_version>
+                  <vmf>OK_6017A</vmf>
+                </message_standard_version>
+                <vmf_message_identification_group>
+                  <fad>
+                    <value>2</value>
+                  </fad>
+                  <message_number>
+                    <value>1</value>
+                  </message_number>
+                  <K_ID>K02.01</K_ID>
+                </vmf_message_identification_group>
+                <message_size>
+                  <value>0</value>
+                </message_size>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Flash_Override</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <originator_dtg_group>
+                  <dateTime>2018-10-12T20:48:01</dateTime>
+                  <dtg_extension>
+                    <value>30</value>
+                  </dtg_extension>
+                </originator_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>Acknowledgement_Requested</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>Reply_Requested</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+              </item>
+            </message_handling_group>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+
+    <document bitOrder="LSBFirst">
+      <!-- From K02.1_1.1.VMB modified to have zero message size and
+      machine_acknowledge_request_indicator operator_reply_request_indicator
+      set to 1. -->
+      <documentPart type="byte" byteOrder="LTR"><![CDATA[
+       e29b 6109 6531 5120 0600 7925 4000 0008
+       51a2 8cc2 410f
+      ]]></documentPart>
+      <documentPart type="bits" byteOrder="RTL">
+        1011 0000
+      </documentPart>
+      <documentPart type="byte" byteOrder="LTR">
+        00
+      </documentPart>
+    </document>
+  </unparserTestCase>
+
+  <parserTestCase name="test_2045_C_msghdr2" root="milstd2045_application_header"
+                  model="hdr">
+    <document bitOrder="LSBFirst">
+      <!-- 
+      From RevC Spec, Table XVIII page 57.
+      
+      Note, however, that this table has a bug in it.
+      
+      On page 58, the "FPI for Message Standard Version" is given value "NA" 
+      as if that field were absent due to a previous GPI of value 0. But the 
+      prior GPI has value 1 (The Information Address Group), so this bit must be
+      present. 
+      
+      This mistake seems due to edits to this draft of the standard, because the font
+      changes for that row of the table. This edit was not verified carefully enough
+      it seems.
+      
+      That mistake throws off the entire rest of the table, which is valueless
+      from there, as this bit is missing, and the 4 bit field it controls the presence
+      or absence of, could also be there. 
+      
+      If we assume this bit should be present, but have value 0, meaning the 
+      subsequent 4-bit field is absent (Message Standard Version), then 
+      still everyting is off by 1 bit. 
+      
+      Unfortunately, while the example in the revision D with Change 1 of the standard
+      has a similar example, it is different due to the introduction of the 
+      future use fields, which occupy a number of additional bits. So this same
+      worked example doesn't appear in that document.
+      
+      Working out the data for the bits is tedious but possible.
+      
+      The first document part below is the correct bytes, taken from the table. 
+      The first 13 bytes are correct.
+      -->
+      <documentPart type="byte" byteOrder="LTR"><![CDATA[   
+        E2 67 00 80 55 67 92 1A FC 77 00 00
+        00 
+      ]]></documentPart>
+      <!-- 
+        The next bytes are all incorrect in the document. This 
+        works out what they should be. 
+        
+        FPI for Message Standard Version  xx0xxxxx
+        Message Standard Version          NA
+        GPI for Message Ident Group       x1xxxxxx
+        FAD                      XXXXX001 1xxxxxxx  So the byte is 11000100 or C4
+        Message Number           XXXXXX00 00001xxx  So the byte is 00001001 or 09
+        FPI for Message Subtype           XXXXX0xx
+        Message Subtype                   NA
+        FPI for File Name                 XXXX0xxx
+        File Name                         NA
+        FPI for Message Size              XXX0XXXX
+        Message Size                      NA
+        Operation Indicator               X01XXXXX
+        Retransmit Indictor               0XXXXXXX  So the byte is 00100000 or 20
+        Message Precendence Codes         XXXXX010
+        Security Classification           XXX00XXX
+        FPI for C/R marking               XX0XXXXX
+        C/R Marking                       NA
+        GPI for Orig DTG                  X1XXXXXX
+        Year                   XX110000   0XXXXXXX So the byte is 01000010 or 42
+        Month                  XXXXXX01   11XXXXXX So the byte is 11110000 or F0
+        Day                               X00011XX
+        Hour                   XXXX1000   0XXXXXXX So the byte is 00001101 or 0D
+        Minute                 XXXXXX01   1011XXXX So the byte is 10111000 or B8
+        Second                            110111XX So the byte is 11011101 or DD
+        FPI for DTG Extension             XXXXXXX0
+        DTG Extension                     NA
+        GPI for Perishibility DTG         XXXXXX0X
+        Perishibility DTG fields          NA
+        GPI for Ack req group             XXXXX1XX
+        Machine ack req ind               XXXX1XXX
+        Oper ack req ind                  XXX0XXXX
+        Oper Reply req ind                XX0XXXXX
+        GPI for Resp Data Group           X0XXXXXX
+        Resp Data Group                   NA
+        FPI for Ref Msg Data Group        0XXXXXXX so the byte is 00001100 or 0C
+        GPI for Message Security Group    XXXXXXX0
+        Padding                           0000000X so the byte is 00000000 or 00
+       -->
+      <documentPart type="byte" byteOrder="LTR"><![CDATA[
+        
+        C4 09 20 42 F0 0D B8 DD 0C 00
+        ]]></documentPart>
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>C</value>
+            </version>
+            <originator_address_group>
+              <urn>
+                <value>207</value>
+              </urn>
+              <unit_name>
+                <value>UNITA</value>
+              </unit_name>
+              <invalid>
+                <value>both URN and unit_name exist</value>
+              </invalid>
+            </originator_address_group>
+            <recipient_address_group>
+              <item>
+                <urn>
+                  <value>3</value>
+                </urn>
+              </item>
+            </recipient_address_group>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_VMF</value>
+                </umf>
+                <vmf_message_identification_group>
+                  <fad>
+                    <value>3</value>
+                  </fad>
+                  <message_number>
+                    <value>1</value>
+                  </message_number>
+                  <K_ID>K03.01</K_ID>
+                </vmf_message_identification_group>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Immediate</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <originator_dtg_group>
+                  <dateTime>1996-07-03T16:27:55</dateTime>
+                </originator_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>Acknowledgement_Requested</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>No_Reply_Required</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+              </item>
+            </message_handling_group>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+    <validationErrors>
+      <error>both URN and unit_name exist</error>
+    </validationErrors>
+  </parserTestCase>
+
+  <parserTestCase
+    name="test_2045_D1_minimum_size_header"
+    root="milstd2045_application_header"
+    model="hdr"
+    description='Smallest possible header'>
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Version                       0100]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI Data compression type        0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator address group     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Recipient address group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Information address group    0]]></documentPart><!-- 8 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI header_size                  0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use One               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 2                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 3                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 4                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 5                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GRI message handling group (last)0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[UMF                           0000]]></documentPart><!-- 16 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message standard version     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI vmf message ident group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI file name                    0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message size                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Operation Indicator             00]]></documentPart><!-- 24 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Retransmit Indicator             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Message Precendence Code       000]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Security Classification         00]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI C/R marking                  0]]></documentPart><!-- 32 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator DTG               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Perisability DTG             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Acknowledgment Request grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Response data group          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Reference message data grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 6                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 7                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 8                 0]]></documentPart><!-- 40 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 9                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Ten               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Message Security group       0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Eleven            0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Twelve            0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Thirteen          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Fourteen          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Fifteen           0]]></documentPart><!-- 48 -->
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>D1</value>
+            </version>
+            <future/>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_Link_16</value>
+                </umf>
+                <operation_indicator>
+                  <value>Operation</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Routine</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <future/>
+              </item>
+            </message_handling_group>
+            <future/>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <parserTestCase
+    name="test_2045_C_minimum_size_header"
+    root="milstd2045_application_header"
+    model="hdr"
+    description='Smallest possible header'>
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Version                       0010]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI Data compression type        0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator address group     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Recipient address group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Information address group    0]]></documentPart><!-- 8 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI header_size                  0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GRI message handling group (last)0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[UMF                           0000]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message standard version     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI vmf message ident group      0]]></documentPart><!-- 16 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI file name                    0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message size                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Operation Indicator             00]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Retransmit Indicator             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Message Precendence Code       000]]></documentPart><!-- ends at 24 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Security Classification         00]]></documentPart><!-- 25 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI C/R marking                  0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator DTG               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Perisability DTG             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Acknowledgment Request grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Response data group          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Reference message data grp   0]]></documentPart><!-- 32 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Message Security group       0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Padding                    0000000]]></documentPart><!-- 40 -->
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>C</value>
+            </version>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_Link_16</value>
+                </umf>
+                <operation_indicator>
+                  <value>Operation</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Routine</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+              </item>
+            </message_handling_group>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+
+  <parserTestCase
+    name="test_2045_D1_control_release_marking1"
+    root="milstd2045_application_header"
+    model="hdr"
+    description='Exercises the control_release_marking_D1  element which is inside a choice.'>
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Version                       0100]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI Data compression type        0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator address group     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Recipient address group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Information address group    0]]></documentPart><!-- 8 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI header_size                  0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use One               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 2                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 3                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 4                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 5                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GRI message handling group (last)0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[UMF                          000 0]]></documentPart><!-- 16 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message standard version     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI vmf message ident group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI file name                    0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message size                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Operation Indicator             00]]></documentPart><!-- 24 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Retransmit Indicator             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Message Precendence Code       000]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Security Classification         00]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI C/R marking                  1]]></documentPart><!-- 32 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FRI C/R Marking (Last)           0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[C/R Marking             00000 0000]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator DTG               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Perisability DTG             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Acknowledgment Request grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Response data group          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Reference message data grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 6                 0]]></documentPart><!-- 48 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 7                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 8                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 9                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Ten               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Message Security group       0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Eleven            0]]></documentPart><!-- 54 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Twelve            0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Thirteen          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Fourteen          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Fifteen           0]]></documentPart><!-- 58 -->
+
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Padding                     000000]]></documentPart><!-- 64 -->
+
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header xmlns:ex="http://example.com">
+          <contents>
+            <version>
+              <value>D1</value>
+            </version>
+            <future/>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_Link_16</value>
+                </umf>
+                <operation_indicator>
+                  <value>Operation</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Routine</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <control_release_marking_D1>
+                  <item>
+                    <value>NO_STATEMENT</value>
+                  </item>
+                </control_release_marking_D1>
+                <future/>
+              </item>
+            </message_handling_group>
+            <future/>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <parserTestCase
+    name="test_2045_D1_control_release_marking2"
+    root="milstd2045_application_header"
+    model="hdr"
+    description='Exercises the control_release_marking_D1  element which is inside a choice.'>
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Version                       0100]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI Data compression type        0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator address group     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Recipient address group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Information address group    0]]></documentPart><!-- 8 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI header_size                  0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use One               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 2                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 3                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 4                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI future use 5                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GRI message handling group (last)0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[UMF                          000 0]]></documentPart><!-- 16 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message standard version     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI vmf message ident group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI file name                    0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message size                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Operation Indicator             00]]></documentPart><!-- 24 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Retransmit Indicator             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Message Precendence Code       000]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Security Classification         00]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI C/R marking                  1]]></documentPart><!-- 32 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FRI C/R Marking (not Last)       1]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[C/R Marking             00000 0001]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FRI C/R Marking (not Last)       1]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[C/R Marking             00000 0010]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FRI C/R Marking (Last)           0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[C/R Marking             00000 0011]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator DTG               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Perisability DTG             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Acknowledgment Request grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Response data group          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Reference message data grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 6                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 7                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 8                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use 9                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Ten               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Message Security group       0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Eleven            0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Twelve            0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Thirteen          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Fourteen          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Future use Fifteen           0]]></documentPart><!-- 58 -->
+
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Padding                     00]]></documentPart><!-- 64 -->
+
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header xmlns:ex="http://example.com">
+          <contents>
+            <version>
+              <value>D1</value>
+            </version>
+            <future/>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_Link_16</value>
+                </umf>
+                <operation_indicator>
+                  <value>Operation</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Routine</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <control_release_marking_D1>
+                  <item>
+                    <value>AFGHANISTAN_(AF)</value>
+                  </item>
+                  <item>
+                    <value>ALBANIA_(AL)</value>
+                  </item>
+                  <item>
+                    <value>ALGERIA_(AG)</value>
+                  </item>
+                </control_release_marking_D1>
+                <future/>
+              </item>
+            </message_handling_group>
+            <future/>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <parserTestCase
+    name="test_2045_C_control_release_marking1"
+    root="milstd2045_application_header"
+    model="hdr"
+    description='Exercises the control_release_marking_C  element which is inside a choice.'>
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Version                       0010]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI Data compression type        0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator address group     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Recipient address group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Information address group    0]]></documentPart><!-- 8 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI header_size                  0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GRI message handling group (last)0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[UMF                          000 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message standard version     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI vmf message ident group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI file name                    0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message size                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Operation Indicator             00]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Retransmit Indicator             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Message Precendence Code       000]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Security Classification         00]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI C/R marking                  1]]></documentPart>
+      <documentPart type="text"
+                    encoding="X-DFDL-US-ASCII-7-BIT-PACKED"
+                    bitOrder="LSBFirst" replaceDFDLEntities="true"><![CDATA[MARKING%DEL;]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator DTG               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Perisability DTG             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Acknowledgment Request grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Response data group          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Reference message data grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Message Security group       0]]></documentPart>
+
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Padding                    0000000]]></documentPart>
+
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>C</value>
+            </version>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_Link_16</value>
+                </umf>
+                <operation_indicator>
+                  <value>Operation</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Routine</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <control_release_marking_C>
+                  <value>MARKING</value>
+                </control_release_marking_C>
+              </item>
+            </message_handling_group>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+  </parserTestCase>
+
+  <parserTestCase
+    name="test_2045_C_minimum_size_acknoledgement"
+    root="milstd2045_application_header"
+    model="hdr"
+    description='Minimum size acknowledgement message.'>
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Version                       0010]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI Data compression type        0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator address group     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Recipient address group      0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Information address group    0]]></documentPart><!-- 8 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI header_size                  0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GRI message handling group (last)0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[UMF                           0000]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message standard version     0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI vmf message ident group      0]]></documentPart><!-- 16 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI file name                    0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI message size                 0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Operation Indicator             00]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Retransmit Indicator             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Message Precendence Code       000]]></documentPart><!-- ends at 24 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Security Classification         00]]></documentPart><!-- 25 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI C/R marking                  0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Originator DTG               0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Perisability DTG             0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Acknowledgment Request grp   0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Response data group          1]]></documentPart><!-- 30 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[YEAR                       0001110]]></documentPart><!-- 37 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[MONTH                         0001]]></documentPart><!-- 41 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[DAY                          00001]]></documentPart><!-- 46 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[HOUR                         00001]]></documentPart><!-- 51 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[MINUTE                      000001]]></documentPart><!-- 57 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[SECOND                      000001]]></documentPart><!-- 63 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI DTG Extension                0]]></documentPart><!-- 64 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[R/C                            000]]></documentPart><!-- 67 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI CANTCO Reason Code           0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI CANTPRO Reason Code          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[FPI Reply Amplification          0]]></documentPart>
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Reference message data grp   0]]></documentPart><!-- 71 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[GPI Message Security group       0]]></documentPart><!-- 72 -->
+      <documentPart type="bits" bitOrder="LSBFirst" byteOrder="RTL">
+        <![CDATA[Padding                    0000000]]></documentPart>
+
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>C</value>
+            </version>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_Link_16</value>
+                </umf>
+                <operation_indicator>
+                  <value>Operation</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Routine</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <response_data_group>
+                  <dateTime>2014-01-01T01:01:01</dateTime>
+                  <r_c>
+                    <value>Undefined_0</value>
+                  </r_c>
+                </response_data_group>
+              </item>
+            </message_handling_group>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+    <validationErrors>
+      <error>validation error</error>
+      <error>Undefined_0</error>
+    </validationErrors>
+  </parserTestCase>
+
+  <unparserTestCase name="test_2045_D1_all_fields"
+                    root="milstd2045_application_header" model="hdr"
+                    description="maximal, as many fields as possible. At least 2 of all repeating.">
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header xmlns:ex="http://example.com">
+          <contents>
+            <version>
+              <value>D1</value>
+            </version>
+            <data_compression_type>
+              <value>GZIP</value>
+            </data_compression_type>
+            <originator_address_group>
+              <unit_name>
+                <value>Originator</value>
+              </unit_name>
+            </originator_address_group>
+            <recipient_address_group>
+              <item>
+                <urn>
+                  <value>12345</value>
+                </urn>
+              </item>
+              <item>
+                <unit_name>
+                  <value>Recipient2</value>
+                </unit_name>
+              </item>
+              <item>
+                <unit_name>
+                  <value>Recipient3</value>
+                </unit_name>
+              </item>
+            </recipient_address_group>
+            <information_address_group>
+              <item>
+                <urn>
+                  <value>67890</value>
+                </urn>
+              </item>
+              <item>
+                <unit_name>
+                  <value>Information2</value>
+                </unit_name>
+              </item>
+              <item>
+                <unit_name>
+                  <value>Information3</value>
+                </unit_name>
+              </item>
+            </information_address_group>
+            <header_size>
+              <value>640</value>
+            </header_size>
+            <future/>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_VMF</value>
+                </umf>
+                <message_standard_version>
+                  <vmf>OK_6017C</vmf>
+                </message_standard_version>
+                <vmf_message_identification_group>
+                  <fad>
+                    <value>7</value>
+                  </fad>
+                  <message_number>
+                    <value>5</value>
+                  </message_number>
+                  <message_subtype>
+                    <value>122</value>
+                  </message_subtype>
+                  <K_ID>K07.05.122</K_ID>
+                </vmf_message_identification_group>
+                <file_name>
+                  <value>someFile0/123456789/1234567890123456789/123456789/1234567890.ext</value>
+                </file_name>
+                <message_size>
+                  <value>0</value>
+                </message_size>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Immediate</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>S</value>
+                </security_classification>
+                <control_release_marking_D1>
+                  <item>
+                    <value>AFGHANISTAN_(AF)</value>
+                  </item>
+                  <item>
+                    <value>ALBANIA_(AL)</value>
+                  </item>
+                  <item>
+                    <value>ALGERIA_(AG)</value>
+                  </item>
+                </control_release_marking_D1>
+                <originator_dtg_group>
+                  <dateTime>2004-02-28T15:27:55</dateTime>
+                  <dtg_extension>
+                    <value>42</value>
+                  </dtg_extension>
+                </originator_dtg_group>
+                <perishability_dtg_group>
+                  <timeStatus>
+                    <seconds>No_Statement</seconds>
+                  </timeStatus>
+                  <dateTime>1995-02-01T11:12:00</dateTime>
+                </perishability_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>Acknowledgement_Requested</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>Reply_Requested</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+                <response_data_group>
+                  <dateTime>2014-01-01T01:01:01</dateTime>
+                  <r_c>
+                    <value>OK_CANTPRO</value>
+                  </r_c>
+                  <cantco_reason_code>
+                    <value>OK_Tactical_Situation</value>
+                  </cantco_reason_code>
+                  <cantpro_reason_code>
+                    <value>OK_Certificate_invalid_29</value>
+                  </cantpro_reason_code>
+                  <reply_amplification>
+                    <value>up to 50 chars in this amplification statement 123</value>
+                  </reply_amplification>
+                </response_data_group>
+                <reference_message_data_group>
+                  <item>
+                    <unit_name>
+                      <value>SOMEUNIT up to 64 characters long sure up to 64 characters long</value>
+                    </unit_name>
+                    <dateTime>2001-01-01T01:01:01</dateTime>
+                  </item>
+                  <item>
+                    <urn>
+                      <value>98765</value>
+                    </urn>
+                    <timeStatus>
+                      <seconds>No_Statement</seconds>
+                    </timeStatus>
+                    <dateTime>2014-02-03T04:05:00</dateTime>
+                  </item>
+                </reference_message_data_group>
+                <future/>
+                <message_security_group>
+                  <security_parameters_information>
+                    <value>OK_Authentication_No_Encryption</value>
+                  </security_parameters_information>
+                  <keying_material_group>
+                    <keying_material_id_length>
+                      <value>3</value>
+                    </keying_material_id_length>
+                    <keying_material_id>
+                      <value>DEADBEEF</value>
+                    </keying_material_id>
+                  </keying_material_group>
+                  <cryptographic_initialization_group>
+                    <cryptographic_initialization_length>
+                      <value>0</value>
+                    </cryptographic_initialization_length>
+                    <cryptographic_initialization>
+                      <value>DEADBEEFDEADBEEF</value>
+                    </cryptographic_initialization>
+                  </cryptographic_initialization_group>
+                  <key_token_group>
+                    <key_token_length>
+                      <value>0</value>
+                    </key_token_length>
+                    <key_token>
+                      <item>
+                        <value>DEADBEEFDEADBEEF</value>
+                      </item>
+                      <item>
+                        <value>DEADBEEFDEADBEEF</value>
+                      </item>
+                    </key_token>
+                  </key_token_group>
+                  <authentication_data_a_group>
+                    <authentication_data_length>
+                      <value>4</value>
+                    </authentication_data_length>
+                    <authentication_data>
+                      <value>C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B</value>
+                    </authentication_data>
+                  </authentication_data_a_group>
+                  <authentication_data_b_group>
+                    <authentication_data_length>
+                      <value>4</value>
+                    </authentication_data_length>
+                    <authentication_data>
+                      <value>C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B</value>
+                    </authentication_data>
+                  </authentication_data_b_group>
+                  <signed_acknowledge_request_indicator>
+                    <value>Signed_Response_Requested</value>
+                  </signed_acknowledge_request_indicator>
+                  <message_security_padding_group>
+                    <message_security_padding_length>
+                      <value>4</value>
+                    </message_security_padding_length>
+                    <message_security_padding>
+                      <value>DEADBEEF</value>
+                    </message_security_padding>
+                  </message_security_padding_group>
+                </message_security_group>
+              </item>
+              <item>
+                <umf>
+                  <value>OK_Link_16</value>
+                </umf>
+                <message_standard_version>
+                  <link16>OK_6016F</link16>
+                </message_standard_version>
+                <file_name>
+                  <value>someFile.dat</value>
+                </file_name>
+                <message_size>
+                  <value>0</value>
+                </message_size>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <value>OK_Immediate</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>S</value>
+                </security_classification>
+                <control_release_marking_D1>
+                  <item>
+                    <value>AFGHANISTAN_(AF)</value>
+                  </item>
+                  <item>
+                    <value>ALBANIA_(AL)</value>
+                  </item>
+                </control_release_marking_D1>
+                <originator_dtg_group>
+                  <dateTime>2004-02-28T15:27:55</dateTime>
+                  <dtg_extension>
+                    <value>42</value>
+                  </dtg_extension>
+                </originator_dtg_group>
+                <perishability_dtg_group>
+                  <timeStatus>
+                    <seconds>No_Statement</seconds>
+                  </timeStatus>
+                  <dateTime>1995-02-01T11:12:00</dateTime>
+                </perishability_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>Acknowledgement_Requested</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>Reply_Requested</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+                <response_data_group>
+                  <dateTime>2014-01-01T01:01:01</dateTime>
+                  <r_c>
+                    <value>OK_CANTPRO</value>
+                  </r_c>
+                  <cantco_reason_code>
+                    <value>OK_Tactical_Situation</value>
+                  </cantco_reason_code>
+                  <cantpro_reason_code>
+                    <value>OK_Certificate_invalid_29</value>
+                  </cantpro_reason_code>
+                  <reply_amplification>
+                    <value>up to 50 chars in this amplification statement 123</value>
+                  </reply_amplification>
+                </response_data_group>
+                <reference_message_data_group>
+                  <item>
+                    <unit_name>
+                      <value>SOMEUNIT up to 64 characters long sure up to 64 characters long</value>
+                    </unit_name>
+                    <dateTime>2001-01-01T01:01:01</dateTime>
+                  </item>
+                  <item>
+                    <urn>
+                      <value>98765</value>
+                    </urn>
+                    <timeStatus>
+                      <seconds>No_Statement</seconds>
+                    </timeStatus>
+                    <dateTime>2014-02-03T04:05:00</dateTime>
+                  </item>
+                </reference_message_data_group>
+                <future/>
+                <message_security_group>
+                  <security_parameters_information>
+                    <value>OK_Authentication_No_Encryption</value>
+                  </security_parameters_information>
+                  <keying_material_group>
+                    <keying_material_id_length>
+                      <value>3</value>
+                    </keying_material_id_length>
+                    <keying_material_id>
+                      <value>DEADBEEF</value>
+                    </keying_material_id>
+                  </keying_material_group>
+                  <cryptographic_initialization_group>
+                    <cryptographic_initialization_length>
+                      <value>0</value>
+                    </cryptographic_initialization_length>
+                    <cryptographic_initialization>
+                      <value>DEADBEEFDEADBEEF</value>
+                    </cryptographic_initialization>
+                  </cryptographic_initialization_group>
+                  <key_token_group>
+                    <key_token_length>
+                      <value>0</value>
+                    </key_token_length>
+                    <key_token>
+                      <item>
+                        <value>DEADBEEFDEADBEEF</value>
+                      </item>
+                    </key_token>
+                  </key_token_group>
+                  <authentication_data_a_group>
+                    <authentication_data_length>
+                      <value>4</value>
+                    </authentication_data_length>
+                    <authentication_data>
+                      <value>C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B</value>
+                    </authentication_data>
+                  </authentication_data_a_group>
+                  <authentication_data_b_group>
+                    <authentication_data_length>
+                      <value>4</value>
+                    </authentication_data_length>
+                    <authentication_data>
+                      <value>C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B</value>
+                    </authentication_data>
+                  </authentication_data_b_group>
+                  <signed_acknowledge_request_indicator>
+                    <value>Signed_Response_Requested</value>
+                  </signed_acknowledge_request_indicator>
+                  <message_security_padding_group>
+                    <message_security_padding_length>
+                      <value>4</value>
+                    </message_security_padding_length>
+                    <message_security_padding>
+                      <value>DEADBEEF</value>
+                    </message_security_padding>
+                  </message_security_padding_group>
+                </message_security_group>
+              </item>
+            </message_handling_group>
+            <future/>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+    <document bitOrder="LSBFirst">
+      <documentPart type="byte" byteOrder="LTR"><![CDATA[
+        B43EE5E973DA1DA6BFE5FFE7C000A8B43C4EC3D365375DF6A7B43C4EC3D36537
+        7DF6BF4C428026DDE6B7BC1DA6A7DF6ED99F49B7F92D6F87E9E9B77BF60F2800
+        CA7C85FAF377BB6C4CB3CBB0574C36A3D56C375CEE1593CD6835DB0D9783C564
+        335ACD76C3E55E31D98C56B3DD70B9574C36A3D56C375C0EE62AE3E9010020F2
+        0005189020FC6D7715F895B0987F3B228420A0DEADC341F437A806038DD161F9
+        1C947683E8E8F41C146EC3D969737A1CA6A7DF6ED09C1EA697DB65371D1493CD
+        76FA6C16ABCE2415548783E86F908D061AA3C3F2F0985E96CF41ECB7FB0C9AD7
+        E565501D0EA2BF41361A688C0ECBC3637A593E07B1DFEEF33F102104019B0303
+        386490E207C279B7FABE07EF56DF77EF56DFF700BD5B7DDFBD5B7DDF79B7FABE
+        7BB7FABE27206373DBB6E8D256459BD063917C5B7D7CD188070107CD4AF2E5AA
+        C5567E60DC720D4190D96AB02E26206373DBB6E8D256459BD063917C5B7D7CD1
+        88070107CD4AF2E5AAC5567E60DC720D4190D96AB02E4ED0BBD5F71D34E7EF76
+        D99866975DE430FD1F0000220F404082F0B7DD55E057C262FEED881082807AB7
+        0E07D1DFA01A0C344687E57350DA0DA2A3D37350B80D67A7CDE971989E7EBB41
+        737A985E6E97DD74504C36DBE9B359AC3A9354501D0EA2BF41361A688C0ECBC3
+        637A593E07B1DFEE33685E979741753888FE06D968A0313A2C0F8FE965F91CC4
+        7EBBCFFF408410046C0E0CE090418A1F08E7DDEAFB1EBC5B7DDFBD5B7DDF03F0
+        6EF57DF76EF57D4F40C6E6B66DD1A5AD8A36A1C722F9B6FAF8A2110F020E9A95
+        E4CB558BADFCC0B8E51A8220B3D5605D4C40C6E6B66DD1A5AD8A36A1C722F9B6
+        FAF8A2110F020E9A95E4CB558BADFCC0B8E51A8220B3D5605D9CA077ABEF3B00
+      ]]></documentPart>
+    </document>
+  </unparserTestCase>
+
+</testSuite>
+

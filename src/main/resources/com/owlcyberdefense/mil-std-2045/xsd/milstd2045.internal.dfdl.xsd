@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <![CDATA[
+
+Copyright (c) 2014-2022 Owl Cyber Defense. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal with
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimers.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimers in the
+    documentation and/or other materials provided with the distribution.
+
+ 3. Neither the names of Owl Cyber Defense, nor the names of its contributors
+    may be used to endorse or promote products derived from this Software
+  without specific prior written permission.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+SOFTWARE.
+  ]]> -->
+<schema
+  targetNamespace="urn:milstd2045DFDLInternal"
+  xmlns:tns="urn:milstd2045DFDLInternal"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  elementFormDefault="unqualified">
+
+  <include schemaLocation="milstd2045.internal_PI.dfdl.xsd"/>
+
+  <!-- This file exists to avoid polluting the namespace. I.e., the primary namespace 
+    of symbols that a user of the DFDL Schema will need to use should ONLY have symbols 
+    they may need to use. Implementation dependent symbols go in an explicitly milstd2045DFDLInternal 
+    namespace that will not be bound to a prefix by most of the DFDL Schemas for milstd2045 
+    or related standards. -->
+
+  <annotation>
+    <appinfo source="http://www.ogf.org/dfdl/">
+
+      <!--
+      the default format makes sequences behave properly, but every element
+      needs an explicit dfdl:ref to provide its length kind and (if optional or repeating)
+      occursCountKind.
+      -->
+
+      <dfdl:format ref="tns:msBase"/>
+    </appinfo>
+  </annotation>
+
+  <!-- MS2045 String Model -->
+
+  <group name="tString32">
+    <sequence>
+      <element name="value" type="xs:string" dfdl:lengthKind="pattern"
+               dfdl:lengthPattern="[^\x7F]{0,31}(?=\x7F)|.{32}"/>
+      <sequence
+        dfdl:terminator="{if (fn:string-length(./value) eq 32) then '%ES;' else '%DEL;'}"/>
+    </sequence>
+  </group>
+
+  <group name="tString50">
+    <sequence>
+      <element name="value" type="xs:string" dfdl:lengthKind="pattern"
+               dfdl:lengthPattern="[^\x7F]{0,49}(?=\x7F)|.{50}"/>
+      <sequence
+        dfdl:terminator="{if (fn:string-length(./value) eq 50) then '%ES;' else '%DEL;'}"/>
+    </sequence>
+  </group>
+
+  <group name="tString64">
+    <sequence>
+      <element name="value" type="xs:string" dfdl:lengthKind="pattern"
+               dfdl:lengthPattern="[^\x7F]{0,63}(?=\x7F)|.{64}"/>
+      <sequence
+        dfdl:terminator="{if (fn:string-length(./value) eq 64) then '%ES;' else '%DEL;'}"/>
+    </sequence>
+  </group>
+
+</schema>

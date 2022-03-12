@@ -1,10 +1,10 @@
-package com.tresys.mil_std_2045
+package com.owlcyberdefense.mil_std_2045
 import org.junit.Test
 import org.apache.daffodil.tdml.DFDLTestSuite
 import org.apache.daffodil.util.Misc
 
 object Test2045Hdr {
-  val testDir = "com/tresys/mil-std-2045/"
+  val testDir = "com/owlcyberdefense/mil-std-2045/"
   val aa = testDir + "milstd2045.tdml"
   val validateTDML = true
   val validateDFDLSchema = true
@@ -26,12 +26,12 @@ class Test2045Hdr {
     runner.runOneTest("stringWSPBug")
   }
 
-  @Test def test_presenceByChoice1() {
-    runner.runOneTest("presenceByChoice1")
+  @Test def test_presence1() {
+    runner.runOneTest("presence1")
   }
 
-  @Test def test_presenceByChoice2() {
-    runner.runOneTest("presenceByChoice2")
+  @Test def test_presence2() {
+    runner.runOneTest("presence2")
   }
 
   @Test def test_recurrenceField1() {
@@ -101,4 +101,10 @@ class Test2045Hdr {
   @Test def test_2045_C_minimum_size_acknoledgement() {
     runner.runOneTest("test_2045_C_minimum_size_acknoledgement")
   }
+
+  @Test def test_2045_D1_all_fields() {
+    runner.runOneTest("test_2045_D1_all_fields")
+  }
+
+
 }

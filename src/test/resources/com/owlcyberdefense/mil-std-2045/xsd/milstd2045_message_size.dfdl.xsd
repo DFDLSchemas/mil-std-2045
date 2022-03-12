@@ -1,5 +1,6 @@
-
-Copyright (c) 2014-2022 Owl Cyber Defense. All Rights Reserved.
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+Copyright (c) 2014-2022 Owl Cyber Defense. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal with
@@ -26,3 +27,39 @@ CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
 SOFTWARE.
+-->
+<schema
+  targetNamespace="urn:milstd2045DFDLMessageSize"
+  xmlns:tns="urn:milstd2045DFDLMessageSize"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:ms="urn:milstd2045DFDL"
+  elementFormDefault="unqualified">
+
+  <import namespace="urn:milstd2045DFDL"
+          schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.common.dfdl.xsd"/>
+
+  <annotation>
+    <appinfo source="http://www.ogf.org/dfdl/">
+      <dfdl:format ref="ms:msCommon"/>
+    </appinfo>
+  </annotation>
+
+  <complexType name="message_size_type">
+    <sequence>
+      <!-- users of milstd2045 will likely want to copy this file into their
+             project and add a dfdl:outputValueCalc property to calculate
+             the length of a message. A typical implementation will probably
+             look something like:
+             dfdl:outputValueCalc="{
+               dfdl:valueLength(/messageRoot/message[dfdl:occursIndex], 'bytes')
+             }"
+          -->
+      <element name="value" type="ms:tIntField" dfdl:length="20"/>
+    </sequence>
+  </complexType>
+
+</schema>
+

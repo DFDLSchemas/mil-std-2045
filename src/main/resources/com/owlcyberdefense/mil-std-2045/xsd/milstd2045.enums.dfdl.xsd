@@ -1,0 +1,1109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (c) 2014-2022 Owl Cyber Defense. All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal with
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimers.
+
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimers in the
+    documentation and/or other materials provided with the distribution.
+
+ 3. Neither the names of Owl Cyber Defense, nor the names of its contributors
+    may be used to endorse or promote products derived from this Software
+  without specific prior written permission.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
+SOFTWARE.
+-->
+
+<schema targetNamespace="urn:milstd2045DFDL"
+        xmlns:tns="urn:milstd2045DFDL"
+        xmlns:msi="urn:milstd2045DFDLInternal"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+        xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:fn="http://www.w3.org/2005/xpath-functions"
+        elementFormDefault="unqualified">
+
+  <import namespace="urn:milstd2045DFDLInternal"
+          schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd"/>
+
+  <annotation>
+    <appinfo source="http://www.ogf.org/dfdl/">
+      <dfdl:format lengthKind='implicit' ref="msi:msBase"/>
+    </appinfo>
+  </annotation>
+
+  <simpleType name="checkedInt" dfdl:lengthKind="explicit">
+    <annotation>
+      <appinfo source="http://www.ogf.org/dfdl/">
+        <dfdl:assert>{ dfdl:checkConstraints(.) }</dfdl:assert>
+      </appinfo>
+    </annotation>
+    <restriction base="xs:unsignedInt"/>
+  </simpleType>
+
+  <simpleType name="enumBase">
+    <restriction base="tns:checkedInt"/>
+  </simpleType>
+
+  <simpleType name="enum1" dfdl:length="1">
+    <xs:restriction base="tns:enumBase"/>
+  </simpleType>
+
+  <simpleType name="enum2" dfdl:length="2">
+    <xs:restriction base="tns:enumBase"/>
+  </simpleType>
+
+  <simpleType name="enum3" dfdl:length="3">
+    <xs:restriction base="tns:enumBase"/>
+  </simpleType>
+
+  <simpleType name="enum4" dfdl:length="4">
+    <xs:restriction base="tns:enumBase"/>
+  </simpleType>
+
+  <simpleType name="enum5" dfdl:length="5">
+    <xs:restriction base="tns:enumBase"/>
+  </simpleType>
+
+  <simpleType name="enum6" dfdl:length="6">
+    <xs:restriction base="tns:enumBase"/>
+  </simpleType>
+
+  <simpleType name="enum9" dfdl:length="9">
+    <xs:restriction base="tns:enumBase"/>
+  </simpleType>
+
+  <!--
+    Workaround for DAFFODIL-2596
+    for the enum restiction base, must specify delimited
+   -->
+  <xs:simpleType name="enumString" dfdl:lengthKind="delimited">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <!--
+  Used to create invalid element values on purpose
+  -->
+  <simpleType name="invalidEnum">
+    <restriction base="xs:string">
+      <pattern value="OK_.*"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="versionEnum" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="base" dfdlx:repValues="0"/>
+      <enumeration value="B" dfdlx:repValues="1"/>
+      <enumeration value="C" dfdlx:repValues="2"/>
+      <enumeration value="D" dfdlx:repValues="3"/>
+      <enumeration value="D1" dfdlx:repValues="4"/>
+      <enumeration value="Undefined_05" dfdlx:repValues="5"/>
+      <enumeration value="Undefined_06" dfdlx:repValues="6"/>
+      <enumeration value="Undefined_07" dfdlx:repValues="7"/>
+      <enumeration value="Undefined_08" dfdlx:repValues="8"/>
+      <enumeration value="Undefined_09" dfdlx:repValues="9"/>
+      <enumeration value="Undefined_10" dfdlx:repValues="10"/>
+      <enumeration value="Undefined_11" dfdlx:repValues="11"/>
+      <enumeration value="Undefined_12" dfdlx:repValues="12"/>
+      <enumeration value="Undefined_13" dfdlx:repValues="13"/>
+      <enumeration value="Undefined_14" dfdlx:repValues="14"/>
+      <enumeration value="NotImplemented" dfdlx:repValues="15"/>
+      <pattern value="C|D1"/><!-- only these 2 are valid and implemented so far -->
+    </restriction>
+  </simpleType>
+
+  <simpleType name="dataCompressionEnum" dfdlx:repType="tns:enum2">
+    <restriction base="tns:enumString">
+      <enumeration value="LZW" dfdlx:repValues="0"/>
+      <enumeration value="GZIP" dfdlx:repValues="1"/>
+      <pattern value="OK_*"/><!-- none of these are implemented yet -->
+    </restriction>
+  </simpleType>
+
+  <simpleType name="umfEnum" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="OK_Link_16" dfdlx:repValues="0"/>
+      <enumeration value="OK_Binary_File" dfdlx:repValues="1"/>
+      <enumeration value="OK_VMF" dfdlx:repValues="2"/>
+      <enumeration value="OK_NITFS" dfdlx:repValues="3"/>
+      <enumeration value="OK_RDM" dfdlx:repValues="4"/>
+      <enumeration value="OK_USMTF" dfdlx:repValues="5"/>
+      <enumeration value="OK_USMTF-DOI-103" dfdlx:repValues="6"/>
+      <enumeration value="OK_XML-MTF" dfdlx:repValues="7"/>
+      <enumeration value="OK_XML-VMF" dfdlx:repValues="8"/>
+      <!--
+      This pattern facet insures that only the above "OK" values are
+      considered valid.
+      -->
+      <pattern value="OK_.*"/>
+      <!--
+      The remaining enums don't have OK_ prefixes, so will be
+      considered well-formed, but won't pass validation, as
+      both the pattern AND one of the enumerations must be
+      satisfied.
+      -->
+      <enumeration value="Undefined_09" dfdlx:repValues="9"/>
+      <enumeration value="Undefined_10" dfdlx:repValues="10"/>
+      <enumeration value="Undefined_11" dfdlx:repValues="11"/>
+      <enumeration value="Undefined_12" dfdlx:repValues="12"/>
+      <enumeration value="Undefined_13" dfdlx:repValues="13"/>
+      <enumeration value="Undefined_14" dfdlx:repValues="14"/>
+      <enumeration value="Undefined_15" dfdlx:repValues="15"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="messsageStandardVersionLink16Enum" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="OK_6016" dfdlx:repValues="0"/>
+      <enumeration value="OK_6016A" dfdlx:repValues="1"/>
+      <enumeration value="OK_6016B" dfdlx:repValues="2"/>
+      <enumeration value="OK_6016C" dfdlx:repValues="3"/>
+      <enumeration value="OK_6016D" dfdlx:repValues="4"/>
+      <enumeration value="OK_6016E" dfdlx:repValues="5"/>
+      <enumeration value="OK_6016F" dfdlx:repValues="6"/>
+      <enumeration value="OK_6016G" dfdlx:repValues="7"/>
+      <enumeration value="OK_6016H" dfdlx:repValues="8"/>
+      <enumeration value="OK_6016I" dfdlx:repValues="9"/>
+      <enumeration value="OK_6016J" dfdlx:repValues="10"/><!-- Reserved in rev C -->
+      <enumeration value="OK_6016K" dfdlx:repValues="11"/><!-- Reserved in rev C -->
+      <enumeration value="OK_6016L" dfdlx:repValues="12"/><!-- Reserved in rev C -->
+      <enumeration value="OK_6016M" dfdlx:repValues="13"/><!-- Reserved in rev C -->
+      <enumeration value="OK_6016N" dfdlx:repValues="14"/><!-- Reserved in rev C -->
+      <enumeration value="OK_6016O" dfdlx:repValues="15"/><!-- Reserved in rev C -->
+    </restriction>
+  </simpleType>
+
+  <simpleType name="messsageStandardVersionVMFEnum" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="OK_TIDP-TE_R2" dfdlx:repValues="0"/>
+      <enumeration value="OK_TIDP-TE_R3" dfdlx:repValues="1"/>
+      <enumeration value="OK_TIDP-TE_R4" dfdlx:repValues="2"/>
+      <enumeration value="OK_TIDP-TE_R5" dfdlx:repValues="3"/>
+      <enumeration value="OK_TIDP-TE_R6" dfdlx:repValues="4"/><!-- rev D1 calls this TIDP-FTE-R6 -->
+      <!--
+      The rev C and D1 spec documents differ on this enum in an incompatible way.
+
+      In rev C, value 5 is for TIDP-TE-R7. In rev D1 value 5 is for 6017 (i.e, base revision)
+      Thereafter they are all off-by-one.
+      In rev C, 6017 is value 6, but in rev D1 it is 5
+      In rev C, 6017A is value 7, but in rev D1 it is 6.
+
+      This is as likely to be a mistake in one of the spec documents
+      and not an actual de-facto change in the underlying format coming from
+      real systems.
+
+      If this header is composed with a DFDL schema for VMF, then this
+      field could be used to select different VMF versions; hence,
+      getting this right is important.
+
+      Today however, the VMF DFDL schemas (That I know of) do not do this
+      dynamic switching. They are for a specific VMF revision.
+
+      Resolution (for now) is to use the Rev C enum numbering, but add the new rev D1 enum
+      values. This is consistent with some test data we have seen for VMF.
+
+      -->
+      <enumeration value="OK_TIDP-TE_R7" dfdlx:repValues="5"/><!-- this definition missing in rev D1 spec -->
+      <enumeration value="OK_6017" dfdlx:repValues="6"/>
+      <enumeration value="OK_6017A" dfdlx:repValues="7"/>
+      <enumeration value="OK_6017B" dfdlx:repValues="8"/>
+      <enumeration value="OK_6017C" dfdlx:repValues="9"/>
+      <enumeration value="OK_6017D" dfdlx:repValues="10"/><!-- D1 spec defines values for D and E -->
+      <enumeration value="OK_6017E" dfdlx:repValues="11"/>
+
+      <!-- From D1 Spec -->
+      <!--
+      <enumeration value="OK_6017" dfdlx:repValues="5"/>
+      <enumeration value="OK_6017A" dfdlx:repValues="6"/>
+      <enumeration value="OK_6017B" dfdlx:repValues="7"/>
+      <enumeration value="OK_6017C" dfdlx:repValues="8"/>
+      <enumeration value="OK_6017D" dfdlx:repValues="9"/>
+      <enumeration value="OK_6017E" dfdlx:repValues="10"/>
+      <enumeration value="Reserved_11" dfdlx:repValues="11"/>
+      -->
+      <enumeration value="Reserved_12" dfdlx:repValues="12"/>
+      <enumeration value="Reserved_13" dfdlx:repValues="13"/>
+      <enumeration value="Reserved_14" dfdlx:repValues="14"/>
+      <enumeration value="Reserved_15" dfdlx:repValues="15"/>
+      <pattern value="OK_.*"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="messsageStandardVersionNITFSEnum" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="OK_2500B_Notice_2" dfdlx:repValues="0"/><!-- Undefined in rev C -->
+      <!--
+      This pattern facet insures that only the above "OK" values are
+      considered valid.
+      -->
+      <pattern value="OK_.*"/>
+      <!--
+      The remaining enums don't have OK_ prefixes, so will be
+      considered well-formed, but won't pass validation, as
+      both the pattern AND one of the enumerations must be
+      satisfied.
+      -->
+      <enumeration value="Undefined_01" dfdlx:repValues="1"/>
+      <enumeration value="Undefined_02" dfdlx:repValues="2"/>
+      <enumeration value="Undefined_03" dfdlx:repValues="3"/>
+      <enumeration value="Undefined_04" dfdlx:repValues="4"/>
+      <enumeration value="Undefined_05" dfdlx:repValues="5"/>
+      <enumeration value="Undefined_06" dfdlx:repValues="6"/>
+      <enumeration value="Undefined_07" dfdlx:repValues="7"/>
+      <enumeration value="Undefined_08" dfdlx:repValues="8"/>
+      <enumeration value="Undefined_09" dfdlx:repValues="9"/>
+      <enumeration value="Undefined_10" dfdlx:repValues="10"/>
+      <enumeration value="Undefined_11" dfdlx:repValues="11"/>
+      <enumeration value="Undefined_12" dfdlx:repValues="12"/>
+      <enumeration value="Undefined_13" dfdlx:repValues="13"/>
+      <enumeration value="Undefined_14" dfdlx:repValues="14"/>
+      <enumeration value="Undefined_15" dfdlx:repValues="15"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="messsageStandardVersionUSMTFEnum" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="OK_1993" dfdlx:repValues="0"/>
+      <enumeration value="OK_1995" dfdlx:repValues="1"/>
+      <enumeration value="OK_1997" dfdlx:repValues="2"/>
+      <enumeration value="OK_1998" dfdlx:repValues="3"/>
+      <enumeration value="OK_1999" dfdlx:repValues="4"/>
+      <enumeration value="OK_2000" dfdlx:repValues="5"/>
+      <enumeration value="OK_2001" dfdlx:repValues="6"/>
+      <enumeration value="OK_2002" dfdlx:repValues="7"/>
+      <enumeration value="OK_2003" dfdlx:repValues="8"/>
+      <enumeration value="OK_2004" dfdlx:repValues="9"/>
+      <enumeration value="OK_2005" dfdlx:repValues="10"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2006" dfdlx:repValues="11"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2007" dfdlx:repValues="12"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2008" dfdlx:repValues="13"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2009" dfdlx:repValues="14"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2010" dfdlx:repValues="15"/><!-- Reserved in rev C -->
+    </restriction>
+  </simpleType>
+
+  <simpleType name="messsageStandardVersionXML_MTFEnum" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="Undefined_00" dfdlx:repValues="0"/>
+      <enumeration value="Undefined_01" dfdlx:repValues="1"/>
+      <enumeration value="Undefined_02" dfdlx:repValues="2"/>
+      <enumeration value="Undefined_03" dfdlx:repValues="3"/>
+      <enumeration value="Undefined_04" dfdlx:repValues="4"/>
+      <enumeration value="Undefined_05" dfdlx:repValues="5"/>
+      <!--
+      This pattern facet insures that only the above "OK" values are
+      considered valid.
+      -->
+      <pattern value="OK_.*"/>
+      <!--
+      The remaining enums don't have OK_ prefixes, so will be
+      considered well-formed, but won't pass validation, as
+      both the pattern AND one of the enumerations must be
+      satisfied.
+      -->
+      <enumeration value="OK_2001" dfdlx:repValues="6"/>
+      <enumeration value="OK_2002" dfdlx:repValues="7"/>
+      <enumeration value="OK_2003" dfdlx:repValues="8"/>
+      <enumeration value="OK_2004" dfdlx:repValues="9"/>
+      <enumeration value="OK_2005" dfdlx:repValues="10"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2006" dfdlx:repValues="11"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2007" dfdlx:repValues="12"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2008" dfdlx:repValues="13"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2009" dfdlx:repValues="14"/><!-- Reserved in rev C -->
+      <enumeration value="OK_2010" dfdlx:repValues="15"/><!-- Reserved in rev C -->
+    </restriction>
+  </simpleType>
+
+  <simpleType name="messsageStandardVersionXML_VMFEnum" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="Undefined_00" dfdlx:repValues="0"/>
+      <enumeration value="Undefined_01" dfdlx:repValues="1"/>
+      <enumeration value="Undefined_02" dfdlx:repValues="2"/>
+      <enumeration value="OK_TIDP-TE_R5" dfdlx:repValues="3"/>
+      <enumeration value="OK_TIDP-TE_R6" dfdlx:repValues="4"/>
+      <!--
+      Please see the comment about C vs. D1 incompatibility in the
+      messageStandardVersionVMFEnum. This enum has the same problem.
+      -->
+      <enumeration value="OK_TIDP-TE_R7" dfdlx:repValues="5"/><!-- this definition missing in rev D1 spec -->
+      <enumeration value="OK_6017" dfdlx:repValues="6"/>
+      <enumeration value="OK_6017A" dfdlx:repValues="7"/>
+      <enumeration value="OK_6017B" dfdlx:repValues="8"/>
+      <enumeration value="OK_6017C" dfdlx:repValues="9"/>
+      <enumeration value="OK_6017D" dfdlx:repValues="10"/><!-- Reserved in rev C -->
+      <enumeration value="OK_6017E" dfdlx:repValues="11"/><!-- Reserved in rev C -->
+
+      <!-- From D1 Spec -->
+      <!--
+      <enumeration value="OK_6017" dfdlx:repValues="5"/>
+      <enumeration value="OK_6017A" dfdlx:repValues="6"/>
+      <enumeration value="OK_6017B" dfdlx:repValues="7"/>
+      <enumeration value="OK_6017C" dfdlx:repValues="8"/>
+      <enumeration value="OK_6017D" dfdlx:repValues="9"/>
+      <enumeration value="OK_6017E" dfdlx:repValues="10"/>
+      <enumeration value="Reserved_11" dfdlx:repValues="11"/>
+      -->
+      <enumeration value="Reserved_12" dfdlx:repValues="12"/>
+      <enumeration value="Reserved_13" dfdlx:repValues="13"/>
+      <enumeration value="Reserved_14" dfdlx:repValues="14"/>
+      <enumeration value="Reserved_15" dfdlx:repValues="15"/>
+      <pattern value="OK_.*"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="cantcoReasonCodewordsEnum" dfdlx:repType="tns:enum3">
+    <restriction base="tns:enumString">
+      <enumeration value="OK_Communications" dfdlx:repValues="0"/>
+      <enumeration value="OK_Ammunition" dfdlx:repValues="1"/>
+      <enumeration value="OK_Personnel" dfdlx:repValues="2"/>
+      <enumeration value="OK_Fuel" dfdlx:repValues="3"/>
+      <enumeration value="OK_Terrain_Environment" dfdlx:repValues="4"/>
+      <enumeration value="OK_Equipment" dfdlx:repValues="5"/>
+      <enumeration value="OK_Tactical_Situation" dfdlx:repValues="6"/>
+      <enumeration value="OK_Other" dfdlx:repValues="7"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="cantproReasonCodewordsEnum" dfdlx:repType="tns:enum6">
+    <restriction base="tns:enumString">
+      <enumeration value="Undefined_00" dfdlx:repValues="0"/>
+      <enumeration value="OK_Field_content_invalid_01" dfdlx:repValues="1"/>
+      <enumeration value="OK_Message_incorrectly_routed_02" dfdlx:repValues="2"/>
+      <enumeration value="OK_Address_inactive_03" dfdlx:repValues="3"/>
+      <enumeration value="OK_Reference_point_unknown_to_receiving_agency_04" dfdlx:repValues="4"/>
+      <enumeration value="OK_Fire_units_shall_be_controlled_by_receiving_agency_05" dfdlx:repValues="5"/>
+      <enumeration value="OK_Mission_shall_be_controlled_by_receiving_agency_06" dfdlx:repValues="6"/>
+      <enumeration value="OK_Mission_number_unknown_by_receiving_agency_07" dfdlx:repValues="7"/>
+      <enumeration value="OK_Target_number_unknown_by_receiving_agency_08" dfdlx:repValues="8"/>
+      <enumeration value="OK_Schedule_number_unknown_by_receiving_agency_09" dfdlx:repValues="9"/>
+      <enumeration value="OK_Incorrect_controlling_address_for_a_given_track_number_10" dfdlx:repValues="10"/>
+      <enumeration value="OK_Track_number_not_in_own_track_file_11" dfdlx:repValues="11"/>
+      <enumeration value="OK_Invalid_according_to_given_field_12" dfdlx:repValues="12"/>
+      <enumeration value="OK_Message_cannot_be_converted_13" dfdlx:repValues="13"/>
+      <enumeration value="OK_Agency_file_full_14" dfdlx:repValues="14"/>
+      <enumeration value="OK_Agency_does_not_recognize_this_message_number_15" dfdlx:repValues="15"/>
+      <enumeration value="OK_Agency_cannot_correlate_message_to_current_file_content_16" dfdlx:repValues="16"/>
+      <enumeration value="OK_Agency_limit_exceeded_on_repeated_fields_or_groups_17" dfdlx:repValues="17"/>
+      <enumeration value="OK_Agency_computer_system_inactive_18" dfdlx:repValues="18"/>
+      <enumeration value="OK_Addressee_unknown_19" dfdlx:repValues="19"/>
+      <enumeration value="OK_Can’t_forward_(agency_failure_20" dfdlx:repValues="20"/>
+      <enumeration value="OK_Can’t_forward_(link_failure_21" dfdlx:repValues="21"/>
+      <enumeration value="OK_Illogical_juxtaposition_of_header_fields_22" dfdlx:repValues="22"/>
+      <enumeration value="OK_Cannot_uncompress_Unix_(LZW)_compressed_data_23" dfdlx:repValues="23"/>
+      <enumeration value="OK_Cannot_uncompress_LZ-77_compressed_data_24" dfdlx:repValues="24"/>
+      <enumeration value="OK_Message_too_old,_based_on_Perishability_25" dfdlx:repValues="25"/>
+      <enumeration value="OK_Security_level_restriction_26" dfdlx:repValues="26"/>
+      <enumeration value="OK_Authentication_Failure_27" dfdlx:repValues="27"/>
+      <enumeration value="OK_Certificate_not_found_28" dfdlx:repValues="28"/>
+      <enumeration value="OK_Certificate_invalid_29" dfdlx:repValues="29"/>
+      <enumeration value="OK_Do_not_support_this_SPI_value_30" dfdlx:repValues="30"/>
+      <enumeration value="OK_Can_not_generate_a_signed_acknowledgement_31" dfdlx:repValues="31"/>
+      <enumeration value="OK_Response_not_available_for_retransmission_32" dfdlx:repValues="32"/>
+      <!--
+      This pattern facet insures that only the above "OK" values are
+      considered valid.
+      -->
+      <pattern value="OK_.*"/>
+      <!--
+      The remaining enums don't have OK_ prefixes, so will be
+      considered well-formed, but won't pass validation, as
+      both the pattern AND one of the enumerations must be
+      satisfied.
+      -->
+      <enumeration value="Undefined_33" dfdlx:repValues="33"/>
+      <enumeration value="Undefined_34" dfdlx:repValues="34"/>
+      <enumeration value="Undefined_35" dfdlx:repValues="35"/>
+      <enumeration value="Undefined_36" dfdlx:repValues="36"/>
+      <enumeration value="Undefined_37" dfdlx:repValues="37"/>
+      <enumeration value="Undefined_38" dfdlx:repValues="38"/>
+      <enumeration value="Undefined_39" dfdlx:repValues="39"/>
+      <enumeration value="Undefined_40" dfdlx:repValues="40"/>
+      <enumeration value="Undefined_41" dfdlx:repValues="41"/>
+      <enumeration value="Undefined_42" dfdlx:repValues="42"/>
+      <enumeration value="Undefined_43" dfdlx:repValues="43"/>
+      <enumeration value="Undefined_44" dfdlx:repValues="44"/>
+      <enumeration value="Undefined_45" dfdlx:repValues="45"/>
+      <enumeration value="Undefined_46" dfdlx:repValues="46"/>
+      <enumeration value="Undefined_47" dfdlx:repValues="47"/>
+      <enumeration value="Undefined_48" dfdlx:repValues="48"/>
+      <enumeration value="Undefined_49" dfdlx:repValues="49"/>
+      <enumeration value="Undefined_50" dfdlx:repValues="50"/>
+      <enumeration value="Undefined_51" dfdlx:repValues="51"/>
+      <enumeration value="Undefined_52" dfdlx:repValues="52"/>
+      <enumeration value="Undefined_53" dfdlx:repValues="53"/>
+      <enumeration value="Undefined_54" dfdlx:repValues="54"/>
+      <enumeration value="Undefined_55" dfdlx:repValues="55"/>
+      <enumeration value="Undefined_56" dfdlx:repValues="56"/>
+      <enumeration value="Undefined_57" dfdlx:repValues="57"/>
+      <enumeration value="Undefined_58" dfdlx:repValues="58"/>
+      <enumeration value="Undefined_59" dfdlx:repValues="59"/>
+      <enumeration value="Undefined_60" dfdlx:repValues="60"/>
+      <enumeration value="Undefined_61" dfdlx:repValues="61"/>
+      <enumeration value="Undefined_62" dfdlx:repValues="62"/>
+      <enumeration value="Undefined_63" dfdlx:repValues="63"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="operationIndicatorEnum" dfdlx:repType="tns:enum2">
+    <restriction base="tns:enumString">
+      <enumeration value="Operation" dfdlx:repValues="0"/>
+      <enumeration value="Exercise" dfdlx:repValues="1"/>
+      <enumeration value="Simulation" dfdlx:repValues="2"/>
+      <enumeration value="Test" dfdlx:repValues="3"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="retransmitIndicatorEnum" dfdlx:repType="tns:enum1">
+    <restriction base="tns:enumString">
+      <enumeration value="Original_Message" dfdlx:repValues="0"/>
+      <enumeration value="Retransmitted_Message" dfdlx:repValues="1"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="messagePrecedenceEnum" dfdlx:repType="tns:enum3">
+    <restriction base="tns:enumString">
+      <enumeration value="OK_Routine" dfdlx:repValues="0"/>
+      <enumeration value="OK_Priority" dfdlx:repValues="1"/>
+      <enumeration value="OK_Immediate" dfdlx:repValues="2"/>
+      <enumeration value="OK_Flash" dfdlx:repValues="3"/>
+      <enumeration value="OK_Flash_Override" dfdlx:repValues="4"/>
+      <enumeration value="OK_CRITIC_ECP" dfdlx:repValues="5"/>
+      <!--
+      This pattern facet insures that only the above "OK" values are
+      considered valid.
+      -->
+      <pattern value="OK_.*"/>
+      <!--
+      The remaining enums don't have OK_ prefixes, so will be
+      considered well-formed, but won't pass validation, as
+      both the pattern AND one of the enumerations must be
+      satisfied.
+      -->
+      <enumeration value="Reserved_6" dfdlx:repValues="6"/>
+      <enumeration value="Reserved_7" dfdlx:repValues="7"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="securityClassificationEnum" dfdlx:repType="tns:enum2">
+    <restriction base="tns:enumString">
+      <enumeration value="U" dfdlx:repValues="0"/>
+      <enumeration value="C" dfdlx:repValues="1"/>
+      <enumeration value="S" dfdlx:repValues="2"/>
+      <enumeration value="TS" dfdlx:repValues="3"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="receiptComplianceEnum" dfdlx:repType="tns:enum3">
+    <restriction base="tns:enumString">
+      <enumeration value="Undefined_0" dfdlx:repValues="0"/>
+      <enumeration value="OK_MR" dfdlx:repValues="1"/>
+      <enumeration value="OK_CANTPRO" dfdlx:repValues="2"/>
+      <enumeration value="OK_OPRACK" dfdlx:repValues="3"/>
+      <enumeration value="OK_WILCO" dfdlx:repValues="4"/>
+      <enumeration value="OK_HAVECO" dfdlx:repValues="5"/>
+      <enumeration value="OK_CANTCO" dfdlx:repValues="6"/>
+      <!--
+      This pattern facet insures that only the above "OK" values are
+      considered valid.
+      -->
+      <pattern value="OK_.*"/>
+      <!--
+      The remaining enums don't have OK_ prefixes, so will be
+      considered well-formed, but won't pass validation, as
+      both the pattern AND one of the enumerations must be
+      satisfied.
+      -->
+      <enumeration value="Undefined_7" dfdlx:repValues="7"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="securityParameterInformationEnum" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="OK_Authentication_No_Encryption" dfdlx:repValues="0"/>
+      <!--
+      This pattern facet insures that only the above "OK" values are
+      considered valid.
+      -->
+      <pattern value="OK_.*"/>
+      <!--
+      The remaining enums don't have OK_ prefixes, so will be
+      considered well-formed, but won't pass validation, as
+      both the pattern AND one of the enumerations must be
+      satisfied.
+      -->
+      <enumeration value="Undefined_01" dfdlx:repValues="1"/>
+      <enumeration value="Undefined_02" dfdlx:repValues="2"/>
+      <enumeration value="Undefined_03" dfdlx:repValues="3"/>
+      <enumeration value="Undefined_04" dfdlx:repValues="4"/>
+      <enumeration value="Undefined_05" dfdlx:repValues="5"/>
+      <enumeration value="Undefined_06" dfdlx:repValues="6"/>
+      <enumeration value="Undefined_07" dfdlx:repValues="7"/>
+      <enumeration value="Undefined_08" dfdlx:repValues="8"/>
+      <enumeration value="Undefined_09" dfdlx:repValues="9"/>
+      <enumeration value="Undefined_10" dfdlx:repValues="10"/>
+      <enumeration value="Undefined_11" dfdlx:repValues="11"/>
+      <enumeration value="Undefined_12" dfdlx:repValues="12"/>
+      <enumeration value="Undefined_13" dfdlx:repValues="13"/>
+      <enumeration value="Undefined_14" dfdlx:repValues="14"/>
+      <enumeration value="Undefined_15" dfdlx:repValues="15"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="signedAcknowledgeRequestIndicatorEnum" dfdlx:repType="tns:enum1">
+    <restriction base="tns:enumString">
+      <enumeration value="No_Signed_Response_Required" dfdlx:repValues="0"/>
+      <enumeration value="Signed_Response_Requested" dfdlx:repValues="1"/>
+    </restriction>
+  </simpleType>
+
+  <xs:simpleType name="dfi4127_dui005_nationality_Enum" dfdlx:repType="tns:enum9">
+    <xs:restriction base="tns:enumString">
+      <xs:enumeration value="NO_STATEMENT" dfdlx:repValues="0"/>
+      <xs:enumeration value="AFGHANISTAN_(AF)" dfdlx:repValues="1"/>
+      <xs:enumeration value="ALBANIA_(AL)" dfdlx:repValues="2"/>
+      <xs:enumeration value="ALGERIA_(AG)" dfdlx:repValues="3"/>
+      <xs:enumeration value="AMERICAN_SOMOA_(AQ)" dfdlx:repValues="4"/>
+      <xs:enumeration value="ANDORRA_(AN)" dfdlx:repValues="5"/>
+      <xs:enumeration value="ANGOLA_(AO)" dfdlx:repValues="6"/>
+      <xs:enumeration value="ANGUILLA_(AV)" dfdlx:repValues="7"/>
+      <xs:enumeration value="ANTARCTICA_(AY)" dfdlx:repValues="8"/>
+      <xs:enumeration value="ANTIGUA_AND_BARBUDA_(AC)" dfdlx:repValues="9"/>
+      <xs:enumeration value="ARGENTINA_(AR)" dfdlx:repValues="10"/>
+      <xs:enumeration value="ARMENIA_(AM)" dfdlx:repValues="11"/>
+      <xs:enumeration value="ARUBA_(AA)" dfdlx:repValues="12"/>
+      <xs:enumeration value="ASHMORE_AND_CARTER_ISLANDS_(AT)" dfdlx:repValues="13"/>
+      <xs:enumeration value="AUSTRALIA_(AS)" dfdlx:repValues="14"/>
+      <xs:enumeration value="AUSTRIA_(AU)" dfdlx:repValues="15"/>
+      <xs:enumeration value="AZERBAIJAN_(AJ)" dfdlx:repValues="16"/>
+      <xs:enumeration value="BAHAMAS,_THE_(BF)" dfdlx:repValues="17"/>
+      <xs:enumeration value="BAHRAIN_(BA)" dfdlx:repValues="18"/>
+      <xs:enumeration value="BAKER_ISLAND_(FQ)" dfdlx:repValues="19"/>
+      <xs:enumeration value="BANGLADESH_(BG)" dfdlx:repValues="20"/>
+      <xs:enumeration value="BARBADOS_(BB)" dfdlx:repValues="21"/>
+      <xs:enumeration value="BASSAS_DA_INDIA_(BS)" dfdlx:repValues="22"/>
+      <xs:enumeration value="BELARUS_(BO)" dfdlx:repValues="23"/>
+      <xs:enumeration value="BELGIUM_(BE)" dfdlx:repValues="24"/>
+      <xs:enumeration value="BELIZE_(BH)" dfdlx:repValues="25"/>
+      <xs:enumeration value="BENIN_(BN)" dfdlx:repValues="26"/>
+      <xs:enumeration value="BERMUDA_(BD)" dfdlx:repValues="27"/>
+      <xs:enumeration value="BHUTAN_(BT)" dfdlx:repValues="28"/>
+      <xs:enumeration value="BOLIVIA_(BL)" dfdlx:repValues="29"/>
+      <xs:enumeration value="BOZNIA_AND_HERZEGOVINA_(BK)" dfdlx:repValues="30"/>
+      <xs:enumeration value="BOTSWANA_(BC)" dfdlx:repValues="31"/>
+      <xs:enumeration value="BOUVET_ISLAND_(BV)" dfdlx:repValues="32"/>
+      <xs:enumeration value="BRAZIL_(BR)" dfdlx:repValues="33"/>
+      <xs:enumeration value="BRITISH_INDIAN_OCEAN_TERRITORY_(IO)" dfdlx:repValues="34"/>
+      <xs:enumeration value="BRITISH_VIRGIN_ISLANDS_(VI)" dfdlx:repValues="35"/>
+      <xs:enumeration value="BRUNEI_(BX)" dfdlx:repValues="36"/>
+      <xs:enumeration value="BULGARIA_(BU)" dfdlx:repValues="37"/>
+      <xs:enumeration value="BURKINA_FASO_(UV)" dfdlx:repValues="38"/>
+      <xs:enumeration value="BURMA_(BM)" dfdlx:repValues="39"/>
+      <xs:enumeration value="BURUNDI_(BY)" dfdlx:repValues="40"/>
+      <xs:enumeration value="CAMBODIA_(CB)" dfdlx:repValues="41"/>
+      <xs:enumeration value="CAMEROON_(CM)" dfdlx:repValues="42"/>
+      <xs:enumeration value="CANADA_(CA)" dfdlx:repValues="43"/>
+      <xs:enumeration value="CAPE_VERDE_(CV)" dfdlx:repValues="44"/>
+      <xs:enumeration value="CAYMAN_ISLANDS_(CJ)" dfdlx:repValues="45"/>
+      <xs:enumeration value="CENTRAL_AFRICAN_REPUBLIC_(CT)" dfdlx:repValues="46"/>
+      <xs:enumeration value="CHAD_(CD)" dfdlx:repValues="47"/>
+      <xs:enumeration value="CHILE_(CI)" dfdlx:repValues="48"/>
+      <xs:enumeration value="CHINA_(CH)" dfdlx:repValues="49"/>
+      <xs:enumeration value="CHRISTMAS_ISLAND_(KT)" dfdlx:repValues="50"/>
+      <xs:enumeration value="CLIPPERTON_ISLAND_(IP)" dfdlx:repValues="51"/>
+      <xs:enumeration value="COCOS_(KEELING)_ISLANDS_(CK)" dfdlx:repValues="52"/>
+      <xs:enumeration value="COLOMBIA_(CO)" dfdlx:repValues="53"/>
+      <xs:enumeration value="COMOROS_(CN)" dfdlx:repValues="54"/>
+      <xs:enumeration value="CONGO_(CF)" dfdlx:repValues="55"/>
+      <xs:enumeration value="CONGO_(DEMOCRATIC_REPUBLIC_OF_THE)_(CG)" dfdlx:repValues="56"/>
+      <xs:enumeration value="COOK_ISLANDS_(CW)" dfdlx:repValues="57"/>
+      <xs:enumeration value="CORAL_SEA_ISLANDS_(CR)" dfdlx:repValues="58"/>
+      <xs:enumeration value="COSTA_RICA_(CS)" dfdlx:repValues="59"/>
+      <xs:enumeration value="COTE_D'IVOIRE_(IV)" dfdlx:repValues="60"/>
+      <xs:enumeration value="CROATIA_(HR)" dfdlx:repValues="61"/>
+      <xs:enumeration value="CUBA_(CU)" dfdlx:repValues="62"/>
+      <xs:enumeration value="CYPRUS_(CY)" dfdlx:repValues="63"/>
+      <xs:enumeration value="CZECH_REPUBLIC_(EZ)" dfdlx:repValues="64"/>
+      <xs:enumeration value="DENMARK_(DA)" dfdlx:repValues="65"/>
+      <xs:enumeration value="DJIBOUTI_(DJ)" dfdlx:repValues="66"/>
+      <xs:enumeration value="DOMINICA_(DO)" dfdlx:repValues="67"/>
+      <xs:enumeration value="DOMINICAN_REPUBLIC_(DR)" dfdlx:repValues="68"/>
+      <xs:enumeration value="EAST_TIMOR_(TT)" dfdlx:repValues="69"/>
+      <xs:enumeration value="ECUADOR_(EC)" dfdlx:repValues="70"/>
+      <xs:enumeration value="EGYPT_(EG)" dfdlx:repValues="71"/>
+      <xs:enumeration value="EL_SALVADOR_(ES)" dfdlx:repValues="72"/>
+      <xs:enumeration value="EQUATORIAL_GUINEA_(EK)" dfdlx:repValues="73"/>
+      <xs:enumeration value="ERITREA_(ER)" dfdlx:repValues="74"/>
+      <xs:enumeration value="ESTONIA_(EN)" dfdlx:repValues="75"/>
+      <xs:enumeration value="ETHIOPIA_(ET)" dfdlx:repValues="76"/>
+      <xs:enumeration value="EUROPA_ISLAND_(EU)" dfdlx:repValues="77"/>
+      <xs:enumeration value="FALKLAND_ISLANDS_(FK)" dfdlx:repValues="78"/>
+      <xs:enumeration value="FAROE_ISLANDS_(FO)" dfdlx:repValues="79"/>
+      <xs:enumeration value="FIJI_(FJ)" dfdlx:repValues="80"/>
+      <xs:enumeration value="FINLAND_(FI)" dfdlx:repValues="81"/>
+      <xs:enumeration value="FRANCE_(FR)" dfdlx:repValues="82"/>
+      <xs:enumeration value="FRENCH_GUIANA_(FG)" dfdlx:repValues="83"/>
+      <xs:enumeration value="FRENCH_POLYNESIA_(FP)" dfdlx:repValues="84"/>
+      <xs:enumeration value="FRENCH_SOUTHERN_AND_ANTARCTIC_LANDS_(FS)" dfdlx:repValues="85"/>
+      <xs:enumeration value="GABON_(GB)" dfdlx:repValues="86"/>
+      <xs:enumeration value="GAMBIA,_THE_(GA)" dfdlx:repValues="87"/>
+      <xs:enumeration value="GAZA_STRIP_(GZ)" dfdlx:repValues="88"/>
+      <xs:enumeration value="GEORGIA_(GG)" dfdlx:repValues="89"/>
+      <xs:enumeration value="GERMANY_(GM)" dfdlx:repValues="90"/>
+      <xs:enumeration value="GHANA_(GH)" dfdlx:repValues="91"/>
+      <xs:enumeration value="GIBRALTAR_(GI)" dfdlx:repValues="92"/>
+      <xs:enumeration value="GLORIOSO_ISLANDS_(GO)" dfdlx:repValues="93"/>
+      <xs:enumeration value="GREECE_(GR)" dfdlx:repValues="94"/>
+      <xs:enumeration value="GREENLAND_(GL)" dfdlx:repValues="95"/>
+      <xs:enumeration value="GRENADA_(GJ)" dfdlx:repValues="96"/>
+      <xs:enumeration value="GUADELOUPE_(GP)" dfdlx:repValues="97"/>
+      <xs:enumeration value="GUAM_(GQ)" dfdlx:repValues="98"/>
+      <xs:enumeration value="GUATEMALA_(GT)" dfdlx:repValues="99"/>
+      <xs:enumeration value="GUERNSEY_(GK)" dfdlx:repValues="100"/>
+      <xs:enumeration value="GUINEA_(GV)" dfdlx:repValues="101"/>
+      <xs:enumeration value="GUINEA-BISSAU_(PU)" dfdlx:repValues="102"/>
+      <xs:enumeration value="GUYANA_(GY)" dfdlx:repValues="103"/>
+      <xs:enumeration value="HAITI_(HA)" dfdlx:repValues="104"/>
+      <xs:enumeration value="HEARD_ISLAND_AND_MCDONALD_ISLANDS_(HM)" dfdlx:repValues="105"/>
+      <xs:enumeration value="HONDURAS_(HO)" dfdlx:repValues="106"/>
+      <xs:enumeration value="HONG_KONG_(HK)" dfdlx:repValues="107"/>
+      <xs:enumeration value="HOWLAND_ISLAND_(HQ)" dfdlx:repValues="108"/>
+      <xs:enumeration value="HUNGARY_(HU)" dfdlx:repValues="109"/>
+      <xs:enumeration value="ICELAND_(IC)" dfdlx:repValues="110"/>
+      <xs:enumeration value="INDIA_(IN)" dfdlx:repValues="111"/>
+      <xs:enumeration value="INDONESIA_(ID)" dfdlx:repValues="112"/>
+      <xs:enumeration value="IRAN_(IR)" dfdlx:repValues="113"/>
+      <xs:enumeration value="IRAQ_(IZ)" dfdlx:repValues="114"/>
+      <xs:enumeration value="IRELAND_(EI)" dfdlx:repValues="115"/>
+      <xs:enumeration value="ISRAEL_(IS)" dfdlx:repValues="116"/>
+      <xs:enumeration value="ITALY_(IT)" dfdlx:repValues="117"/>
+      <xs:enumeration value="JAMAICA_(JM)" dfdlx:repValues="118"/>
+      <xs:enumeration value="JAN_MAYEN_(JN)" dfdlx:repValues="119"/>
+      <xs:enumeration value="JAPAN_(JA)" dfdlx:repValues="120"/>
+      <xs:enumeration value="JARVIS_ISLAND_(DQ)" dfdlx:repValues="121"/>
+      <xs:enumeration value="JERSEY_(JE)" dfdlx:repValues="122"/>
+      <xs:enumeration value="JOHNSTON_ATOLL_(JQ)" dfdlx:repValues="123"/>
+      <xs:enumeration value="JORDAN_(JO)" dfdlx:repValues="124"/>
+      <xs:enumeration value="JUAN_DE_NOVA_ISLAND_(JU)" dfdlx:repValues="125"/>
+      <xs:enumeration value="KAZAKHSTAN_(KZ)" dfdlx:repValues="126"/>
+      <xs:enumeration value="KENYA_(KE)" dfdlx:repValues="127"/>
+      <xs:enumeration value="KINGMAN_REEF_(KQ)" dfdlx:repValues="128"/>
+      <xs:enumeration value="KIRIBATI_(KR)" dfdlx:repValues="129"/>
+      <xs:enumeration value="KOREA,_DEMOCRATIC_PEOPLES_REPUBLIC_OF_(KN)" dfdlx:repValues="130"/>
+      <xs:enumeration value="KOREA,_REPUBLIC_OF_(KS)" dfdlx:repValues="131"/>
+      <xs:enumeration value="KUWAIT_(KU)" dfdlx:repValues="132"/>
+      <xs:enumeration value="KYRGYZSTAN_(KG)" dfdlx:repValues="133"/>
+      <xs:enumeration value="LAOS_(LA)" dfdlx:repValues="134"/>
+      <xs:enumeration value="LATVIA_(LG)" dfdlx:repValues="135"/>
+      <xs:enumeration value="LEBANON_(LE)" dfdlx:repValues="136"/>
+      <xs:enumeration value="LESOTHO_(LT)" dfdlx:repValues="137"/>
+      <xs:enumeration value="LIBERIA_(LI)" dfdlx:repValues="138"/>
+      <xs:enumeration value="LIBYA_(LY)" dfdlx:repValues="139"/>
+      <xs:enumeration value="LIECHTENSTEIN_(LS)" dfdlx:repValues="140"/>
+      <xs:enumeration value="LITHUANIA_(LH)" dfdlx:repValues="141"/>
+      <xs:enumeration value="LUXEMBOURG_(LU)" dfdlx:repValues="142"/>
+      <xs:enumeration value="MACAU_(MC)" dfdlx:repValues="143"/>
+      <xs:enumeration value="MACEDONIA_(MK)" dfdlx:repValues="144"/>
+      <xs:enumeration value="MADAGASCAR_(MA)" dfdlx:repValues="145"/>
+      <xs:enumeration value="MALAWI_(MI)" dfdlx:repValues="146"/>
+      <xs:enumeration value="MALAYSIA_(MY)" dfdlx:repValues="147"/>
+      <xs:enumeration value="MALDIVES_(MV)" dfdlx:repValues="148"/>
+      <xs:enumeration value="MALI_(ML)" dfdlx:repValues="149"/>
+      <xs:enumeration value="MALTA_(MT)" dfdlx:repValues="150"/>
+      <xs:enumeration value="MAN,_ISLE_OF_(IM)" dfdlx:repValues="151"/>
+      <xs:enumeration value="MARSHALL_ISLANDS_(RM)" dfdlx:repValues="152"/>
+      <xs:enumeration value="MARTINIQUE_(MB)" dfdlx:repValues="153"/>
+      <xs:enumeration value="MAURITANIA_(MR)" dfdlx:repValues="154"/>
+      <xs:enumeration value="MAURITIUS_(MP)" dfdlx:repValues="155"/>
+      <xs:enumeration value="MAYOTTE_(MF)" dfdlx:repValues="156"/>
+      <xs:enumeration value="MEXICO_(MX)" dfdlx:repValues="157"/>
+      <xs:enumeration value="MICRONESIA,_FEDERATED_STATES_OF_(FM)" dfdlx:repValues="158"/>
+      <xs:enumeration value="MIDWAY_ISLANDS_(MQ)" dfdlx:repValues="159"/>
+      <xs:enumeration value="MOLDOVA_(MD)" dfdlx:repValues="160"/>
+      <xs:enumeration value="MONACO_(MN)" dfdlx:repValues="161"/>
+      <xs:enumeration value="MONGOLIA_(MG)" dfdlx:repValues="162"/>
+      <xs:enumeration value="MONTSERRAT_(MH)" dfdlx:repValues="163"/>
+      <xs:enumeration value="MOROCCO_(MO)" dfdlx:repValues="164"/>
+      <xs:enumeration value="MOZAMBIQUE_(MZ)" dfdlx:repValues="165"/>
+      <xs:enumeration value="NAMIBIA_(WA)" dfdlx:repValues="166"/>
+      <xs:enumeration value="NAURU_(NR)" dfdlx:repValues="167"/>
+      <xs:enumeration value="NAVASSA_ISLAND_(BQ)" dfdlx:repValues="168"/>
+      <xs:enumeration value="NEPAL_(NP)" dfdlx:repValues="169"/>
+      <xs:enumeration value="NETHERLANDS_(NL)" dfdlx:repValues="170"/>
+      <xs:enumeration value="NETHERLANDS_ANTILLES_(NT)" dfdlx:repValues="171"/>
+      <xs:enumeration value="NEW_CALEDONIA_(NC)" dfdlx:repValues="172"/>
+      <xs:enumeration value="NEW_ZEALAND_(NZ)" dfdlx:repValues="173"/>
+      <xs:enumeration value="NICARAGUA_(NU)" dfdlx:repValues="174"/>
+      <xs:enumeration value="NIGER_(NG)" dfdlx:repValues="175"/>
+      <xs:enumeration value="NIGERIA_(NI)" dfdlx:repValues="176"/>
+      <xs:enumeration value="NIUE_(NE)" dfdlx:repValues="177"/>
+      <xs:enumeration value="NORFOLK_ISLAND_(NF)" dfdlx:repValues="178"/>
+      <xs:enumeration value="NORTHERN_MARIANA_ISLANDS_(CQ)" dfdlx:repValues="179"/>
+      <xs:enumeration value="NORWAY_(NO)" dfdlx:repValues="180"/>
+      <xs:enumeration value="OMAN_(MU)" dfdlx:repValues="181"/>
+      <xs:enumeration value="OTHER_COUNTRY_(OO)" dfdlx:repValues="182"/>
+      <xs:enumeration value="PAKISTAN_(PK)" dfdlx:repValues="183"/>
+      <xs:enumeration value="PALAU_(PS)" dfdlx:repValues="184"/>
+      <xs:enumeration value="PALMYRA_ATOLL_(LQ)" dfdlx:repValues="185"/>
+      <xs:enumeration value="PANAMA_(PM)" dfdlx:repValues="186"/>
+      <xs:enumeration value="PAPUA_NEW_GUINEA_(PP)" dfdlx:repValues="187"/>
+      <xs:enumeration value="PARACEL_ISLANDS_(PF)" dfdlx:repValues="188"/>
+      <xs:enumeration value="PARAGUAY_(PA)" dfdlx:repValues="189"/>
+      <xs:enumeration value="PERU_(PE)" dfdlx:repValues="190"/>
+      <xs:enumeration value="PHILIPPINES_(RP)" dfdlx:repValues="191"/>
+      <xs:enumeration value="PITCAIRN_ISLANDS_(PC)" dfdlx:repValues="192"/>
+      <xs:enumeration value="POLAND_(PL)" dfdlx:repValues="193"/>
+      <xs:enumeration value="PORTUGAL_(PO)" dfdlx:repValues="194"/>
+      <xs:enumeration value="PUERTO_RICO_(RQ)" dfdlx:repValues="195"/>
+      <xs:enumeration value="QATAR_(QA)" dfdlx:repValues="196"/>
+      <xs:enumeration value="REUNION_(RE)" dfdlx:repValues="197"/>
+      <xs:enumeration value="ROMANIA_(RO)" dfdlx:repValues="198"/>
+      <xs:enumeration value="RUSSIA_(RS)" dfdlx:repValues="199"/>
+      <xs:enumeration value="RWANDA_(RW)" dfdlx:repValues="200"/>
+      <xs:enumeration value="ST._KITTS_AND_NEVIS_(SC)" dfdlx:repValues="201"/>
+      <xs:enumeration value="ST._HELENA_(SH)" dfdlx:repValues="202"/>
+      <xs:enumeration value="ST._LUCIA_(ST)" dfdlx:repValues="203"/>
+      <xs:enumeration value="ST._PIERRE_AND_MIQUELON_(SB)" dfdlx:repValues="204"/>
+      <xs:enumeration value="ST._VINCENT_AND_THE_GRENADINES_(VC)" dfdlx:repValues="205"/>
+      <xs:enumeration value="SAMOA_(WS)" dfdlx:repValues="206"/>
+      <xs:enumeration value="SAN_MARINO_(SM)" dfdlx:repValues="207"/>
+      <xs:enumeration value="SAO_TOME_AND_PRINCIPE_(TP)" dfdlx:repValues="208"/>
+      <xs:enumeration value="SAUDI_ARABIA_(SA)" dfdlx:repValues="209"/>
+      <xs:enumeration value="SENEGAL_(SG)" dfdlx:repValues="210"/>
+      <xs:enumeration value="SEYCHELLES_(SE)" dfdlx:repValues="211"/>
+      <xs:enumeration value="SIERRA_LEONE_(SL)" dfdlx:repValues="212"/>
+      <xs:enumeration value="SINGAPORE_(SN)" dfdlx:repValues="213"/>
+      <xs:enumeration value="SLOVAKIA_(LO)" dfdlx:repValues="214"/>
+      <xs:enumeration value="SLOVENIA_(SI)" dfdlx:repValues="215"/>
+      <xs:enumeration value="SOLOMON_ISLANDS_(BP)" dfdlx:repValues="216"/>
+      <xs:enumeration value="SOMALIA_(SO)" dfdlx:repValues="217"/>
+      <xs:enumeration value="SOUTH_AFRICA_(SF)" dfdlx:repValues="218"/>
+      <xs:enumeration value="SOUTH_GEORGIA_AND_THE_SOUTH_SANDWICH_ISLANDS_(SX)" dfdlx:repValues="219"/>
+      <xs:enumeration value="SPAIN_(SP)" dfdlx:repValues="220"/>
+      <xs:enumeration value="SPRATLY_ISLANDS_(PG)" dfdlx:repValues="221"/>
+      <xs:enumeration value="SRI_LANKA_(CE)" dfdlx:repValues="222"/>
+      <xs:enumeration value="SUDAN_(SU)" dfdlx:repValues="223"/>
+      <xs:enumeration value="SURINAME_(NS)" dfdlx:repValues="224"/>
+      <xs:enumeration value="SVALBARD_(SV)" dfdlx:repValues="225"/>
+      <xs:enumeration value="SWAZILAND_(WZ)" dfdlx:repValues="226"/>
+      <xs:enumeration value="SWEDEN_(SW)" dfdlx:repValues="227"/>
+      <xs:enumeration value="SWITZERLAND_(SZ)" dfdlx:repValues="228"/>
+      <xs:enumeration value="SYRIA_(SY)" dfdlx:repValues="229"/>
+      <xs:enumeration value="TAIWAN_(TW)" dfdlx:repValues="230"/>
+      <xs:enumeration value="TAJIKISTAN_(TI)" dfdlx:repValues="231"/>
+      <xs:enumeration value="TANZANIA_(TZ)" dfdlx:repValues="232"/>
+      <xs:enumeration value="THAILAND_(TH)" dfdlx:repValues="233"/>
+      <xs:enumeration value="TOGO_(TO)" dfdlx:repValues="234"/>
+      <xs:enumeration value="TOKELAU_(TL)" dfdlx:repValues="235"/>
+      <xs:enumeration value="TONGA_(TN)" dfdlx:repValues="236"/>
+      <xs:enumeration value="TRINIDAD_AND_TOBAGO_(TD)" dfdlx:repValues="237"/>
+      <xs:enumeration value="TROMELIN_ISLAND_(TE)" dfdlx:repValues="238"/>
+      <xs:enumeration value="TUNISIA_(TS)" dfdlx:repValues="239"/>
+      <xs:enumeration value="TURKEY_(TU)" dfdlx:repValues="240"/>
+      <xs:enumeration value="TURKMENISTAN_(TX)" dfdlx:repValues="241"/>
+      <xs:enumeration value="TURKS_AND_CAICOS_ISLANDS_(TK)" dfdlx:repValues="242"/>
+      <xs:enumeration value="TUVALU_(TV)" dfdlx:repValues="243"/>
+      <xs:enumeration value="UGANDA_(UG)" dfdlx:repValues="244"/>
+      <xs:enumeration value="UKRAINE_(UP)" dfdlx:repValues="245"/>
+      <xs:enumeration value="UNITED_ARAB_EMIRATES_(AE)" dfdlx:repValues="246"/>
+      <xs:enumeration value="UNITED_KINGDOM_(UK)" dfdlx:repValues="247"/>
+      <xs:enumeration value="UNITED_STATES_(US)" dfdlx:repValues="248"/>
+      <xs:enumeration value="URUGUAY_(UY)" dfdlx:repValues="249"/>
+      <xs:enumeration value="UZBEKISTAN_(UZ)" dfdlx:repValues="250"/>
+      <xs:enumeration value="VANUATU_(NH)" dfdlx:repValues="251"/>
+      <xs:enumeration value="VATICAN_CITY_(VT)" dfdlx:repValues="252"/>
+      <xs:enumeration value="VENEZUELA_(VE)" dfdlx:repValues="253"/>
+      <xs:enumeration value="VIETNAM_(VM)" dfdlx:repValues="254"/>
+      <xs:enumeration value="VIRGIN_ISLANDS,_US_(VQ)" dfdlx:repValues="255"/>
+      <xs:enumeration value="WAKE_ISLAND_(WQ)" dfdlx:repValues="256"/>
+      <xs:enumeration value="WALLIS_AND_FUTUNA_(WF)" dfdlx:repValues="257"/>
+      <xs:enumeration value="WEST_BANK_(WE)" dfdlx:repValues="258"/>
+      <xs:enumeration value="WESTERN_SAHARA_(WI)" dfdlx:repValues="259"/>
+      <xs:enumeration value="YEMEN_(YM)" dfdlx:repValues="260"/>
+      <xs:enumeration value="YUGOSLAVIA_(YI)" dfdlx:repValues="261"/>
+      <xs:enumeration value="ZAMBIA_(ZA)" dfdlx:repValues="262"/>
+      <xs:enumeration value="ZIMBABWE_(ZI)" dfdlx:repValues="263"/>
+      <xs:enumeration value="EXERCISE_BLACK_COUNTRY_(OA)" dfdlx:repValues="264"/>
+      <xs:enumeration value="EXERCISE_BLACK_FORCES_(OB)" dfdlx:repValues="265"/>
+      <xs:enumeration value="EXERCISE_BLUE_COUNTRY_(OC)" dfdlx:repValues="266"/>
+      <xs:enumeration value="EXERCISE_BLUE_FORCE_(OD)" dfdlx:repValues="267"/>
+      <xs:enumeration value="EXERCISE_FRIENDLY_COUNTRY_(YC)" dfdlx:repValues="268"/>
+      <xs:enumeration value="EXERCISE_FRIENDLY_FORCE_(YY)" dfdlx:repValues="269"/>
+      <xs:enumeration value="EXERCISE_HOSTILE_COUNTRY_(XC)" dfdlx:repValues="270"/>
+      <xs:enumeration value="EXERCISE_HOSTILE_FORCE_(XX)" dfdlx:repValues="271"/>
+      <xs:enumeration value="EXERCISE_NEUTRAL_COUNTRY_(ZC)" dfdlx:repValues="272"/>
+      <xs:enumeration value="EXERCISE_NEUTRAL_FORCE_(ZZ)" dfdlx:repValues="273"/>
+      <xs:enumeration value="EXERCISE_ORANGE_COUNTRY_(OJ)" dfdlx:repValues="274"/>
+      <xs:enumeration value="EXERCISE_ORANGE_FORCE_(OK)" dfdlx:repValues="275"/>
+      <xs:enumeration value="EXERCISE_RED_COUNTRY_(OR)" dfdlx:repValues="276"/>
+      <xs:enumeration value="EXERCISE_RED_FORCE_(OE)" dfdlx:repValues="277"/>
+      <xs:enumeration value="EXERCISE_WHITE_COUNTRY_(ON)" dfdlx:repValues="278"/>
+      <xs:enumeration value="EXERCISE_NATO_FORCE_(OT)" dfdlx:repValues="279"/>
+      <xs:enumeration value="EXERCISE_PURPLE_FORCE_(OL)" dfdlx:repValues="280"/>
+      <xs:enumeration value="EXERCISE_SPARE_NUMBER_ONE_(XA)" dfdlx:repValues="281"/>
+      <xs:enumeration value="EXERCISE_SPARE_NUMBER_TWO_(XB)" dfdlx:repValues="282"/>
+      <xs:enumeration value="EXERCISE_UNITED_NATIONS_FORCE_(UU)" dfdlx:repValues="283"/>
+      <xs:enumeration value="EXERCISE_FORMER_WARSAW_PACT_FORCE_(OW)" dfdlx:repValues="284"/>
+      <xs:enumeration value="NAT/ALL-1" dfdlx:repValues="285"/>
+      <xs:enumeration value="NAT/ALL-2" dfdlx:repValues="286"/>
+      <xs:enumeration value="NAT/ALL-3" dfdlx:repValues="287"/>
+      <xs:enumeration value="NAT/ALL-4" dfdlx:repValues="288"/>
+      <xs:enumeration value="NAT/ALL-5" dfdlx:repValues="289"/>
+      <xs:enumeration value="NAT/ALL-6" dfdlx:repValues="290"/>
+      <xs:enumeration value="NAT/ALL-7" dfdlx:repValues="291"/>
+      <xs:enumeration value="NAT/ALL-8" dfdlx:repValues="292"/>
+      <xs:enumeration value="NAT/ALL-9" dfdlx:repValues="293"/>
+      <xs:enumeration value="NAT/ALL-10" dfdlx:repValues="294"/>
+      <xs:enumeration value="NAT/ALL-11" dfdlx:repValues="295"/>
+      <xs:enumeration value="NAT/ALL-12" dfdlx:repValues="296"/>
+      <xs:enumeration value="NAT/ALL-13" dfdlx:repValues="297"/>
+      <xs:enumeration value="NAT/ALL-14" dfdlx:repValues="298"/>
+      <xs:enumeration value="NAT/ALL-15" dfdlx:repValues="299"/>
+      <xs:enumeration value="NAT/ALL-16" dfdlx:repValues="300"/>
+      <xs:enumeration value="NAT/ALL-17" dfdlx:repValues="301"/>
+      <xs:enumeration value="NAT/ALL-18" dfdlx:repValues="302"/>
+      <xs:enumeration value="NAT/ALL-19" dfdlx:repValues="303"/>
+      <xs:enumeration value="NAT/ALL-20" dfdlx:repValues="304"/>
+      <xs:enumeration value="NAT/ALL-21" dfdlx:repValues="305"/>
+      <xs:enumeration value="NAT/ALL-22" dfdlx:repValues="306"/>
+      <xs:enumeration value="NAT/ALL-23" dfdlx:repValues="307"/>
+      <xs:enumeration value="NAT/ALL-24" dfdlx:repValues="308"/>
+      <xs:enumeration value="NAT/ALL-25" dfdlx:repValues="309"/>
+      <xs:enumeration value="NAT/ALL-26" dfdlx:repValues="310"/>
+      <xs:enumeration value="NAT/ALL-27" dfdlx:repValues="311"/>
+      <xs:enumeration value="NAT/ALL-28" dfdlx:repValues="312"/>
+      <xs:enumeration value="SPANISH_NORTH_AFRICA_(SQ)" dfdlx:repValues="313"/>
+      <xs:enumeration value="ABKHAZIA_(AB)" dfdlx:repValues="314"/>
+      <xs:enumeration value="AZORES_(AZ)" dfdlx:repValues="315"/>
+      <xs:enumeration value="BOPHUTHATSWANA_(BW)" dfdlx:repValues="316"/>
+      <xs:enumeration value="CARIBBEAN_(EXCLUDING_ANTIGUA_AND_BARBUDA)_(CC)" dfdlx:repValues="317"/>
+      <xs:enumeration value="CRIMEA_(CX)" dfdlx:repValues="318"/>
+      <xs:enumeration value="DISUSED" dfdlx:repValues="319"/>
+      <xs:enumeration value="EASTERN_CARIBBEAN_COUNTRIES_(EA)" dfdlx:repValues="320"/>
+      <xs:enumeration value="EASTERN_EUROPEAN_COUNTRIES_(PW)" dfdlx:repValues="321"/>
+      <xs:enumeration value="FALKLAND_ISLAND_DEPENDENCIES_(FL)" dfdlx:repValues="322"/>
+      <xs:enumeration value="FAR_EAST_COUNTRIES_(FE)" dfdlx:repValues="323"/>
+      <xs:enumeration value="KOSOVO_(KO)" dfdlx:repValues="324"/>
+      <xs:enumeration value="LATIN_AMERICA_(LM)" dfdlx:repValues="325"/>
+      <xs:enumeration value="MIDDLE_EASTERN/NORTH_AFRICAN_COUNTRIES_(ME)" dfdlx:repValues="326"/>
+      <xs:enumeration value="NAGORNO-KARABAKH_(NK)" dfdlx:repValues="327"/>
+      <xs:enumeration value="NORDIC_COUNTRIES_(NN)" dfdlx:repValues="328"/>
+      <xs:enumeration value="NORTH_OSSETIA_(OS)" dfdlx:repValues="329"/>
+      <xs:enumeration value="SOUTH_AMERICA_(UT)" dfdlx:repValues="330"/>
+      <xs:enumeration value="SOUTH_ASIA_(AI)" dfdlx:repValues="331"/>
+      <xs:enumeration value="SOUTH_MARIANA_ISLAND_(MS)" dfdlx:repValues="332"/>
+      <xs:enumeration value="SOUTH_OSSETIA_(OF)" dfdlx:repValues="333"/>
+      <xs:enumeration value="SOUTH_PACIFIC_ISLAND_NATIONS_OR_TERRITORIES_(PI)" dfdlx:repValues="334"/>
+      <xs:enumeration value="SOUTH_EAST_ASIA_(EO)" dfdlx:repValues="335"/>
+      <xs:enumeration value="SUB-SAHARAN_AFRICA_(UB)" dfdlx:repValues="336"/>
+      <xs:enumeration value="TARTAR_HOMELAND_(TJ)" dfdlx:repValues="337"/>
+      <xs:enumeration value="TRANSKEI_(TR)" dfdlx:repValues="338"/>
+      <xs:enumeration value="UNIDENTIFIED_(UI)" dfdlx:repValues="339"/>
+      <xs:enumeration value="WEST_EUROPEAN_COUNTRIES_(EW)" dfdlx:repValues="340"/>
+      <xs:enumeration value="WEST_HEMISPHERE_(HW)" dfdlx:repValues="341"/>
+      <xs:enumeration value="WORLDWIDE_(GW)" dfdlx:repValues="342"/>
+      <xs:enumeration value="SERBIA_AND_MONTENEGRO_(YI)" dfdlx:repValues="343"/>
+      <xs:enumeration value="UNDEFINED_344" dfdlx:repValues="344"/>
+      <xs:enumeration value="UNDEFINED_345" dfdlx:repValues="345"/>
+      <xs:enumeration value="UNDEFINED_346" dfdlx:repValues="346"/>
+      <xs:enumeration value="UNDEFINED_347" dfdlx:repValues="347"/>
+      <xs:enumeration value="UNDEFINED_348" dfdlx:repValues="348"/>
+      <xs:enumeration value="UNDEFINED_349" dfdlx:repValues="349"/>
+      <xs:enumeration value="UNDEFINED_350" dfdlx:repValues="350"/>
+      <xs:enumeration value="UNDEFINED_351" dfdlx:repValues="351"/>
+      <xs:enumeration value="UNDEFINED_352" dfdlx:repValues="352"/>
+      <xs:enumeration value="UNDEFINED_353" dfdlx:repValues="353"/>
+      <xs:enumeration value="UNDEFINED_354" dfdlx:repValues="354"/>
+      <xs:enumeration value="UNDEFINED_355" dfdlx:repValues="355"/>
+      <xs:enumeration value="UNDEFINED_356" dfdlx:repValues="356"/>
+      <xs:enumeration value="UNDEFINED_357" dfdlx:repValues="357"/>
+      <xs:enumeration value="UNDEFINED_358" dfdlx:repValues="358"/>
+      <xs:enumeration value="UNDEFINED_359" dfdlx:repValues="359"/>
+      <xs:enumeration value="UNDEFINED_360" dfdlx:repValues="360"/>
+      <xs:enumeration value="UNDEFINED_361" dfdlx:repValues="361"/>
+      <xs:enumeration value="UNDEFINED_362" dfdlx:repValues="362"/>
+      <xs:enumeration value="UNDEFINED_363" dfdlx:repValues="363"/>
+      <xs:enumeration value="UNDEFINED_364" dfdlx:repValues="364"/>
+      <xs:enumeration value="UNDEFINED_365" dfdlx:repValues="365"/>
+      <xs:enumeration value="UNDEFINED_366" dfdlx:repValues="366"/>
+      <xs:enumeration value="UNDEFINED_367" dfdlx:repValues="367"/>
+      <xs:enumeration value="UNDEFINED_368" dfdlx:repValues="368"/>
+      <xs:enumeration value="UNDEFINED_369" dfdlx:repValues="369"/>
+      <xs:enumeration value="UNDEFINED_370" dfdlx:repValues="370"/>
+      <xs:enumeration value="UNDEFINED_371" dfdlx:repValues="371"/>
+      <xs:enumeration value="UNDEFINED_372" dfdlx:repValues="372"/>
+      <xs:enumeration value="UNDEFINED_373" dfdlx:repValues="373"/>
+      <xs:enumeration value="UNDEFINED_374" dfdlx:repValues="374"/>
+      <xs:enumeration value="UNDEFINED_375" dfdlx:repValues="375"/>
+      <xs:enumeration value="UNDEFINED_376" dfdlx:repValues="376"/>
+      <xs:enumeration value="UNDEFINED_377" dfdlx:repValues="377"/>
+      <xs:enumeration value="UNDEFINED_378" dfdlx:repValues="378"/>
+      <xs:enumeration value="UNDEFINED_379" dfdlx:repValues="379"/>
+      <xs:enumeration value="UNDEFINED_380" dfdlx:repValues="380"/>
+      <xs:enumeration value="UNDEFINED_381" dfdlx:repValues="381"/>
+      <xs:enumeration value="UNDEFINED_382" dfdlx:repValues="382"/>
+      <xs:enumeration value="UNDEFINED_383" dfdlx:repValues="383"/>
+      <xs:enumeration value="UNDEFINED_384" dfdlx:repValues="384"/>
+      <xs:enumeration value="UNDEFINED_385" dfdlx:repValues="385"/>
+      <xs:enumeration value="UNDEFINED_386" dfdlx:repValues="386"/>
+      <xs:enumeration value="UNDEFINED_387" dfdlx:repValues="387"/>
+      <xs:enumeration value="UNDEFINED_388" dfdlx:repValues="388"/>
+      <xs:enumeration value="UNDEFINED_389" dfdlx:repValues="389"/>
+      <xs:enumeration value="UNDEFINED_390" dfdlx:repValues="390"/>
+      <xs:enumeration value="UNDEFINED_391" dfdlx:repValues="391"/>
+      <xs:enumeration value="UNDEFINED_392" dfdlx:repValues="392"/>
+      <xs:enumeration value="UNDEFINED_393" dfdlx:repValues="393"/>
+      <xs:enumeration value="UNDEFINED_394" dfdlx:repValues="394"/>
+      <xs:enumeration value="UNDEFINED_395" dfdlx:repValues="395"/>
+      <xs:enumeration value="UNDEFINED_396" dfdlx:repValues="396"/>
+      <xs:enumeration value="UNDEFINED_397" dfdlx:repValues="397"/>
+      <xs:enumeration value="UNDEFINED_398" dfdlx:repValues="398"/>
+      <xs:enumeration value="UNDEFINED_399" dfdlx:repValues="399"/>
+      <xs:enumeration value="UNDEFINED_400" dfdlx:repValues="400"/>
+      <xs:enumeration value="UNDEFINED_401" dfdlx:repValues="401"/>
+      <xs:enumeration value="UNDEFINED_402" dfdlx:repValues="402"/>
+      <xs:enumeration value="UNDEFINED_403" dfdlx:repValues="403"/>
+      <xs:enumeration value="UNDEFINED_404" dfdlx:repValues="404"/>
+      <xs:enumeration value="UNDEFINED_405" dfdlx:repValues="405"/>
+      <xs:enumeration value="UNDEFINED_406" dfdlx:repValues="406"/>
+      <xs:enumeration value="UNDEFINED_407" dfdlx:repValues="407"/>
+      <xs:enumeration value="UNDEFINED_408" dfdlx:repValues="408"/>
+      <xs:enumeration value="UNDEFINED_409" dfdlx:repValues="409"/>
+      <xs:enumeration value="UNDEFINED_410" dfdlx:repValues="410"/>
+      <xs:enumeration value="UNDEFINED_411" dfdlx:repValues="411"/>
+      <xs:enumeration value="UNDEFINED_412" dfdlx:repValues="412"/>
+      <xs:enumeration value="UNDEFINED_413" dfdlx:repValues="413"/>
+      <xs:enumeration value="UNDEFINED_414" dfdlx:repValues="414"/>
+      <xs:enumeration value="UNDEFINED_415" dfdlx:repValues="415"/>
+      <xs:enumeration value="UNDEFINED_416" dfdlx:repValues="416"/>
+      <xs:enumeration value="UNDEFINED_417" dfdlx:repValues="417"/>
+      <xs:enumeration value="UNDEFINED_418" dfdlx:repValues="418"/>
+      <xs:enumeration value="UNDEFINED_419" dfdlx:repValues="419"/>
+      <xs:enumeration value="UNDEFINED_420" dfdlx:repValues="420"/>
+      <xs:enumeration value="UNDEFINED_421" dfdlx:repValues="421"/>
+      <xs:enumeration value="UNDEFINED_422" dfdlx:repValues="422"/>
+      <xs:enumeration value="UNDEFINED_423" dfdlx:repValues="423"/>
+      <xs:enumeration value="UNDEFINED_424" dfdlx:repValues="424"/>
+      <xs:enumeration value="UNDEFINED_425" dfdlx:repValues="425"/>
+      <xs:enumeration value="UNDEFINED_426" dfdlx:repValues="426"/>
+      <xs:enumeration value="UNDEFINED_427" dfdlx:repValues="427"/>
+      <xs:enumeration value="UNDEFINED_428" dfdlx:repValues="428"/>
+      <xs:enumeration value="UNDEFINED_429" dfdlx:repValues="429"/>
+      <xs:enumeration value="UNDEFINED_430" dfdlx:repValues="430"/>
+      <xs:enumeration value="UNDEFINED_431" dfdlx:repValues="431"/>
+      <xs:enumeration value="UNDEFINED_432" dfdlx:repValues="432"/>
+      <xs:enumeration value="UNDEFINED_433" dfdlx:repValues="433"/>
+      <xs:enumeration value="UNDEFINED_434" dfdlx:repValues="434"/>
+      <xs:enumeration value="UNDEFINED_435" dfdlx:repValues="435"/>
+      <xs:enumeration value="UNDEFINED_436" dfdlx:repValues="436"/>
+      <xs:enumeration value="UNDEFINED_437" dfdlx:repValues="437"/>
+      <xs:enumeration value="UNDEFINED_438" dfdlx:repValues="438"/>
+      <xs:enumeration value="UNDEFINED_439" dfdlx:repValues="439"/>
+      <xs:enumeration value="UNDEFINED_440" dfdlx:repValues="440"/>
+      <xs:enumeration value="UNDEFINED_441" dfdlx:repValues="441"/>
+      <xs:enumeration value="UNDEFINED_442" dfdlx:repValues="442"/>
+      <xs:enumeration value="UNDEFINED_443" dfdlx:repValues="443"/>
+      <xs:enumeration value="UNDEFINED_444" dfdlx:repValues="444"/>
+      <xs:enumeration value="UNDEFINED_445" dfdlx:repValues="445"/>
+      <xs:enumeration value="UNDEFINED_446" dfdlx:repValues="446"/>
+      <xs:enumeration value="UNDEFINED_447" dfdlx:repValues="447"/>
+      <xs:enumeration value="UNDEFINED_448" dfdlx:repValues="448"/>
+      <xs:enumeration value="UNDEFINED_449" dfdlx:repValues="449"/>
+      <xs:enumeration value="UNDEFINED_450" dfdlx:repValues="450"/>
+      <xs:enumeration value="UNDEFINED_451" dfdlx:repValues="451"/>
+      <xs:enumeration value="UNDEFINED_452" dfdlx:repValues="452"/>
+      <xs:enumeration value="UNDEFINED_453" dfdlx:repValues="453"/>
+      <xs:enumeration value="UNDEFINED_454" dfdlx:repValues="454"/>
+      <xs:enumeration value="UNDEFINED_455" dfdlx:repValues="455"/>
+      <xs:enumeration value="UNDEFINED_456" dfdlx:repValues="456"/>
+      <xs:enumeration value="UNDEFINED_457" dfdlx:repValues="457"/>
+      <xs:enumeration value="UNDEFINED_458" dfdlx:repValues="458"/>
+      <xs:enumeration value="UNDEFINED_459" dfdlx:repValues="459"/>
+      <xs:enumeration value="UNDEFINED_460" dfdlx:repValues="460"/>
+      <xs:enumeration value="UNDEFINED_461" dfdlx:repValues="461"/>
+      <xs:enumeration value="UNDEFINED_462" dfdlx:repValues="462"/>
+      <xs:enumeration value="UNDEFINED_463" dfdlx:repValues="463"/>
+      <xs:enumeration value="UNDEFINED_464" dfdlx:repValues="464"/>
+      <xs:enumeration value="UNDEFINED_465" dfdlx:repValues="465"/>
+      <xs:enumeration value="UNDEFINED_466" dfdlx:repValues="466"/>
+      <xs:enumeration value="UNDEFINED_467" dfdlx:repValues="467"/>
+      <xs:enumeration value="UNDEFINED_468" dfdlx:repValues="468"/>
+      <xs:enumeration value="UNDEFINED_469" dfdlx:repValues="469"/>
+      <xs:enumeration value="UNDEFINED_470" dfdlx:repValues="470"/>
+      <xs:enumeration value="UNDEFINED_471" dfdlx:repValues="471"/>
+      <xs:enumeration value="UNDEFINED_472" dfdlx:repValues="472"/>
+      <xs:enumeration value="UNDEFINED_473" dfdlx:repValues="473"/>
+      <xs:enumeration value="UNDEFINED_474" dfdlx:repValues="474"/>
+      <xs:enumeration value="UNDEFINED_475" dfdlx:repValues="475"/>
+      <xs:enumeration value="UNDEFINED_476" dfdlx:repValues="476"/>
+      <xs:enumeration value="UNDEFINED_477" dfdlx:repValues="477"/>
+      <xs:enumeration value="UNDEFINED_478" dfdlx:repValues="478"/>
+      <xs:enumeration value="UNDEFINED_479" dfdlx:repValues="479"/>
+      <xs:enumeration value="UNDEFINED_480" dfdlx:repValues="480"/>
+      <xs:enumeration value="UNDEFINED_481" dfdlx:repValues="481"/>
+      <xs:enumeration value="UNDEFINED_482" dfdlx:repValues="482"/>
+      <xs:enumeration value="UNDEFINED_483" dfdlx:repValues="483"/>
+      <xs:enumeration value="UNDEFINED_484" dfdlx:repValues="484"/>
+      <xs:enumeration value="UNDEFINED_485" dfdlx:repValues="485"/>
+      <xs:enumeration value="UNDEFINED_486" dfdlx:repValues="486"/>
+      <xs:enumeration value="UNDEFINED_487" dfdlx:repValues="487"/>
+      <xs:enumeration value="UNDEFINED_488" dfdlx:repValues="488"/>
+      <xs:enumeration value="UNDEFINED_489" dfdlx:repValues="489"/>
+      <xs:enumeration value="UNDEFINED_490" dfdlx:repValues="490"/>
+      <xs:enumeration value="UNDEFINED_491" dfdlx:repValues="491"/>
+      <xs:enumeration value="UNDEFINED_492" dfdlx:repValues="492"/>
+      <xs:enumeration value="UNDEFINED_493" dfdlx:repValues="493"/>
+      <xs:enumeration value="UNDEFINED_494" dfdlx:repValues="494"/>
+      <xs:enumeration value="UNDEFINED_495" dfdlx:repValues="495"/>
+      <xs:enumeration value="UNDEFINED_496" dfdlx:repValues="496"/>
+      <xs:enumeration value="UNDEFINED_497" dfdlx:repValues="497"/>
+      <xs:enumeration value="UNDEFINED_498" dfdlx:repValues="498"/>
+      <xs:enumeration value="UNDEFINED_499" dfdlx:repValues="499"/>
+      <xs:enumeration value="UNDEFINED_500" dfdlx:repValues="500"/>
+      <xs:enumeration value="UNDEFINED_501" dfdlx:repValues="501"/>
+      <xs:enumeration value="UNDEFINED_502" dfdlx:repValues="502"/>
+      <xs:enumeration value="UNDEFINED_503" dfdlx:repValues="503"/>
+      <xs:enumeration value="UNDEFINED_504" dfdlx:repValues="504"/>
+      <xs:enumeration value="UNDEFINED_505" dfdlx:repValues="505"/>
+      <xs:enumeration value="UNDEFINED_506" dfdlx:repValues="506"/>
+      <xs:enumeration value="UNDEFINED_507" dfdlx:repValues="507"/>
+      <xs:enumeration value="UNDEFINED_508" dfdlx:repValues="508"/>
+      <xs:enumeration value="UNDEFINED_509" dfdlx:repValues="509"/>
+      <xs:enumeration value="UNDEFINED_510" dfdlx:repValues="510"/>
+      <xs:enumeration value="UNDEFINED_511" dfdlx:repValues="511"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+
+  <simpleType name="acknowledgeRequestIndicatorEnum" dfdlx:repType="tns:enum1">
+    <restriction base="tns:enumString">
+      <enumeration value="No_Acknowledgement_Required" dfdlx:repValues="0"/>
+      <enumeration value="Acknowledgement_Requested" dfdlx:repValues="1"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="replyRequestIndicatorEnum" dfdlx:repType="tns:enum1">
+    <restriction base="tns:enumString">
+      <enumeration value="No_Reply_Required" dfdlx:repValues="0"/>
+      <enumeration value="Reply_Requested" dfdlx:repValues="1"/>
+    </restriction>
+  </simpleType>
+
+</schema>
