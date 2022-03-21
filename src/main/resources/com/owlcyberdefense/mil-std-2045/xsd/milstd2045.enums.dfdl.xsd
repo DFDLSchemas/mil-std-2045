@@ -216,8 +216,9 @@ SOFTWARE.
       Today however, the VMF DFDL schemas (That I know of) do not do this
       dynamic switching. They are for a specific VMF revision.
 
-      Resolution (for now) is to use the Rev C enum numbering, but add the new rev D1 enum
-      values. This is consistent with some test data we have seen for VMF.
+      Study of the MS-Access database model for VMF, obtained from the US Army
+      by way of the PMMC-JBCP project, confirms that the D1 specification is incorrect
+      and what is here matches their correction of the specification.
 
       -->
       <enumeration value="OK_TIDP-TE_R7" dfdlx:repValues="5"/><!-- this definition missing in rev D1 spec -->
