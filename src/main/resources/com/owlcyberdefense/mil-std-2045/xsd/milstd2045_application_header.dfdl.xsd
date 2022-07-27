@@ -155,8 +155,8 @@ SOFTWARE.
                               <choice dfdl:choiceDispatchKey="{ ../umf/value }">
                                 <element dfdl:choiceBranchKey="OK_Link_16" name="link16"
                                          type="tns:messsageStandardVersionLink16Enum"/>
-                                <element dfdl:choiceBranchKey="OK_VMF" name="vmf"
-                                         type="tns:messsageStandardVersionVMFEnum"/>
+                                <group  dfdl:choiceBranchKey="OK_VMF"
+                                        ref="tns:messageStandardVersionVMFGroup"/>
                                 <element dfdl:choiceBranchKey="OK_NITFS" name="nitfs"
                                          type="tns:messsageStandardVersionNITFSEnum"/>
                                 <element dfdl:choiceBranchKey="OK_USMTF" name="usmtf"
