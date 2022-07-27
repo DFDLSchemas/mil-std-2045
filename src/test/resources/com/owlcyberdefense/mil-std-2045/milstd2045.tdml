@@ -696,6 +696,7 @@ operator_reply_request_indicator set to 1">
                   <value>OK_VMF</value>
                 </umf>
                 <message_standard_version>
+                  <vmf_hdr_C>OK_6017A</vmf_hdr_C>
                   <vmf>OK_6017A</vmf>
                 </message_standard_version>
                 <vmf_message_identification_group>
@@ -778,6 +779,7 @@ operator_reply_request_indicator set to 1">
                   <value>OK_VMF</value>
                 </umf>
                 <message_standard_version>
+                  <vmf_hdr_C>OK_6017A</vmf_hdr_C>
                   <vmf>OK_6017A</vmf>
                 </message_standard_version>
                 <vmf_message_identification_group>
@@ -876,6 +878,7 @@ operator_reply_request_indicator set to 1">
                   <value>OK_VMF</value>
                 </umf>
                 <message_standard_version>
+                  <vmf_hdr_C>OK_6017A</vmf_hdr_C>
                   <vmf>OK_6017A</vmf>
                 </message_standard_version>
                 <vmf_message_identification_group>
@@ -1871,7 +1874,8 @@ operator_reply_request_indicator set to 1">
                   <value>OK_VMF</value>
                 </umf>
                 <message_standard_version>
-                  <vmf>OK_6017C</vmf>
+                  <vmf_hdr_D1>OK_6017D</vmf_hdr_D1>
+                  <vmf>OK_6017D</vmf>
                 </message_standard_version>
                 <vmf_message_identification_group>
                   <fad>
