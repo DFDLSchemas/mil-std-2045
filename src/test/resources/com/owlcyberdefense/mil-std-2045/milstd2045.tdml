@@ -1812,16 +1812,37 @@ operator_reply_request_indicator set to 1">
     </validationErrors>
   </parserTestCase>
 
-  <unparserTestCase name="test_2045_D1_all_fields"
-                    root="milstd2045_application_header" model="hdr"
-                    description="maximal, as many fields as possible. At least 2 of all repeating.">
+  <!--
+    This test can also be run from the Daffodil CLI via this command lines:
+
+      export DAFFODIL_CLASSPATH=src/main/resources:src/test/resources
+
+      daffodil parse -s src/test/resources/com/owlcyberdefense/mil-std-2045/xsd/milstd2045_hdr_test.dfdl.xsd \
+        src/test/resources/com/owlcyberdefense/mil-std-2045/D1_all_fields.dat
+
+    The resulting XML output should match the infoset file for the test below.
+
+    The above shows that 640 bytes of mil-std-2045 header expand into 14343 bytes of XML text
+    when pretty printed, which is a substantial enlargement factor, and is one of the reasons
+    that support for EXI (binary XML) is in the Daffodil roadmap for a forthcoming version.
+
+    Using that the ratio of 640 to 14343, you can figure out how many repeats of the
+    D1_all_fields.dat file contents would have to be concatenated to create any specific
+    amount of XML output for stress testing any downstream XML processing.
+    -->
+  <parserTestCase name="test_2045_D1_all_fields"
+                  root="milstd2045_messages"
+                  model="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_hdr_test.dfdl.xsd">
     <infoset>
       <dfdlInfoset type="file">com/owlcyberdefense/mil-std-2045/D1_all_fields.xml</dfdlInfoset>
     </infoset>
-    <document bitOrder="LSBFirst">
+    <document>
       <documentPart type="file">com/owlcyberdefense/mil-std-2045/D1_all_fields.dat</documentPart>
     </document>
-  </unparserTestCase>
+    <validationErrors>
+      <error>GZIP</error>
+    </validationErrors>
+  </parserTestCase>
 
 </testSuite>
 

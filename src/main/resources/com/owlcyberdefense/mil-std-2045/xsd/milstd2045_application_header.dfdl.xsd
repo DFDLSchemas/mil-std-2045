@@ -266,35 +266,38 @@ SOFTWARE.
                           </element>
                           <sequence dfdl:hiddenGroupRef="msi:control_release_marking_PI"/>
                           <choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
-                            <element dfdl:choiceBranchKey="D1"
-                                     name="control_release_marking_D1"
-                                     minOccurs="0"
-                                     dfdl:occursCountKind="expression"
-                                     dfdl:occursCount="{ ../control_release_marking_PI/value }">
-                              <complexType>
-                                <sequence>
-                                  <element dfdl:choiceBranchKey="D1"
-                                           name="item"
-                                           minOccurs="1" maxOccurs="unbounded"
-                                           dfdl:occursCountKind="implicit">
-                                    <complexType>
-                                      <sequence>
-                                        <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
-                                        <element name="value" type="tns:dfi4127_dui005_nationality_Enum"/>
-                                      </sequence>
-                                    </complexType>
-                                  </element>
-                                </sequence>
-                              </complexType>
-                            </element>
-                            <element dfdl:choiceBranchKey="C" name="control_release_marking_C"
-                                     minOccurs="0"
-                                     dfdl:occursCountKind="expression"
-                                     dfdl:occursCount="{ ../control_release_marking_PI/value }">
-                              <complexType>
-                                <group ref="msi:tString32"/>
-                              </complexType>
-                            </element>
+                            <sequence dfdl:choiceBranchKey="D1">
+                              <element
+                                name="control_release_marking_D1"
+                                minOccurs="0"
+                                dfdl:occursCountKind="expression"
+                                dfdl:occursCount="{ ../control_release_marking_PI/value }">
+                                <complexType>
+                                  <sequence>
+                                    <element name="item"
+                                             minOccurs="1" maxOccurs="unbounded"
+                                             dfdl:occursCountKind="implicit">
+                                      <complexType>
+                                        <sequence>
+                                          <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
+                                          <element name="value" type="tns:dfi4127_dui005_nationality_Enum"/>
+                                        </sequence>
+                                      </complexType>
+                                    </element>
+                                  </sequence>
+                                </complexType>
+                              </element>
+                            </sequence>
+                            <sequence dfdl:choiceBranchKey="C">
+                              <element name="control_release_marking_C"
+                                       minOccurs="0"
+                                       dfdl:occursCountKind="expression"
+                                       dfdl:occursCount="{ ../control_release_marking_PI/value }">
+                                <complexType>
+                                  <group ref="msi:tString32"/>
+                                </complexType>
+                              </element>
+                            </sequence>
                           </choice>
                           <sequence dfdl:hiddenGroupRef="msi:originator_dtg_group_PI"/>
                           <element name="originator_dtg_group"
