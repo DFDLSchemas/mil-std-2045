@@ -6,9 +6,6 @@
         <version>
           <value>D1</value>
         </version>
-        <data_compression_type>
-          <value>GZIP</value>
-        </data_compression_type>
         <originator_address_group>
           <unit_name>
             <value>Originator</value>

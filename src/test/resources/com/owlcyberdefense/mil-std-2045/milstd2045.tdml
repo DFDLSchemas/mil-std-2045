@@ -1822,11 +1822,11 @@ operator_reply_request_indicator set to 1">
 
     The resulting XML output should match the infoset file for the test below.
 
-    The above shows that 640 bytes of mil-std-2045 header expand into 14343 bytes of XML text
+    The above shows that 640 bytes of mil-std-2045 header expand into 14217 bytes of XML text
     when pretty printed, which is a substantial enlargement factor, and is one of the reasons
     that support for EXI (binary XML) is in the Daffodil roadmap for a forthcoming version.
 
-    Using that the ratio of 640 to 14343, you can figure out how many repeats of the
+    Using that the ratio of the file sizes, you can figure out how many repeats of the
     D1_all_fields.dat file contents would have to be concatenated to create any specific
     amount of XML output for stress testing any downstream XML processing.
     -->
@@ -1834,14 +1834,13 @@ operator_reply_request_indicator set to 1">
                   root="milstd2045_messages"
                   model="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_hdr_test.dfdl.xsd">
     <infoset>
+      <!-- contains all fields in D1 format, except does not contain the data_compression_type
+      as that one has no valid values, because we don't support any of its settings. -->
       <dfdlInfoset type="file">com/owlcyberdefense/mil-std-2045/D1_all_fields.xml</dfdlInfoset>
     </infoset>
     <document>
       <documentPart type="file">com/owlcyberdefense/mil-std-2045/D1_all_fields.dat</documentPart>
     </document>
-    <validationErrors>
-      <error>GZIP</error>
-    </validationErrors>
   </parserTestCase>
 
 </testSuite>
