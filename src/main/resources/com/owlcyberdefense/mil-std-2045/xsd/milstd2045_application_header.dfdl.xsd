@@ -32,6 +32,7 @@ SOFTWARE.
 -->
 <schema
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
   xmlns:fn="http://www.w3.org/2005/xpath-functions"
   xmlns:msi="urn:milstd2045DFDLInternal"
   xmlns:msms="urn:milstd2045DFDLMessageSize"
@@ -428,7 +429,7 @@ SOFTWARE.
               </element>
               <group ref="tns:futureUseGroup"/>
               <!-- end message handling group -->
-              <sequence dfdl:alignment="1" dfdl:alignmentUnits="bytes"/>
+              <sequence dfdl:alignment="1" dfdl:alignmentUnits="bytes" dfdlx:alignmentKind="automatic"/>
             </sequence>
           </sequence>
         </complexType>

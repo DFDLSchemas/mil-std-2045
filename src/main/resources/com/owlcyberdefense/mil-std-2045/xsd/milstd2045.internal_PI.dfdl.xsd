@@ -68,7 +68,8 @@ SOFTWARE.
           binaryNumberRep="binary"
           byteOrder="littleEndian"
           bitOrder="leastSignificantBitFirst"
-          encodingErrorPolicy="replace"/>
+          encodingErrorPolicy="replace"
+          dfdlx:alignmentKind="manual"/>
       </dfdl:defineFormat>
 
       <dfdl:defineVariable name="yearStr" type="xs:string" dfdlx:direction="parseOnly"/>
