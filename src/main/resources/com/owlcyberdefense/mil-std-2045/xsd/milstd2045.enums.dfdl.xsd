@@ -222,7 +222,7 @@ SOFTWARE.
       <enumeration value="OK_TIDP-TE_R3" dfdlx:repValues="1"/>
       <enumeration value="OK_TIDP-TE_R4" dfdlx:repValues="2"/>
       <enumeration value="OK_TIDP-TE_R5" dfdlx:repValues="3"/>
-      <enumeration value="OK_TIDP-TE_R6" dfdlx:repValues="4"/><!-- rev D1 calls this TIDP-FTE-R6 -->
+      <enumeration value="OK_TIDP-TE_R6" dfdlx:repValues="4"/><!-- rev D1 calls this TIDP-FTE-R6 (hyphen) We consider this a typo-->
       <!--
       The rev C and D1 spec documents differ on this enum in an incompatible way.
 
@@ -250,7 +250,7 @@ SOFTWARE.
       <enumeration value="OK_TIDP-TE_R3" dfdlx:repValues="1"/>
       <enumeration value="OK_TIDP-TE_R4" dfdlx:repValues="2"/>
       <enumeration value="OK_TIDP-TE_R5" dfdlx:repValues="3"/>
-      <enumeration value="OK_TIDP-TE_R6" dfdlx:repValues="4"/><!-- rev D1 calls this TIDP-FTE-R6 -->
+      <enumeration value="OK_TIDP-TE_R6" dfdlx:repValues="4"/><!-- rev D1 calls this TIDP-FTE-R6 (hyphen) We consider this a typo -->
       <!--
       The rev C and D1 spec documents differ on this enum in an incompatible way.
 
@@ -358,35 +358,54 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="messsageStandardVersionXML_VMFEnum" dfdlx:repType="tns:enum4">
+  <group name="h_messageStandardVersionXMLVMFGroup">
+    <choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+      <!--
+      DFDL has no way to discriminate a choice at unparse time
+      based on data values in the infoset. So choices really cannot
+      be in hidden groups unless the first branch is acceptable as a default.
+
+      Hence, this group cannot be hidden.
+      -->
+      <element name="vmf_hdr_C_xml" dfdl:choiceBranchKey="C"
+               type="tns:messsageStandardVersionXMLVMFEnum_C"/>
+      <element name="vmf_hdr_D1_xml" dfdl:choiceBranchKey="D1"
+               type="tns:messsageStandardVersionXMLVMFEnum_D1"/>
+    </choice>
+  </group>
+
+  <group name="messageStandardVersionXMLVMFGroup">
+    <sequence>
+      <group ref="tns:h_messageStandardVersionXMLVMFGroup"/>
+      <element name="vmf" type="xs:string"
+               dfdl:inputValueCalc="{
+              if (fn:exists(../vmf_hdr_C)) then ../vmf_hdr_C else ../vmf_hdr_D1
+              }"/>
+    </sequence>
+  </group>
+
+  <!--
+  These are almost the same as the non-XML VMF enums.
+  They differen in that the first 3 enums are undefined here.
+  -->
+  <simpleType name="messsageStandardVersionXMLVMFEnum_C" dfdlx:repType="tns:enum4">
     <restriction base="tns:enumString">
       <enumeration value="Undefined_00" dfdlx:repValues="0"/>
       <enumeration value="Undefined_01" dfdlx:repValues="1"/>
       <enumeration value="Undefined_02" dfdlx:repValues="2"/>
-      <enumeration value="OK_TIDP-TE_R5" dfdlx:repValues="3"/>
-      <enumeration value="OK_TIDP-TE_R6" dfdlx:repValues="4"/>
+      <enumeration value="TIDP-TE_R5" dfdlx:repValues="3"/>
+      <enumeration value="TIDP-TE_R6" dfdlx:repValues="4"/>
       <!--
       Please see the comment about C vs. D1 incompatibility in the
       messageStandardVersionVMFEnum. This enum has the same problem.
       -->
-      <enumeration value="OK_TIDP-TE_R7" dfdlx:repValues="5"/><!-- this definition missing in rev D1 spec -->
+      <enumeration value="TIDP-TE_R7" dfdlx:repValues="5"/><!-- this definition missing in rev D1 spec -->
       <enumeration value="OK_6017" dfdlx:repValues="6"/>
       <enumeration value="OK_6017A" dfdlx:repValues="7"/>
       <enumeration value="OK_6017B" dfdlx:repValues="8"/>
       <enumeration value="OK_6017C" dfdlx:repValues="9"/>
-      <enumeration value="OK_6017D" dfdlx:repValues="10"/><!-- Reserved in rev C -->
-      <enumeration value="OK_6017E" dfdlx:repValues="11"/><!-- Reserved in rev C -->
-
-      <!-- From D1 Spec -->
-      <!--
-      <enumeration value="OK_6017" dfdlx:repValues="5"/>
-      <enumeration value="OK_6017A" dfdlx:repValues="6"/>
-      <enumeration value="OK_6017B" dfdlx:repValues="7"/>
-      <enumeration value="OK_6017C" dfdlx:repValues="8"/>
-      <enumeration value="OK_6017D" dfdlx:repValues="9"/>
-      <enumeration value="OK_6017E" dfdlx:repValues="10"/>
+      <enumeration value="Reserved_10" dfdlx:repValues="10"/>
       <enumeration value="Reserved_11" dfdlx:repValues="11"/>
-      -->
       <enumeration value="Reserved_12" dfdlx:repValues="12"/>
       <enumeration value="Reserved_13" dfdlx:repValues="13"/>
       <enumeration value="Reserved_14" dfdlx:repValues="14"/>
@@ -394,6 +413,33 @@ SOFTWARE.
       <pattern value="OK_.*"/>
     </restriction>
   </simpleType>
+
+  <simpleType name="messsageStandardVersionXMLVMFEnum_D1" dfdlx:repType="tns:enum4">
+    <restriction base="tns:enumString">
+      <enumeration value="Undefined_00" dfdlx:repValues="0"/>
+      <enumeration value="Undefined_01" dfdlx:repValues="1"/>
+      <enumeration value="Undefined_02" dfdlx:repValues="2"/>
+      <enumeration value="TIDP-TE_R5" dfdlx:repValues="3"/>
+      <enumeration value="TIDP-TE_R6" dfdlx:repValues="4"/>
+      <!--
+      Please see the comment about C vs. D1 incompatibility in the
+      messageStandardVersionVMFEnum. This enum has the same problem.
+      -->
+      <enumeration value="OK_6017" dfdlx:repValues="5"/>
+      <enumeration value="OK_6017A" dfdlx:repValues="6"/>
+      <enumeration value="OK_6017B" dfdlx:repValues="7"/>
+      <enumeration value="OK_6017C" dfdlx:repValues="8"/>
+      <enumeration value="OK_6017D" dfdlx:repValues="9"/>
+      <enumeration value="OK_6017E" dfdlx:repValues="10"/>
+      <enumeration value="Reserved_11" dfdlx:repValues="11"/>
+      <enumeration value="Reserved_12" dfdlx:repValues="12"/>
+      <enumeration value="Reserved_13" dfdlx:repValues="13"/>
+      <enumeration value="Reserved_14" dfdlx:repValues="14"/>
+      <enumeration value="Reserved_15" dfdlx:repValues="15"/>
+      <pattern value="OK_.*"/>
+    </restriction>
+  </simpleType>
+
 
   <simpleType name="cantcoReasonCodewordsEnum" dfdlx:repType="tns:enum3">
     <restriction base="tns:enumString">

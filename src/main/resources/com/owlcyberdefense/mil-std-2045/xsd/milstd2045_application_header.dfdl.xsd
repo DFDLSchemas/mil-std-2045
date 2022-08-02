@@ -163,8 +163,8 @@ SOFTWARE.
                                          type="tns:messsageStandardVersionUSMTFEnum"/>
                                 <element dfdl:choiceBranchKey="OK_XML-MTF" name="xml-mtf"
                                          type="tns:messsageStandardVersionXML_MTFEnum"/>
-                                <element dfdl:choiceBranchKey="OK_XML-VMF" name="xml-vmf"
-                                         type="tns:messsageStandardVersionXML_VMFEnum"/>
+                                <group dfdl:choiceBranchKey="OK_XML-VMF"
+                                         ref="tns:messageStandardVersionXMLVMFGroup"/>
                               </choice>
                             </complexType>
                           </element>
@@ -436,6 +436,14 @@ SOFTWARE.
       <sequence>
         <annotation>
           <appinfo source="http://www.ogf.org/dfdl/">
+            <!--
+            Used when unparsing. Forward reference to this variable is used to get the value
+            of the header size, which is stored within the header.
+
+            Cannot be used when parsing, as the variable instance goes out of scope immediately
+            after this. To get the header size when parsing you must access the element via a path
+            expression.
+            -->
             <dfdl:setVariable ref="tns:hdrLen" value="{ dfdl:valueLength(contents, 'bytes') }"/>
           </appinfo>
         </annotation>
