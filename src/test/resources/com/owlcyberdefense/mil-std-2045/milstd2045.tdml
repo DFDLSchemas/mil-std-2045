@@ -1834,8 +1834,13 @@ operator_reply_request_indicator set to 1">
                   root="milstd2045_messages"
                   model="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_hdr_test.dfdl.xsd">
     <infoset>
-      <!-- contains all fields in D1 format, except does not contain the data_compression_type
-      as that one has no valid values, because we don't support any of its settings. -->
+      <!--
+      contains all fields in D1 format, except does not contain the data_compression_type
+      as that one has no valid values, because we don't support any of its settings.
+
+      This data is quite illegal. It contains both a vmf_message_identification_group, and
+      a file-name. In real data it is one or the other, but the schema is not enforcing this.
+      -->
       <dfdlInfoset type="file">com/owlcyberdefense/mil-std-2045/D1_all_fields.xml</dfdlInfoset>
     </infoset>
     <document>
