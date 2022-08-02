@@ -1848,5 +1848,29 @@ operator_reply_request_indicator set to 1">
     </document>
   </parserTestCase>
 
+  <parserTestCase name="test_2045_D1_all_fields_x2p"
+                  root="milstd2045_messages"
+                  model="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_hdr_test.dfdl.xsd"
+                  roundTrip="none">
+    <infoset>
+      <dfdlInfoset type="file">com/owlcyberdefense/mil-std-2045/D1_all_fields.x2.xml</dfdlInfoset>
+    </infoset>
+    <document>
+      <documentPart type="file">com/owlcyberdefense/mil-std-2045/D1_all_fields.x2.dat</documentPart>
+    </document>
+  </parserTestCase>
+
+  <unparserTestCase name="test_2045_D1_all_fields_x2u"
+                  root="milstd2045_messages"
+                  model="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_hdr_test.dfdl.xsd"
+                  roundTrip="none">
+    <infoset>
+      <dfdlInfoset type="file">com/owlcyberdefense/mil-std-2045/D1_all_fields.x2.xml</dfdlInfoset>
+    </infoset>
+    <document>
+      <documentPart type="file">com/owlcyberdefense/mil-std-2045/D1_all_fields.x2.dat</documentPart>
+    </document>
+  </unparserTestCase>
+
 </testSuite>
 
