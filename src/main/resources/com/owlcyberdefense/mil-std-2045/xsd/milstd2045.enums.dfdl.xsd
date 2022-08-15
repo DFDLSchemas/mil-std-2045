@@ -377,7 +377,7 @@ SOFTWARE.
   <group name="messageStandardVersionXMLVMFGroup">
     <sequence>
       <group ref="tns:h_messageStandardVersionXMLVMFGroup"/>
-      <element name="vmf" type="xs:string"
+      <element name="xml_vmf" type="xs:string"
                dfdl:inputValueCalc="{
               if (fn:exists(../vmf_hdr_C)) then ../vmf_hdr_C else ../vmf_hdr_D1
               }"/>
