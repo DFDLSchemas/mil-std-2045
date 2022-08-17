@@ -65,8 +65,32 @@ SOFTWARE.
 
   <group name="tString32">
     <sequence>
-      <element name="value" type="xs:string" dfdl:lengthKind="pattern"
-               dfdl:lengthPattern="[^\x7F]{0,31}(?=\x7F)|.{32}"/>
+      <sequence>
+        <annotation>
+          <appinfo source="http://www.ogf.org/dfdl/">
+            <!--
+            This assert allows us to tell whether the pattern will match a DEL in the lookahead,
+            versus just failing to match at all.
+            (In DFDL v1.0 dfdl:lengthKind 'pattern' does NOT do this. A failure to match the pattern
+            is a zero-length "successful" parse.)
+
+            That said it is very annoying to have to do this regex match TWICE.
+            There is a proposal for a new dfdl:lengthKind enum 'patternMatch' which
+            causes a parse error if the pattern does not match (just like this assertion does.)
+            -->
+          <dfdl:assert testKind="pattern" testPattern="[^\x7F]{0,31}(?=\x7F)|.{32}"
+                       message="Did not find terminator (DEL) nor 32 characters."/>
+          </appinfo>
+        </annotation>
+      </sequence>
+      <element name="value" dfdl:lengthKind="pattern"
+               dfdl:lengthPattern="[^\x7F]{0,31}(?=\x7F)|.{32}">
+        <simpleType>
+          <restriction base="xs:string">
+            <maxLength value="32"/>
+          </restriction>
+        </simpleType>
+      </element>
       <sequence
         dfdl:terminator="{if (fn:string-length(./value) eq 32) then '%ES;' else '%DEL;'}"/>
     </sequence>
@@ -74,8 +98,22 @@ SOFTWARE.
 
   <group name="tString50">
     <sequence>
-      <element name="value" type="xs:string" dfdl:lengthKind="pattern"
-               dfdl:lengthPattern="[^\x7F]{0,49}(?=\x7F)|.{50}"/>
+      <sequence>
+        <annotation>
+          <appinfo source="http://www.ogf.org/dfdl/">
+            <dfdl:assert testKind="pattern" testPattern="[^\x7F]{0,49}(?=\x7F)|.{50}"
+                         message="Did not find terminator (DEL) nor 50 characters."/>
+          </appinfo>
+        </annotation>
+      </sequence>
+      <element name="value" dfdl:lengthKind="pattern"
+               dfdl:lengthPattern="[^\x7F]{0,49}(?=\x7F)|.{50}">
+        <simpleType>
+          <restriction base="xs:string">
+            <maxLength value="50"/>
+          </restriction>
+        </simpleType>
+      </element>
       <sequence
         dfdl:terminator="{if (fn:string-length(./value) eq 50) then '%ES;' else '%DEL;'}"/>
     </sequence>
@@ -83,8 +121,22 @@ SOFTWARE.
 
   <group name="tString64">
     <sequence>
-      <element name="value" type="xs:string" dfdl:lengthKind="pattern"
-               dfdl:lengthPattern="[^\x7F]{0,63}(?=\x7F)|.{64}"/>
+      <sequence>
+        <annotation>
+          <appinfo source="http://www.ogf.org/dfdl/">
+            <dfdl:assert testKind="pattern" testPattern="[^\x7F]{0,63}(?=\x7F)|.{64}"
+                         message="Did not find terminator (DEL) nor 64 characters."/>
+          </appinfo>
+        </annotation>
+      </sequence>
+      <element name="value" dfdl:lengthKind="pattern"
+               dfdl:lengthPattern="[^\x7F]{0,63}(?=\x7F)|.{64}">
+        <simpleType>
+          <restriction base="xs:string">
+            <maxLength value="64"/>
+          </restriction>
+        </simpleType>
+      </element>
       <sequence
         dfdl:terminator="{if (fn:string-length(./value) eq 64) then '%ES;' else '%DEL;'}"/>
     </sequence>

@@ -160,7 +160,7 @@ SOFTWARE.
   daffodil, and workarounds were used that causes spaces following the
   termination of the string to be incorrectly consumed.
 
-  Now that ES an be used since Daffodil 2.4.0, this test ensures that
+  Now that ES can be used since Daffodil 2.4.0, this test ensures that
   whitepsace following the terminator is not consumed.
   
   -->
