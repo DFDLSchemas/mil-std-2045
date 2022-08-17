@@ -101,12 +101,12 @@ SOFTWARE.
               </element>
               <sequence dfdl:hiddenGroupRef="msi:recipient_address_group_PI"/>
               <element name="recipient_address_group" type="tns:address_group_type"
-                       minOccurs="0"
+                       minOccurs="0" maxOccurs="16"
                        dfdl:occursCountKind="expression"
                        dfdl:occursCount="{ ../recipient_address_group_PI/value }"/>
               <sequence dfdl:hiddenGroupRef="msi:information_address_group_PI"/>
               <element name="information_address_group" type="tns:address_group_type"
-                       minOccurs="0"
+                       minOccurs="0" maxOccurs="16"
                        dfdl:occursCountKind="expression"
                        dfdl:occursCount="{ ../information_address_group_PI/value }"/>
               <sequence dfdl:hiddenGroupRef="msi:header_size_PI"/>
