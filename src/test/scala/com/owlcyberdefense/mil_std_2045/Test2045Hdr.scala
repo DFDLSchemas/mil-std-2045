@@ -108,12 +108,8 @@ class Test2045Hdr {
     runner.runOneTest("test_2045_D1_all_fields_x2p")
   }
 
-  // Gets SuspensionDeadlockException on Daffodil 3.3.0
-  // This is just XML for two messages in a row. One message parses/unparses round trip
-  // in test_2045_D1_all_fields. But two (of the same) message in a row parses properly
-  // per test_2045_D1_all_fields_x2p, but the resulting XML document does not unparse. 
-  // @Test
-  def test_2045_D1_all_fields_x2u() {
+  // Requires Daffodil 3.4.0 (or a version newer than git hash bd46fd
+  @Test def test_2045_D1_all_fields_x2u() {
     runner.runOneTest("test_2045_D1_all_fields_x2u")
   }
 
