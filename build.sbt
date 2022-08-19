@@ -2,7 +2,7 @@ name := "dfdl-mil-std-2045"
 
 organization := "com.owlcyberdefense"
 
-version := "1.0.4"
+version := "1.0.6-SNAPSHOT"
 
 scalaVersion := "2.12.15"
 

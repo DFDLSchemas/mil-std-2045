@@ -320,6 +320,7 @@ SOFTWARE.
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
+                  <vmf_hdr_D1>OK_Immediate</vmf_hdr_D1>
                   <value>OK_Immediate</value>
                 </message_precedence_codes>
                 <security_classification>
@@ -402,6 +403,7 @@ SOFTWARE.
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
+                  <vmf_hdr_D1>OK_Immediate</vmf_hdr_D1>
                   <value>OK_Immediate</value>
                 </message_precedence_codes>
                 <security_classification>
@@ -498,6 +500,7 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
+                  <vmf_hdr_D1>OK_Immediate</vmf_hdr_D1>
                   <value>OK_Immediate</value>
                 </message_precedence_codes>
                 <security_classification>
@@ -639,6 +642,7 @@ operator_reply_request_indicator set to 1">
                   <value>Retransmitted_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
+                  <vmf_hdr_D1>Reserved_7</vmf_hdr_D1>
                   <value>Reserved_7</value>
                 </message_precedence_codes>
                 <security_classification>
@@ -718,7 +722,8 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
-                  <value>OK_Flash_Override</value>
+                  <vmf_hdr_C>OK_Flash</vmf_hdr_C>
+                  <value>OK_Flash</value>
                 </message_precedence_codes>
                 <security_classification>
                   <value>U</value>
@@ -801,7 +806,8 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
-                  <value>OK_Flash_Override</value>
+                  <vmf_hdr_C>OK_Flash</vmf_hdr_C>
+                  <value>OK_Flash</value>
                 </message_precedence_codes>
                 <security_classification>
                   <value>U</value>
@@ -900,7 +906,8 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
-                  <value>OK_Flash_Override</value>
+                  <vmf_hdr_C>OK_Flash</vmf_hdr_C>
+                  <value>OK_Flash</value>
                 </message_precedence_codes>
                 <security_classification>
                   <value>U</value>
@@ -1079,7 +1086,8 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
-                  <value>OK_Immediate</value>
+                  <vmf_hdr_C>OK_Emergency</vmf_hdr_C>
+                  <value>OK_Emergency</value>
                 </message_precedence_codes>
                 <security_classification>
                   <value>U</value>
@@ -1213,6 +1221,7 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
+                  <vmf_hdr_D1>OK_Routine</vmf_hdr_D1>
                   <value>OK_Routine</value>
                 </message_precedence_codes>
                 <security_classification>
@@ -1303,7 +1312,8 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
-                  <value>OK_Routine</value>
+                  <vmf_hdr_C>Reserved_0</vmf_hdr_C>
+                  <value>Reserved_0</value>
                 </message_precedence_codes>
                 <security_classification>
                   <value>U</value>
@@ -1314,6 +1324,10 @@ operator_reply_request_indicator set to 1">
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
     </infoset>
+    <validationErrors>
+      <error>Reserved_0</error>
+      <error>vmf_hdr_C</error>
+    </validationErrors>
   </parserTestCase>
 
 
@@ -1429,6 +1443,7 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
+                  <vmf_hdr_D1>OK_Routine</vmf_hdr_D1>
                   <value>OK_Routine</value>
                 </message_precedence_codes>
                 <security_classification>
@@ -1569,6 +1584,7 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
+                  <vmf_hdr_D1>OK_Routine</vmf_hdr_D1>
                   <value>OK_Routine</value>
                 </message_precedence_codes>
                 <security_classification>
@@ -1675,7 +1691,8 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
-                  <value>OK_Routine</value>
+                  <vmf_hdr_C>Reserved_0</vmf_hdr_C>
+                  <value>Reserved_0</value>
                 </message_precedence_codes>
                 <security_classification>
                   <value>U</value>
@@ -1689,6 +1706,10 @@ operator_reply_request_indicator set to 1">
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
     </infoset>
+    <validationErrors>
+      <error>Reserved_0</error>
+      <error>vmf_hdr_C</error>
+    </validationErrors>
   </parserTestCase>
 
   <parserTestCase
@@ -1789,7 +1810,8 @@ operator_reply_request_indicator set to 1">
                   <value>Original_Message</value>
                 </retransmit_indicator>
                 <message_precedence_codes>
-                  <value>OK_Routine</value>
+                  <vmf_hdr_C>Reserved_0</vmf_hdr_C>
+                  <value>Reserved_0</value>
                 </message_precedence_codes>
                 <security_classification>
                   <value>U</value>
@@ -1873,4 +1895,3 @@ operator_reply_request_indicator set to 1">
   </unparserTestCase>
 
 </testSuite>
-
