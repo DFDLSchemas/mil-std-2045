@@ -83,6 +83,7 @@
               <value>Original_Message</value>
             </retransmit_indicator>
             <message_precedence_codes>
+              <vmf_hdr_D1>OK_Immediate</vmf_hdr_D1>
               <value>OK_Immediate</value>
             </message_precedence_codes>
             <security_classification>
@@ -237,6 +238,7 @@
               <value>Original_Message</value>
             </retransmit_indicator>
             <message_precedence_codes>
+              <vmf_hdr_D1>OK_Immediate</vmf_hdr_D1>
               <value>OK_Immediate</value>
             </message_precedence_codes>
             <security_classification>
@@ -453,6 +455,7 @@
               <value>Original_Message</value>
             </retransmit_indicator>
             <message_precedence_codes>
+              <vmf_hdr_D1>OK_Immediate</vmf_hdr_D1>
               <value>OK_Immediate</value>
             </message_precedence_codes>
             <security_classification>
@@ -607,6 +610,7 @@
               <value>Original_Message</value>
             </retransmit_indicator>
             <message_precedence_codes>
+              <vmf_hdr_D1>OK_Immediate</vmf_hdr_D1>
               <value>OK_Immediate</value>
             </message_precedence_codes>
             <security_classification>

@@ -550,7 +550,58 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="messagePrecedenceEnum" dfdlx:repType="tns:enum3">
+  <group name="h_messagePrecedenceCodesGroup">
+    <choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+      <!--
+      DFDL has no way to discriminate a choice at unparse time
+      based on data values in the infoset. So choices really cannot
+      be in hidden groups unless the first branch is acceptable as a default.
+
+      Hence, this group cannot be hidden.
+      -->
+      <element name="vmf_hdr_C" dfdl:choiceBranchKey="C"
+               type="tns:messagePrecedenceCodesEnum_C"/>
+      <element name="vmf_hdr_D1" dfdl:choiceBranchKey="D1"
+               type="tns:messagePrecedenceCodesEnum_D"/>
+    </choice>
+  </group>
+
+  <group name="messagePrecedenceCodesGroup">
+    <sequence>
+      <group ref="tns:h_messagePrecedenceCodesGroup"/>
+      <element name="value" type="xs:string"
+               dfdl:inputValueCalc="{
+              if (fn:exists(../vmf_hdr_C)) then ../vmf_hdr_C else ../vmf_hdr_D1
+              }"/>
+    </sequence>
+  </group>
+
+  <simpleType name="messagePrecedenceCodesEnum_C" dfdlx:repType="tns:enum3">
+    <restriction base="tns:enumString">
+      <enumeration value="OK_Emergency" dfdlx:repValues="2"/>
+      <enumeration value="OK_Flash" dfdlx:repValues="4"/>
+      <enumeration value="OK_Immediate" dfdlx:repValues="5"/>
+      <enumeration value="OK_Priority" dfdlx:repValues="6"/>
+      <enumeration value="OK_Routine" dfdlx:repValues="7"/>
+
+      <!--
+      This pattern facet insures that only the above "OK" values are
+      considered valid.
+      -->
+      <pattern value="OK_.*"/>
+      <!--
+      The remaining enums don't have OK_ prefixes, so will be
+      considered well-formed, but won't pass validation, as
+      both the pattern AND one of the enumerations must be
+      satisfied.
+      -->
+      <enumeration value="Reserved_0" dfdlx:repValues="0"/>
+      <enumeration value="Reserved_1" dfdlx:repValues="1"/>
+      <enumeration value="Reserved_3" dfdlx:repValues="3"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="messagePrecedenceCodesEnum_D" dfdlx:repType="tns:enum3">
     <restriction base="tns:enumString">
       <enumeration value="OK_Routine" dfdlx:repValues="0"/>
       <enumeration value="OK_Priority" dfdlx:repValues="1"/>
