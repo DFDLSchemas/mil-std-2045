@@ -140,12 +140,23 @@ SOFTWARE.
                             </complexType>
                           </element>
                           <sequence dfdl:hiddenGroupRef="msi:message_standard_version_PI"/>
+                          <!--
+                          in the occursCount expression below, you would think that
+                          the binary file case, the value should be 0. However,
+                          a use case for which there is real data, uses this field because
+                          the binary file contains a VMF message. Hence it uses the
+                          message standard version to carry the version of VMF for
+                          that message.
+
+                          The message standard version depends on the umf field.
+                          Even when this is OK_Binary_File, the data can still contain
+                          a message standard version for VMF.
+                          -->
                           <element name="message_standard_version"
                                    minOccurs="0"
                                    dfdl:occursCountKind="expression"
                                    dfdl:occursCount='{
-                                  if (../umf/value eq "OK_Binary_File" or
-                                      ../umf/value eq "OK_RDM" or
+                                  if (../umf/value eq "OK_RDM" or
                                       ../umf/value eq "OK_USMTF-DOI-103" or
                                       fn:starts-with(../umf/value, "Undefined") )
                                       then 0
@@ -155,7 +166,14 @@ SOFTWARE.
                               <choice dfdl:choiceDispatchKey="{ ../umf/value }">
                                 <element dfdl:choiceBranchKey="OK_Link_16" name="link16"
                                          type="tns:messsageStandardVersionLink16Enum"/>
-                                <group  dfdl:choiceBranchKey="OK_VMF"
+                                <!--
+                                A real use case is binary files where those files carry
+                                a VMF binary message.
+
+                                In that case, we need to use message_standard_version to tell us
+                                the version of that VMF message.
+                                -->
+                                <group  dfdl:choiceBranchKey="OK_VMF OK_Binary_File"
                                         ref="tns:messageStandardVersionVMFGroup"/>
                                 <element dfdl:choiceBranchKey="OK_NITFS" name="nitfs"
                                          type="tns:messsageStandardVersionNITFSEnum"/>
