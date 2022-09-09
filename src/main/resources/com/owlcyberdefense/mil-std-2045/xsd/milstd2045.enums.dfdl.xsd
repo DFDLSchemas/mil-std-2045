@@ -52,7 +52,9 @@ SOFTWARE.
   <simpleType name="checkedInt" dfdl:lengthKind="explicit">
     <annotation>
       <appinfo source="http://www.ogf.org/dfdl/">
-        <dfdl:assert>{ dfdl:checkConstraints(.) }</dfdl:assert>
+        <dfdl:assert
+          message='{ fn:concat("The value: ", xs:string(.) , " did not satisfy facet constraints.") }'>{
+          dfdl:checkConstraints(.) }</dfdl:assert>
       </appinfo>
     </annotation>
     <restriction base="xs:unsignedInt"/>

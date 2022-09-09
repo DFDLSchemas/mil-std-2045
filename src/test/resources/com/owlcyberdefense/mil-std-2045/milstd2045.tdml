@@ -1894,4 +1894,150 @@ operator_reply_request_indicator set to 1">
     </document>
   </unparserTestCase>
 
+  <tdml:defineSchema name="dtTest"  elementFormDefault="unqualified" useDefaultNamespace="false"
+                     xmlns="http://www.w3.org/2001/XMLSchema" >
+
+    <import namespace="urn:milstd2045DFDLInternal"
+            schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd"/>
+
+    <import namespace="urn:milstd2045DFDL"
+            schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.dateTime.dfdl.xsd"/>
+
+    <dfdl:format ref="msi:msBase" lengthKind="implicit"/>
+
+    <element name="dt">
+      <complexType>
+        <group ref="ms:dateTime"/>
+      </complexType>
+    </element>
+
+  </tdml:defineSchema>
+
+  <parserTestCase name="dtTest_01"
+                    root="dt" model="dtTest"
+                    description="dateTime parsing in isolation">
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:dt>
+          <dateTime>2001-01-01T01:01:01</dateTime>
+        </ex:dt>
+      </tdml:dfdlInfoset>
+    </infoset>
+
+    <!-- year month day hours minutes seconds 7, 4, 5, 5, 6, 6 bits wide but in LSBF, so Right-to-left here -->
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">
+        000001 000001 00001 00001 0001 0000001
+      </documentPart>
+    </document>
+  </parserTestCase>
+
+  <parserTestCase name="dtTest_02"
+                  root="dt" model="dtTest"
+                  description="negative test showing diagnostic from bad seconds when non-validating"
+  validation="off">
+    <errors>
+      <error>Parse Error</error>
+      <error>xs:dateTime from string</error>
+      <error>2001-01-01T01:01:61</error>
+    </errors>
+
+    <!-- year month day hours minutes seconds 7, 4, 5, 5, 6, 6 bits wide but in LSBF, so Right-to-left here -->
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">
+        111101 000001 00001 00001 0001 0000001
+      </documentPart>
+    </document>
+  </parserTestCase>
+
+  <parserTestCase name="dtTest_03"
+                  root="dt" model="dtTest"
+                  description="negative test showing diagnostic from bad minutes when non-validating"
+                  validation="off">
+    <errors>
+      <error>Assertion Failed</error>
+      <error>minute</error>
+      <error>61 did not satisfy facet constraints</error>
+    </errors>
+
+    <!-- year month day hours minutes seconds 7, 4, 5, 5, 6, 6 bits wide but in LSBF, so Right-to-left here -->
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">
+        000001 111101 00001 00001 0001 0000001
+      </documentPart>
+    </document>
+  </parserTestCase>
+
+  <parserTestCase name="dtTest_04"
+                  root="dt" model="dtTest"
+                  description="negative test showing diagnostic from bad hours when non-validating"
+                  validation="off">
+    <errors>
+      <error>Assertion Failed</error>
+      <error>hour</error>
+      <error>25 did not satisfy facet constraints</error>
+    </errors>
+
+    <!-- year month day hours minutes seconds 7, 4, 5, 5, 6, 6 bits wide but in LSBF, so Right-to-left here -->
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">
+        000001 000001 11001 00001 0001 0000001
+      </documentPart>
+    </document>
+  </parserTestCase>
+
+  <parserTestCase name="dtTest_05"
+                  root="dt" model="dtTest"
+                  description="negative test showing diagnostic from bad day when non-validating"
+                  validation="off">
+    <errors>
+      <error>Assertion Failed</error>
+      <error>day</error>
+      <error>0 did not satisfy facet constraints</error>
+    </errors>
+
+    <!-- year month day hours minutes seconds 7, 4, 5, 5, 6, 6 bits wide but in LSBF, so Right-to-left here -->
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">
+        000001 000001 00001 00000 0001 0000001
+      </documentPart>
+    </document>
+  </parserTestCase>
+
+  <parserTestCase name="dtTest_06"
+                  root="dt" model="dtTest"
+                  description="negative test showing diagnostic from bad month when non-validating"
+                  validation="off">
+    <errors>
+      <error>Assertion Failed</error>
+      <error>month</error>
+      <error>13 did not satisfy facet constraints</error>
+    </errors>
+
+    <!-- year month day hours minutes seconds 7, 4, 5, 5, 6, 6 bits wide but in LSBF, so Right-to-left here -->
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">
+        000001 000001 00001 00001 1101 0000001
+      </documentPart>
+    </document>
+  </parserTestCase>
+
+  <parserTestCase name="dtTest_07"
+                  root="dt" model="dtTest"
+                  description="negative test showing diagnostic from bad year when non-validating"
+                  validation="off">
+    <errors>
+      <error>Assertion Failed</error>
+      <error>year</error>
+      <error>100 did not satisfy facet constraints</error>
+    </errors>
+
+    <!-- year month day hours minutes seconds 7, 4, 5, 5, 6, 6 bits wide but in LSBF, so Right-to-left here -->
+    <document bitOrder="LSBFirst">
+      <documentPart type="bits" byteOrder="RTL">
+        000001 000001 00001 00001 0001 1100100
+      </documentPart>
+    </document>
+  </parserTestCase>
+
 </testSuite>

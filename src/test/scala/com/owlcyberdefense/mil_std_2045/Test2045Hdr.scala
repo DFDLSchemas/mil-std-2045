@@ -113,4 +113,13 @@ class Test2045Hdr {
     runner.runOneTest("test_2045_D1_all_fields_x2u")
   }
 
+  @Test def dtTest_01(): Unit = runner.runOneTest("dtTest_01")
+  @Test def dtTest_02(): Unit = runner.runOneTest("dtTest_02")
+  @Test def dtTest_03(): Unit = runner.runOneTest("dtTest_03")
+  @Test def dtTest_04(): Unit = runner.runOneTest("dtTest_04")
+  @Test def dtTest_05(): Unit = runner.runOneTest("dtTest_05")
+  @Test def dtTest_06(): Unit = runner.runOneTest("dtTest_06")
+  @Test def dtTest_07(): Unit = runner.runOneTest("dtTest_07")
+
+
 }
