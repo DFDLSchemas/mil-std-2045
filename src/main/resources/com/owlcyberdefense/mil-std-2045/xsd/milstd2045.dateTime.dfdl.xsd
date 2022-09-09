@@ -53,6 +53,12 @@ SOFTWARE.
       <dfdl:defineVariable name="hourStr" type="xs:string" dfdlx:direction="parseOnly"/>
       <dfdl:defineVariable name="minuteStr" type="xs:string" dfdlx:direction="parseOnly"/>
       <dfdl:defineVariable name="secondStr" type="xs:string" dfdlx:direction="parseOnly"/>
+      <dfdl:defineVariable name="wholeStr" type="xs:string" dfdlx:direction="parseOnly"/>
+      <dfdl:defineVariable name="maxDateTime" type="xs:dateTime" dfdlx:direction="parseOnly"
+                           defaultValue='{ xs:dateTime("2094-12-31T23:59:59") }'/>
+      <dfdl:defineVariable name="minDateTime" type="xs:dateTime" dfdlx:direction="parseOnly"
+                           defaultValue='{ xs:dateTime("1995-01-01T00:00:00") }'/>
+      <dfdl:defineVariable name="theDateTime" type="xs:dateTime" dfdlx:direction="parseOnly"/>
 
       <dfdl:format lengthKind='implicit' ref="msi:msBase"/>
     </appinfo>
@@ -61,7 +67,8 @@ SOFTWARE.
   <simpleType name="checkedString">
     <annotation>
       <appinfo source="http://www.ogf.org/dfdl/">
-        <dfdl:assert>{ dfdl:checkConstraints(.) }</dfdl:assert>
+        <dfdl:assert
+          message='{ fn:concat("The value: ", xs:string(.) , " did not satisfy facet constraints.") }'>{ dfdl:checkConstraints(.) }</dfdl:assert>
       </appinfo>
     </annotation>
     <restriction base="xs:string"/>
@@ -110,9 +117,40 @@ SOFTWARE.
               else fn:concat("0", xs:string(second))
               }
             </dfdl:newVariableInstance>
+            <dfdl:newVariableInstance ref="tns:wholeStr">{
+              fn:concat($tns:yearStr, "-", $tns:monthStr, "-", $tns:dayStr,
+              "T", $tns:hourStr, ":", $tns:minuteStr, ":", $tns:secondStr)
+              }
+            </dfdl:newVariableInstance>
           </appinfo>
         </annotation>
         <sequence>
+          <sequence>
+            <annotation>
+              <appinfo source="http://www.ogf.org/dfdl/">
+                <!--
+                Below we compare with minDateTime just to invoke the xs:dateTime constructor
+                conversion and see if it succeeds or fails.
+
+                If it fails the assert expression fails, which means the assert fails, which
+                should produce the diagnostic message.
+
+                This is the best we can do in DFDL, which provides no way to catch the error
+                of the string being a malformed dateTime string when invoking the xs:dateTime
+                constructor.
+                -->
+                <dfdl:assert
+                  message='{ fn:concat("Malformed dateTime data: ", $tns:wholeStr) }'>{
+                  if (xs:dateTime($tns:wholeStr) ge $tns:minDateTime)
+                  then
+                  fn:true()
+                  else
+                  fn:error(fn:concat("The dateTime: ", $tns:wholeStr, " is less than minimum value ", $tns:minDateTime))
+                  }
+                </dfdl:assert>
+              </appinfo>
+            </annotation>
+          </sequence>
           <!--
             because seconds of 63 means "no statement", we have to
             somehow convey that information while exhibiting a
@@ -146,10 +184,7 @@ SOFTWARE.
           <element
             name="dateTime" type="tns:msDateTime"
             dfdl:lengthKind="implicit"
-            dfdl:inputValueCalc='{
-            xs:dateTime(fn:concat($tns:yearStr, "-", $tns:monthStr, "-", $tns:dayStr,
-              "T", $tns:hourStr, ":", $tns:minuteStr, ":", $tns:secondStr))
-          }'/>
+            dfdl:inputValueCalc='{ xs:dateTime($tns:wholeStr) }'/>
         </sequence>
       </sequence>
     </sequence>
@@ -158,8 +193,8 @@ SOFTWARE.
   <simpleType name="msDateTime">
     <annotation>
       <appinfo source="http://www.ogf.org/dfdl/">
-        <dfdl:assert>{ . le xs:dateTime("2094-12-31T23:59:59") and
-          . ge xs:dateTime("1995-01-01T00:00:00") }
+        <dfdl:assert>{ . le $tns:maxDateTime and
+          . ge $tns:minDateTime }
         </dfdl:assert>
       </appinfo>
     </annotation>
@@ -244,6 +279,5 @@ SOFTWARE.
       </simpleType>
     </union>
   </simpleType>
-
 
 </schema>
