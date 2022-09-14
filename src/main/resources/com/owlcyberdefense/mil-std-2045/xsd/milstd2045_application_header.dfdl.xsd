@@ -151,17 +151,19 @@ SOFTWARE.
                           The message standard version depends on the umf field.
                           Even when this is OK_Binary_File, the data can still contain
                           a message standard version for VMF.
+
+                          Note that the VTT Tool (version 10) will not allow you to create
+                          data that has this PI for message_standard_version a 1 when
+                          the UMF is binaryFile.
+
+                          Mil-std-2045-470001 (both C and D1) disallows use of message_standard_version
+                          with binaryFile umf. (All values are specified as "illegal".
+                          See Table V in those specifications.)
                           -->
                           <element name="message_standard_version"
                                    minOccurs="0"
                                    dfdl:occursCountKind="expression"
-                                   dfdl:occursCount='{
-                                  if (../umf/value eq "OK_RDM" or
-                                      ../umf/value eq "OK_USMTF-DOI-103" or
-                                      fn:starts-with(../umf/value, "Undefined") )
-                                      then 0
-                                      else ../message_standard_version_PI/value
-                                }'>
+                                   dfdl:occursCount='{ ../message_standard_version_PI/value }'>
                             <complexType>
                               <choice dfdl:choiceDispatchKey="{ ../umf/value }">
                                 <element dfdl:choiceBranchKey="OK_Link_16" name="link16"
