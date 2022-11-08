@@ -1,8 +1,6 @@
 package com.owlcyberdefense.mil_std_2045
 import org.junit.Test
-import org.apache.daffodil.tdml.DFDLTestSuite
 import org.apache.daffodil.tdml.Runner
-import org.apache.daffodil.util.Misc
 
 object Test2045Hdr {
   val testDir = "com/owlcyberdefense/mil-std-2045/"
