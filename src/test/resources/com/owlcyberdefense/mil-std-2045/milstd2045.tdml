@@ -87,7 +87,7 @@ SOFTWARE.
       <complexType>
         <sequence>
           <element name="item"
-                   minOccurs="1" maxOccurs="unbounded"
+                   minOccurs="1" maxOccurs="100"
                    dfdl:occursCountKind="implicit">
             <complexType>
               <sequence>
@@ -2039,5 +2039,186 @@ operator_reply_request_indicator set to 1">
       </documentPart>
     </document>
   </parserTestCase>
+
+  <parserTestCase name="test_2045_C_msghdr1_invalid_address_group_count" root="milstd2045_application_header"
+                  model="hdr">
+    <document bitOrder="LSBFirst">
+      <!-- From K02.1_1.1.VMB modified to have zero message size. -->
+      <documentPart type="byte" byteOrder="LTR"><![CDATA[
+      E29B6109673151308B8982594C14CC62A260161305B3982898C544C12C260A64315170161305B3982898C544C12C260A663151308B8982594C14C862A2A0130079254000000851A28CC2410F1000
+      ]]></documentPart>
+    </document>
+
+    <infoset>
+      <tdml:dfdlInfoset xmlns="">
+        <ex:milstd2045_application_header>
+          <contents>
+            <version>
+              <value>C</value>
+            </version>
+            <originator_address_group>
+              <urn>
+                <value>1229623</value>
+              </urn>
+            </originator_address_group>
+            <recipient_address_group>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+            </recipient_address_group>
+            <information_address_group>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+              <item>
+                <urn>
+                  <value>665132</value>
+                </urn>
+              </item>
+            </information_address_group>
+            <invalid>
+              <value><![CDATA[Too many address groups. Max of 16 for combination of recipient_address_group(9) and information_address_group(8).]]></value>
+            </invalid>
+            <header_size>
+              <value>78</value>
+            </header_size>
+            <message_handling_group>
+              <item>
+                <umf>
+                  <value>OK_VMF</value>
+                </umf>
+                <message_standard_version>
+                  <vmf_hdr_C>OK_6017A</vmf_hdr_C>
+                  <vmf>OK_6017A</vmf>
+                </message_standard_version>
+                <vmf_message_identification_group>
+                  <fad>
+                    <value>2</value>
+                  </fad>
+                  <message_number>
+                    <value>1</value>
+                  </message_number>
+                  <K_ID>K02.01</K_ID>
+                </vmf_message_identification_group>
+                <message_size>
+                  <value>0</value>
+                </message_size>
+                <operation_indicator>
+                  <value>Exercise</value>
+                </operation_indicator>
+                <retransmit_indicator>
+                  <value>Original_Message</value>
+                </retransmit_indicator>
+                <message_precedence_codes>
+                  <vmf_hdr_C>OK_Flash</vmf_hdr_C>
+                  <value>OK_Flash</value>
+                </message_precedence_codes>
+                <security_classification>
+                  <value>U</value>
+                </security_classification>
+                <originator_dtg_group>
+                  <dateTime>2018-10-12T20:48:01</dateTime>
+                  <dtg_extension>
+                    <value>30</value>
+                  </dtg_extension>
+                </originator_dtg_group>
+                <acknowledgement_request_group>
+                  <machine_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </machine_acknowledge_request_indicator>
+                  <operator_acknowledge_request_indicator>
+                    <value>No_Acknowledgement_Required</value>
+                  </operator_acknowledge_request_indicator>
+                  <operator_reply_request_indicator>
+                    <value>No_Reply_Required</value>
+                  </operator_reply_request_indicator>
+                </acknowledgement_request_group>
+              </item>
+            </message_handling_group>
+          </contents>
+        </ex:milstd2045_application_header>
+      </tdml:dfdlInfoset>
+    </infoset>
+    <validationErrors>
+      <error>Too many address groups</error>
+      <error>recipient_address_group(9)</error>
+      <error>information_address_group(8)</error>
+    </validationErrors>
+  </parserTestCase>
+
 
 </testSuite>

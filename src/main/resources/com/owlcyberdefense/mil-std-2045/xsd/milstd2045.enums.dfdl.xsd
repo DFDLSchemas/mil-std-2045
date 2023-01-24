@@ -135,7 +135,7 @@ SOFTWARE.
     <restriction base="tns:enumString">
       <enumeration value="LZW" dfdlx:repValues="0"/>
       <enumeration value="GZIP" dfdlx:repValues="1"/>
-      <pattern value="OK_*"/><!-- none of these are implemented yet -->
+      <pattern value="OK_.{0,20}"/><!-- none of these are implemented yet -->
     </restriction>
   </simpleType>
 
@@ -154,7 +154,7 @@ SOFTWARE.
       This pattern facet insures that only the above "OK" values are
       considered valid.
       -->
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
       <!--
       The remaining enums don't have OK_ prefixes, so will be
       considered well-formed, but won't pass validation, as
@@ -242,7 +242,7 @@ SOFTWARE.
       <enumeration value="Reserved_13" dfdlx:repValues="13"/>
       <enumeration value="Reserved_14" dfdlx:repValues="14"/>
       <enumeration value="Reserved_15" dfdlx:repValues="15"/>
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
     </restriction>
   </simpleType>
 
@@ -270,7 +270,7 @@ SOFTWARE.
       <enumeration value="Reserved_13" dfdlx:repValues="13"/>
       <enumeration value="Reserved_14" dfdlx:repValues="14"/>
       <enumeration value="Reserved_15" dfdlx:repValues="15"/>
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
     </restriction>
   </simpleType>
 
@@ -282,7 +282,7 @@ SOFTWARE.
       This pattern facet insures that only the above "OK" values are
       considered valid.
       -->
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
       <!--
       The remaining enums don't have OK_ prefixes, so will be
       considered well-formed, but won't pass validation, as
@@ -340,7 +340,7 @@ SOFTWARE.
       This pattern facet insures that only the above "OK" values are
       considered valid.
       -->
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
       <!--
       The remaining enums don't have OK_ prefixes, so will be
       considered well-formed, but won't pass validation, as
@@ -412,7 +412,7 @@ SOFTWARE.
       <enumeration value="Reserved_13" dfdlx:repValues="13"/>
       <enumeration value="Reserved_14" dfdlx:repValues="14"/>
       <enumeration value="Reserved_15" dfdlx:repValues="15"/>
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
     </restriction>
   </simpleType>
 
@@ -438,7 +438,7 @@ SOFTWARE.
       <enumeration value="Reserved_13" dfdlx:repValues="13"/>
       <enumeration value="Reserved_14" dfdlx:repValues="14"/>
       <enumeration value="Reserved_15" dfdlx:repValues="15"/>
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
     </restriction>
   </simpleType>
 
@@ -495,7 +495,7 @@ SOFTWARE.
       This pattern facet insures that only the above "OK" values are
       considered valid.
       -->
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,100}"/>
       <!--
       The remaining enums don't have OK_ prefixes, so will be
       considered well-formed, but won't pass validation, as
@@ -590,7 +590,7 @@ SOFTWARE.
       This pattern facet insures that only the above "OK" values are
       considered valid.
       -->
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
       <!--
       The remaining enums don't have OK_ prefixes, so will be
       considered well-formed, but won't pass validation, as
@@ -615,7 +615,7 @@ SOFTWARE.
       This pattern facet insures that only the above "OK" values are
       considered valid.
       -->
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
       <!--
       The remaining enums don't have OK_ prefixes, so will be
       considered well-formed, but won't pass validation, as
@@ -649,7 +649,7 @@ SOFTWARE.
       This pattern facet insures that only the above "OK" values are
       considered valid.
       -->
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,20}"/>
       <!--
       The remaining enums don't have OK_ prefixes, so will be
       considered well-formed, but won't pass validation, as
@@ -667,7 +667,7 @@ SOFTWARE.
       This pattern facet insures that only the above "OK" values are
       considered valid.
       -->
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,100}"/>
       <!--
       The remaining enums don't have OK_ prefixes, so will be
       considered well-formed, but won't pass validation, as
