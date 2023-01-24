@@ -85,7 +85,7 @@ SOFTWARE.
   <complexType name="address_group_type">
     <sequence>
       <element name="item"
-               minOccurs="1" maxOccurs="unbounded"
+               minOccurs="1" maxOccurs="16"
                dfdl:occursCountKind="implicit">
         <complexType>
           <sequence>

@@ -119,5 +119,7 @@ class Test2045Hdr {
   @Test def dtTest_06(): Unit = runner.runOneTest("dtTest_06")
   @Test def dtTest_07(): Unit = runner.runOneTest("dtTest_07")
 
-
+  @Test def test_2045_C_msghdr1_invalid_address_group_count() {
+    runner.runOneTest("test_2045_C_msghdr1_invalid_address_group_count")
+  }
 }
