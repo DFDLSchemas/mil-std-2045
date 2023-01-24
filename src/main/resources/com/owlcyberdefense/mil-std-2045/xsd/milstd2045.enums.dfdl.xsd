@@ -101,11 +101,18 @@ SOFTWARE.
   </xs:simpleType>
 
   <!--
-  Used to create invalid element values on purpose
+  Used to create invalid element values on purpose.
+
+  Any string that doesn't begin with "OK_" will be deemed
+  invalid and generate a validation error.
+
+  Some of these invalid elements use a dfdl:inputValueCalc to
+  capture a diagnostic message. These can be a few lines
+  long. Hence, fairly large max for this.
   -->
   <simpleType name="invalidEnum">
     <restriction base="xs:string">
-      <pattern value="OK_.*"/>
+      <pattern value="OK_.{0,300}"/>
     </restriction>
   </simpleType>
 
