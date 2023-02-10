@@ -30,7 +30,7 @@ SOFTWARE.
 -->
 
 <schema targetNamespace="urn:milstd2045DFDL"
-        xmlns:tns="urn:milstd2045DFDL"
+        xmlns:ms2045="urn:milstd2045DFDL"
         xmlns:msi="urn:milstd2045DFDLInternal"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
@@ -76,33 +76,33 @@ SOFTWARE.
 
   <group name="dateTime">
     <sequence>
-      <sequence dfdl:hiddenGroupRef="tns:ymdhms"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:ymdhms"/>
       <sequence>
         <annotation>
           <appinfo source="http://www.ogf.org/dfdl/">
-            <dfdl:newVariableInstance ref="tns:yearStr">{
+            <dfdl:newVariableInstance ref="ms2045:yearStr">{
               if (year le 9) then fn:concat("200", xs:string(year))
               else if (year le 94) then fn:concat("20", xs:string(year))
               else if (year le 99) then fn:concat("19", xs:string(year))
               else fn:concat("2", xs:string(year))
               }
             </dfdl:newVariableInstance>
-            <dfdl:newVariableInstance ref="tns:monthStr">{
+            <dfdl:newVariableInstance ref="ms2045:monthStr">{
               if (month ge 10) then xs:string(month)
               else fn:concat("0", xs:string(month))
               }
             </dfdl:newVariableInstance>
-            <dfdl:newVariableInstance ref="tns:dayStr">{
+            <dfdl:newVariableInstance ref="ms2045:dayStr">{
               if (day ge 10) then xs:string(day)
               else fn:concat("0", xs:string(day))
               }
             </dfdl:newVariableInstance>
-            <dfdl:newVariableInstance ref="tns:hourStr">{
+            <dfdl:newVariableInstance ref="ms2045:hourStr">{
               if (hour ge 10) then xs:string(hour)
               else fn:concat("0", xs:string(hour))
               }
             </dfdl:newVariableInstance>
-            <dfdl:newVariableInstance ref="tns:minuteStr">{
+            <dfdl:newVariableInstance ref="ms2045:minuteStr">{
               if (minute ge 10) then xs:string(minute)
               else fn:concat("0", xs:string(minute))
               }
@@ -111,15 +111,15 @@ SOFTWARE.
             we map 63, which means no-statement, to 00 so that
             we can construct a valid DFDL xs:dateTime value
             -->
-            <dfdl:newVariableInstance ref="tns:secondStr">{
+            <dfdl:newVariableInstance ref="ms2045:secondStr">{
               if (second eq 63) then "00"
               else if (second ge 10) then xs:string(second)
               else fn:concat("0", xs:string(second))
               }
             </dfdl:newVariableInstance>
-            <dfdl:newVariableInstance ref="tns:wholeStr">{
-              fn:concat($tns:yearStr, "-", $tns:monthStr, "-", $tns:dayStr,
-              "T", $tns:hourStr, ":", $tns:minuteStr, ":", $tns:secondStr)
+            <dfdl:newVariableInstance ref="ms2045:wholeStr">{
+              fn:concat($ms2045:yearStr, "-", $ms2045:monthStr, "-", $ms2045:dayStr,
+              "T", $ms2045:hourStr, ":", $ms2045:minuteStr, ":", $ms2045:secondStr)
               }
             </dfdl:newVariableInstance>
           </appinfo>
@@ -140,12 +140,12 @@ SOFTWARE.
                 constructor.
                 -->
                 <dfdl:assert
-                  message='{ fn:concat("Malformed dateTime data: ", $tns:wholeStr) }'>{
-                  if (xs:dateTime($tns:wholeStr) ge $tns:minDateTime)
+                  message='{ fn:concat("Malformed dateTime data: ", $ms2045:wholeStr) }'>{
+                  if (xs:dateTime($ms2045:wholeStr) ge $ms2045:minDateTime)
                   then
                   fn:true()
                   else
-                  fn:error(fn:concat("The dateTime: ", $tns:wholeStr, " is less than minimum value ", $tns:minDateTime))
+                  fn:error(fn:concat("The dateTime: ", $ms2045:wholeStr, " is less than minimum value ", $ms2045:minDateTime))
                   }
                 </dfdl:assert>
               </appinfo>
@@ -182,9 +182,9 @@ SOFTWARE.
             </complexType>
           </element>
           <element
-            name="dateTime" type="tns:msDateTime"
+            name="dateTime" type="ms2045:msDateTime"
             dfdl:lengthKind="implicit"
-            dfdl:inputValueCalc='{ xs:dateTime($tns:wholeStr) }'/>
+            dfdl:inputValueCalc='{ xs:dateTime($ms2045:wholeStr) }'/>
         </sequence>
       </sequence>
     </sequence>
@@ -193,8 +193,8 @@ SOFTWARE.
   <simpleType name="msDateTime">
     <annotation>
       <appinfo source="http://www.ogf.org/dfdl/">
-        <dfdl:assert>{ . le $tns:maxDateTime and
-          . ge $tns:minDateTime }
+        <dfdl:assert>{ . le $ms2045:maxDateTime and
+          . ge $ms2045:minDateTime }
         </dfdl:assert>
       </appinfo>
     </annotation>
@@ -208,17 +208,17 @@ SOFTWARE.
 
   <group name="ymdhms">
     <sequence>
-      <element name="year" type="tns:year" dfdl:length="7"
+      <element name="year" type="ms2045:year" dfdl:length="7"
                dfdl:outputValueCalc='{ xs:unsignedInt(fn:year-from-dateTime(../dateTime) mod 100) }'/>
-      <element name="month" type="tns:month" dfdl:length="4"
+      <element name="month" type="ms2045:month" dfdl:length="4"
                dfdl:outputValueCalc='{ xs:unsignedInt(fn:month-from-dateTime(../dateTime)) }'/>
-      <element name="day" type="tns:day" dfdl:length="5"
+      <element name="day" type="ms2045:day" dfdl:length="5"
                dfdl:outputValueCalc='{ xs:unsignedInt(fn:day-from-dateTime(../dateTime)) }'/>
-      <element name="hour" type="tns:hour" dfdl:length="5"
+      <element name="hour" type="ms2045:hour" dfdl:length="5"
                dfdl:outputValueCalc='{ xs:unsignedInt(fn:hours-from-dateTime(../dateTime)) }'/>
-      <element name="minute" type="tns:minute" dfdl:length="6"
+      <element name="minute" type="ms2045:minute" dfdl:length="6"
                dfdl:outputValueCalc='{ xs:unsignedInt(fn:minutes-from-dateTime(../dateTime)) }'/>
-      <element name="second" type="tns:second"
+      <element name="second" type="ms2045:second"
                dfdl:outputValueCalc='{
                if (fn:exists(../timeStatus[1]/seconds))
                then 63
@@ -230,34 +230,34 @@ SOFTWARE.
 
 
   <simpleType name="year">
-    <restriction base="tns:checkedInt">
+    <restriction base="ms2045:checkedInt">
       <maxInclusive value="99"/>
     </restriction>
   </simpleType>
 
   <simpleType name="month">
-    <restriction base="tns:checkedInt">
+    <restriction base="ms2045:checkedInt">
       <minInclusive value="1"/>
       <maxInclusive value="12"/>
     </restriction>
   </simpleType>
 
   <simpleType name="day">
-    <restriction base="tns:checkedInt">
+    <restriction base="ms2045:checkedInt">
       <minInclusive value="1"/>
       <maxInclusive value="31"/>
     </restriction>
   </simpleType>
 
   <simpleType name="hour">
-    <restriction base="tns:checkedInt">
+    <restriction base="ms2045:checkedInt">
       <minInclusive value="0"/>
       <maxInclusive value="23"/>
     </restriction>
   </simpleType>
 
   <simpleType name="minute">
-    <restriction base="tns:checkedInt">
+    <restriction base="ms2045:checkedInt">
       <minInclusive value="0"/>
       <maxInclusive value="59"/>
     </restriction>
@@ -268,12 +268,12 @@ SOFTWARE.
   <simpleType name="second" dfdl:lengthKind="explicit" dfdl:length="6">
     <union>
       <simpleType>
-        <restriction base="tns:checkedInt">
+        <restriction base="ms2045:checkedInt">
           <maxInclusive value="59"/>
         </restriction>
       </simpleType>
       <simpleType>
-        <restriction base="tns:checkedInt">
+        <restriction base="ms2045:checkedInt">
           <enumeration value="63"/>
         </restriction>
       </simpleType>

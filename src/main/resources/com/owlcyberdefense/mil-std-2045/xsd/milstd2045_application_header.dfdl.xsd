@@ -35,7 +35,7 @@ SOFTWARE.
   xmlns:fn="http://www.w3.org/2005/xpath-functions"
   xmlns:msi="urn:milstd2045DFDLInternal"
   xmlns:msms="urn:milstd2045DFDLMessageSize"
-  xmlns:tns="urn:milstd2045DFDL"
+  xmlns:ms2045="urn:milstd2045DFDL"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.w3.org/2001/XMLSchema"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -50,7 +50,7 @@ SOFTWARE.
   <include schemaLocation="milstd2045_future_use_groups.dfdl.xsd"/>
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">
-      <dfdl:format ref="tns:msCommon"/>
+      <dfdl:format ref="ms2045:msCommon"/>
       <dfdl:defineVariable name="hdrLen" type="xs:unsignedInt"/>
     </appinfo>
   </annotation>
@@ -59,7 +59,7 @@ SOFTWARE.
     <sequence>
       <annotation>
         <appinfo source="http://www.ogf.org/dfdl/">
-          <dfdl:newVariableInstance ref="tns:hdrLen"/>
+          <dfdl:newVariableInstance ref="ms2045:hdrLen"/>
         </appinfo>
       </annotation>
       <element name="contents">
@@ -68,14 +68,14 @@ SOFTWARE.
             <element name="version">
               <complexType>
                 <sequence>
-                  <element name="value" type="tns:versionEnum"/>
+                  <element name="value" type="ms2045:versionEnum"/>
                 </sequence>
               </complexType>
             </element>
             <sequence>
               <annotation>
                 <appinfo source="http://www.ogf.org/dfdl/">
-                  <dfdl:newVariableInstance ref="tns:versionSpec"
+                  <dfdl:newVariableInstance ref="ms2045:versionSpec"
                                             defaultValue="{ version/value }"/>
                 </appinfo>
               </annotation>
@@ -86,7 +86,7 @@ SOFTWARE.
                        dfdl:occursCount="{ ../data_compression_type_PI/value }">
                 <complexType>
                   <sequence>
-                    <element name="value" type="tns:dataCompressionEnum"/>
+                    <element name="value" type="ms2045:dataCompressionEnum"/>
                   </sequence>
                 </complexType>
               </element>
@@ -96,16 +96,16 @@ SOFTWARE.
                        dfdl:occursCountKind="expression"
                        dfdl:occursCount="{ ../originator_address_group_PI/value }">
                 <complexType>
-                  <group ref="tns:urn_unit_name_group"/>
+                  <group ref="ms2045:urn_unit_name_group"/>
                 </complexType>
               </element>
               <sequence dfdl:hiddenGroupRef="msi:recipient_address_group_PI"/>
-              <element name="recipient_address_group" type="tns:address_group_type"
+              <element name="recipient_address_group" type="ms2045:address_group_type"
                        minOccurs="0" maxOccurs="16"
                        dfdl:occursCountKind="expression"
                        dfdl:occursCount="{ ../recipient_address_group_PI/value }"/>
               <sequence dfdl:hiddenGroupRef="msi:information_address_group_PI"/>
-              <element name="information_address_group" type="tns:address_group_type"
+              <element name="information_address_group" type="ms2045:address_group_type"
                        minOccurs="0" maxOccurs="16"
                        dfdl:occursCountKind="expression"
                        dfdl:occursCount="{ ../information_address_group_PI/value }"/>
@@ -120,7 +120,7 @@ SOFTWARE.
                }'>
                 <complexType>
                   <sequence>
-                    <element name="value" type="tns:invalidEnum"
+                    <element name="value" type="ms2045:invalidEnum"
                              dfdl:inputValueCalc='{
                              fn:concat("Too many address groups. Max of 16 for combination of recipient_address_group(",
                                        fn:count(../../recipient_address_group[1]/item),
@@ -138,12 +138,12 @@ SOFTWARE.
                        dfdl:occursCount="{ ../header_size_PI/value }">
                 <complexType>
                   <sequence>
-                    <element name="value" type="tns:tIntField" dfdl:length="16"
-                             dfdl:outputValueCalc="{ $tns:hdrLen }"/>
+                    <element name="value" type="ms2045:tIntField" dfdl:length="16"
+                             dfdl:outputValueCalc="{ $ms2045:hdrLen }"/>
                   </sequence>
                 </complexType>
               </element>
-              <group ref="tns:futureUseGroup"/>
+              <group ref="ms2045:futureUseGroup"/>
               <!-- start message handling group -->
               <element name="message_handling_group">
                 <complexType>
@@ -157,7 +157,7 @@ SOFTWARE.
                           <element name="umf">
                             <complexType>
                               <sequence>
-                                <element name="value" type="tns:umfEnum"/>
+                                <element name="value" type="ms2045:umfEnum"/>
                               </sequence>
                             </complexType>
                           </element>
@@ -189,7 +189,7 @@ SOFTWARE.
                             <complexType>
                               <choice dfdl:choiceDispatchKey="{ ../umf/value }">
                                 <element dfdl:choiceBranchKey="OK_Link_16" name="link16"
-                                         type="tns:messsageStandardVersionLink16Enum"/>
+                                         type="ms2045:messsageStandardVersionLink16Enum"/>
                                 <!--
                                 A real use case is binary files where those files carry
                                 a VMF binary message.
@@ -198,15 +198,15 @@ SOFTWARE.
                                 the version of that VMF message.
                                 -->
                                 <group  dfdl:choiceBranchKey="OK_VMF OK_Binary_File"
-                                        ref="tns:messageStandardVersionVMFGroup"/>
+                                        ref="ms2045:messageStandardVersionVMFGroup"/>
                                 <element dfdl:choiceBranchKey="OK_NITFS" name="nitfs"
-                                         type="tns:messsageStandardVersionNITFSEnum"/>
+                                         type="ms2045:messsageStandardVersionNITFSEnum"/>
                                 <element dfdl:choiceBranchKey="OK_USMTF" name="usmtf"
-                                         type="tns:messsageStandardVersionUSMTFEnum"/>
+                                         type="ms2045:messsageStandardVersionUSMTFEnum"/>
                                 <element dfdl:choiceBranchKey="OK_XML-MTF" name="xml-mtf"
-                                         type="tns:messsageStandardVersionXML_MTFEnum"/>
+                                         type="ms2045:messsageStandardVersionXML_MTFEnum"/>
                                 <group dfdl:choiceBranchKey="OK_XML-VMF"
-                                         ref="tns:messageStandardVersionXMLVMFGroup"/>
+                                         ref="ms2045:messageStandardVersionXMLVMFGroup"/>
                               </choice>
                             </complexType>
                           </element>
@@ -220,7 +220,7 @@ SOFTWARE.
                                 <element name="fad">
                                   <complexType>
                                     <sequence>
-                                      <element name="value" type="tns:tIntField"
+                                      <element name="value" type="ms2045:tIntField"
                                                dfdl:length="4"/>
                                     </sequence>
                                   </complexType>
@@ -228,7 +228,7 @@ SOFTWARE.
                                 <element name="message_number">
                                   <complexType>
                                     <sequence>
-                                      <element name="value" type="tns:tIntField"
+                                      <element name="value" type="ms2045:tIntField"
                                                dfdl:length="7"/>
                                     </sequence>
                                   </complexType>
@@ -240,12 +240,12 @@ SOFTWARE.
                                          dfdl:occursCount="{ ../message_subtype_PI/value }">
                                   <complexType>
                                     <sequence>
-                                      <element name="value" type="tns:tIntField"
+                                      <element name="value" type="ms2045:tIntField"
                                                dfdl:length="7"/>
                                     </sequence>
                                   </complexType>
                                 </element>
-                                <element name="K_ID" type="tns:K_ID"
+                                <element name="K_ID" type="ms2045:K_ID"
                                          dfdl:inputValueCalc='{
                                    fn:concat(
                                      "K",
@@ -281,14 +281,14 @@ SOFTWARE.
                           <element name="operation_indicator">
                             <complexType>
                               <sequence>
-                                <element name="value" type="tns:operationIndicatorEnum"/>
+                                <element name="value" type="ms2045:operationIndicatorEnum"/>
                               </sequence>
                             </complexType>
                           </element>
                           <element name="retransmit_indicator">
                             <complexType>
                               <sequence>
-                                <element name="value" type="tns:retransmitIndicatorEnum"/>
+                                <element name="value" type="ms2045:retransmitIndicatorEnum"/>
                               </sequence>
                             </complexType>
                           </element>
@@ -296,7 +296,7 @@ SOFTWARE.
                           <element name="message_precedence_codes">
                             <complexType>
                               <sequence>
-                                <group ref="tns:messagePrecedenceCodesGroup"/>
+                                <group ref="ms2045:messagePrecedenceCodesGroup"/>
                               </sequence>
                             </complexType>
                           </element>
@@ -304,12 +304,12 @@ SOFTWARE.
                           <element name="security_classification">
                             <complexType>
                               <sequence>
-                                <element name="value" type="tns:securityClassificationEnum"/>
+                                <element name="value" type="ms2045:securityClassificationEnum"/>
                               </sequence>
                             </complexType>
                           </element>
                           <sequence dfdl:hiddenGroupRef="msi:control_release_marking_PI"/>
-                          <choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+                          <choice dfdl:choiceDispatchKey="{ $ms2045:versionSpec }">
                             <sequence dfdl:choiceBranchKey="D1">
                               <element
                                 name="control_release_marking_D1"
@@ -324,7 +324,7 @@ SOFTWARE.
                                       <complexType>
                                         <sequence>
                                           <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
-                                          <element name="value" type="tns:dfi4127_dui005_nationality_Enum"/>
+                                          <element name="value" type="ms2045:dfi4127_dui005_nationality_Enum"/>
                                         </sequence>
                                       </complexType>
                                     </element>
@@ -349,7 +349,7 @@ SOFTWARE.
                                    dfdl:occursCountKind="expression"
                                    dfdl:occursCount="{ ../originator_dtg_group_PI/value }">
                             <complexType>
-                              <group ref="tns:dtg_group"/>
+                              <group ref="ms2045:dtg_group"/>
                             </complexType>
                           </element>
                           <sequence dfdl:hiddenGroupRef="msi:perishability_dtg_group_PI"/>
@@ -358,7 +358,7 @@ SOFTWARE.
                                    dfdl:occursCountKind="expression"
                                    dfdl:occursCount="{ ../perishability_dtg_group_PI/value }">
                             <complexType>
-                              <group ref="tns:dateTime"/>
+                              <group ref="ms2045:dateTime"/>
                             </complexType>
                           </element>
                           <sequence dfdl:hiddenGroupRef="msi:acknowledgement_request_group_PI"/>
@@ -371,21 +371,21 @@ SOFTWARE.
                                 <element name="machine_acknowledge_request_indicator">
                                   <complexType>
                                     <sequence>
-                                      <element name="value" type="tns:acknowledgeRequestIndicatorEnum"/>
+                                      <element name="value" type="ms2045:acknowledgeRequestIndicatorEnum"/>
                                     </sequence>
                                   </complexType>
                                 </element>
                                 <element name="operator_acknowledge_request_indicator">
                                   <complexType>
                                     <sequence>
-                                      <element name="value" type="tns:acknowledgeRequestIndicatorEnum"/>
+                                      <element name="value" type="ms2045:acknowledgeRequestIndicatorEnum"/>
                                     </sequence>
                                   </complexType>
                                 </element>
                                 <element name="operator_reply_request_indicator">
                                   <complexType>
                                     <sequence>
-                                      <element name="value" type="tns:replyRequestIndicatorEnum"/>
+                                      <element name="value" type="ms2045:replyRequestIndicatorEnum"/>
                                     </sequence>
                                   </complexType>
                                 </element>
@@ -399,11 +399,11 @@ SOFTWARE.
                                    dfdl:occursCount="{ ../response_data_group_PI/value }">
                             <complexType>
                               <sequence>
-                                <group ref="tns:dtg_group"/>
+                                <group ref="ms2045:dtg_group"/>
                                 <element name="r_c">
                                   <complexType>
                                     <sequence>
-                                      <element name="value" type="tns:receiptComplianceEnum"/>
+                                      <element name="value" type="ms2045:receiptComplianceEnum"/>
                                     </sequence>
                                   </complexType>
                                 </element>
@@ -414,7 +414,7 @@ SOFTWARE.
                                          dfdl:occursCount="{ ../cantco_reason_code_PI/value }">
                                   <complexType>
                                     <sequence>
-                                      <element name="value" type="tns:cantcoReasonCodewordsEnum"/>
+                                      <element name="value" type="ms2045:cantcoReasonCodewordsEnum"/>
                                     </sequence>
                                   </complexType>
                                 </element>
@@ -425,7 +425,7 @@ SOFTWARE.
                                          dfdl:occursCount="{ ../cantpro_reason_code_PI/value }">
                                   <complexType>
                                     <sequence>
-                                      <element name="value" type="tns:cantproReasonCodewordsEnum"/>
+                                      <element name="value" type="ms2045:cantproReasonCodewordsEnum"/>
                                     </sequence>
                                   </complexType>
                                 </element>
@@ -454,23 +454,23 @@ SOFTWARE.
                                   <complexType>
                                     <sequence>
                                       <sequence dfdl:hiddenGroupRef="msi:GRI_discriminator"/>
-                                      <group ref="tns:urn_unit_name_group"/>
-                                      <group ref="tns:dtg_group"/>
+                                      <group ref="ms2045:urn_unit_name_group"/>
+                                      <group ref="ms2045:dtg_group"/>
                                     </sequence>
                                   </complexType>
                                 </element>
                               </sequence>
                             </complexType>
                           </element>
-                          <group ref="tns:futureUseGroup"/>
-                          <group ref="tns:message_security_group"/>
+                          <group ref="ms2045:futureUseGroup"/>
+                          <group ref="ms2045:message_security_group"/>
                         </sequence>
                       </complexType>
                     </element>
                   </sequence>
                 </complexType>
               </element>
-              <group ref="tns:futureUseGroup"/>
+              <group ref="ms2045:futureUseGroup"/>
               <!-- end message handling group -->
               <sequence dfdl:alignment="1" dfdl:alignmentUnits="bytes"/>
             </sequence>
@@ -488,7 +488,7 @@ SOFTWARE.
             after this. To get the header size when parsing you must access the element via a path
             expression.
             -->
-            <dfdl:setVariable ref="tns:hdrLen" value="{ dfdl:valueLength(contents, 'bytes') }"/>
+            <dfdl:setVariable ref="ms2045:hdrLen" value="{ dfdl:valueLength(contents, 'bytes') }"/>
           </appinfo>
         </annotation>
       </sequence>
@@ -499,7 +499,7 @@ SOFTWARE.
     in the spec. -->
   <element name="message_security_group_with_PI">
     <complexType>
-      <group ref="tns:message_security_group"/>
+      <group ref="ms2045:message_security_group"/>
     </complexType>
   </element>
 
@@ -515,7 +515,7 @@ SOFTWARE.
             <element name="security_parameters_information">
               <complexType>
                 <sequence>
-                  <element name="value" type="tns:securityParameterInformationEnum"/>
+                  <element name="value" type="ms2045:securityParameterInformationEnum"/>
                 </sequence>
               </complexType>
             </element>
@@ -529,7 +529,7 @@ SOFTWARE.
                   <element name="keying_material_id_length">
                     <complexType>
                       <sequence>
-                        <element name="value" type="tns:tIntField" dfdl:length="3"
+                        <element name="value" type="ms2045:tIntField" dfdl:length="3"
                                  dfdl:outputValueCalc="{ dfdl:valueLength(../../keying_material_id/value, 'bytes') - 1 }"/>
                       </sequence>
                     </complexType>
@@ -537,7 +537,7 @@ SOFTWARE.
                   <element name="keying_material_id">
                     <complexType>
                       <sequence>
-                        <element name="value" type="tns:tHexBinary"
+                        <element name="value" type="ms2045:tHexBinary"
                                  dfdl:length="{ ../../keying_material_id_length/value + 1 }"
                                  dfdl:lengthUnits="bytes"/>
                       </sequence>
@@ -556,7 +556,7 @@ SOFTWARE.
                   <element name="cryptographic_initialization_length">
                     <complexType>
                       <sequence>
-                        <element name="value" type="tns:tIntField" dfdl:length="4"
+                        <element name="value" type="ms2045:tIntField" dfdl:length="4"
                                  dfdl:outputValueCalc="{ (dfdl:valueLength(../../cryptographic_initialization/value, 'bytes') idiv 8) - 1 }"/>
                       </sequence>
                     </complexType>
@@ -564,7 +564,7 @@ SOFTWARE.
                   <element name="cryptographic_initialization">
                     <complexType>
                       <sequence>
-                        <element name="value" type="tns:tHexBinary"
+                        <element name="value" type="ms2045:tHexBinary"
                                  dfdl:length="{ (../../cryptographic_initialization_length/value + 1) * 8 }"
                                  dfdl:lengthUnits="bytes"/>
                       </sequence>
@@ -583,7 +583,7 @@ SOFTWARE.
                   <element name="key_token_length">
                     <complexType>
                       <sequence>
-                        <element name="value" type="tns:tIntField" dfdl:length="8"
+                        <element name="value" type="ms2045:tIntField" dfdl:length="8"
                                  dfdl:outputValueCalc="{ (dfdl:valueLength(../../key_token/item[1]/value, 'bytes') idiv 8) - 1 }"/>
                       </sequence>
                     </complexType>
@@ -597,7 +597,7 @@ SOFTWARE.
                           <complexType>
                             <sequence>
                               <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
-                              <element name="value" type="tns:tHexBinary"
+                              <element name="value" type="ms2045:tHexBinary"
                                        dfdl:length="{ (../../../key_token_length/value + 1) * 8 }"
                                        dfdl:lengthUnits="bytes"/>
                             </sequence>
@@ -610,19 +610,19 @@ SOFTWARE.
               </complexType>
             </element>
             <sequence dfdl:hiddenGroupRef="msi:authentication_data_a_group_PI"/>
-            <element name="authentication_data_a_group" type="tns:authentication_data"
+            <element name="authentication_data_a_group" type="ms2045:authentication_data"
                      minOccurs="0"
                      dfdl:occursCountKind="expression"
                      dfdl:occursCount="{ ../authentication_data_a_group_PI/value }"/>
             <sequence dfdl:hiddenGroupRef="msi:authentication_data_b_group_PI"/>
-            <element name="authentication_data_b_group" type="tns:authentication_data"
+            <element name="authentication_data_b_group" type="ms2045:authentication_data"
                      minOccurs="0"
                      dfdl:occursCountKind="expression"
                      dfdl:occursCount="{ ../authentication_data_b_group_PI/value }"/>
             <element name="signed_acknowledge_request_indicator">
               <complexType>
                 <sequence>
-                  <element name="value" type="tns:signedAcknowledgeRequestIndicatorEnum"/>
+                  <element name="value" type="ms2045:signedAcknowledgeRequestIndicatorEnum"/>
                 </sequence>
               </complexType>
             </element>
@@ -636,7 +636,7 @@ SOFTWARE.
                   <element name="message_security_padding_length">
                     <complexType>
                       <sequence>
-                        <element name="value" type="tns:tIntField" dfdl:length="8"
+                        <element name="value" type="ms2045:tIntField" dfdl:length="8"
                                  dfdl:outputValueCalc="{
                                         if (fn:exists(../../message_security_padding[1]))
                                         then (dfdl:valueLength(../../message_security_padding[1]/value, 'bits') idiv 8)
@@ -651,7 +651,7 @@ SOFTWARE.
                            dfdl:occursCount="{ ../message_security_padding_PI/value }">
                     <complexType>
                       <sequence>
-                        <element name="value" type="tns:tHexBinary"
+                        <element name="value" type="ms2045:tHexBinary"
                                  dfdl:length="{ ../../message_security_padding_length/value }"
                                  dfdl:lengthUnits="bytes"/>
                       </sequence>

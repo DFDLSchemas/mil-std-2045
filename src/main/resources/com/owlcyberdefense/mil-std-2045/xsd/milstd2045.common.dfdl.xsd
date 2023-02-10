@@ -30,7 +30,7 @@ SOFTWARE.
 -->
 
 <schema targetNamespace="urn:milstd2045DFDL"
-        xmlns:tns="urn:milstd2045DFDL"
+        xmlns:ms2045="urn:milstd2045DFDL"
         xmlns:msi="urn:milstd2045DFDLInternal"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
@@ -54,7 +54,7 @@ SOFTWARE.
       <!-- the default format makes sequences behave properly, but every 
         element needs an explicit dfdl:ref to provide its length kind and (if optional 
         or repeating) occursCountKind. -->
-      <dfdl:format ref="tns:msCommon"/>
+      <dfdl:format ref="ms2045:msCommon"/>
 
     </appinfo>
   </annotation>
@@ -90,7 +90,7 @@ SOFTWARE.
         <complexType>
           <sequence>
             <sequence dfdl:hiddenGroupRef="msi:GRI_discriminator"/>
-            <group ref="tns:urn_unit_name_group"/>
+            <group ref="ms2045:urn_unit_name_group"/>
           </sequence>
         </complexType>
       </element>
@@ -106,7 +106,7 @@ SOFTWARE.
                dfdl:occursCount="{ ../urn_PI/value }">
         <complexType>
           <sequence>
-            <element name="value" type="tns:tIntField" dfdl:length="24"/>
+            <element name="value" type="ms2045:tIntField" dfdl:length="24"/>
           </sequence>
         </complexType>
       </element>
@@ -127,7 +127,7 @@ SOFTWARE.
                then 1 else 0}">
         <complexType>
           <sequence>
-            <element name="value" type="tns:invalidEnum"
+            <element name="value" type="ms2045:invalidEnum"
                      dfdl:inputValueCalc='{ "both URN and unit_name exist" }'/>
           </sequence>
         </complexType>
@@ -137,7 +137,7 @@ SOFTWARE.
 
   <group name="dtg_group">
     <sequence>
-      <group ref="tns:dateTime"/>
+      <group ref="ms2045:dateTime"/>
       <sequence dfdl:hiddenGroupRef="msi:dtg_extension_PI"/>
       <element name="dtg_extension"
                minOccurs="0"
@@ -145,7 +145,7 @@ SOFTWARE.
                dfdl:occursCount="{ ../dtg_extension_PI/value }">
         <complexType>
           <sequence>
-            <element name="value" type="tns:tIntField"
+            <element name="value" type="ms2045:tIntField"
                      dfdl:length="12"/>
           </sequence>
         </complexType>
@@ -158,7 +158,7 @@ SOFTWARE.
       <element name="authentication_data_length">
         <complexType>
           <sequence>
-            <element name="value" type="tns:tIntField" dfdl:length="7"
+            <element name="value" type="ms2045:tIntField" dfdl:length="7"
                      dfdl:outputValueCalc="{ (dfdl:valueLength(../../authentication_data/value, 'bytes') idiv 8) - 1 }"/>
           </sequence>
         </complexType>
@@ -166,7 +166,7 @@ SOFTWARE.
       <element name="authentication_data">
         <complexType>
           <sequence>
-            <element name="value" type="tns:tHexBinary"
+            <element name="value" type="ms2045:tHexBinary"
                      dfdl:length="{ (../../authentication_data_length/value + 1) * 8 }"
                      dfdl:lengthUnits="bytes"/>
           </sequence>

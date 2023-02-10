@@ -35,7 +35,7 @@ SOFTWARE.
   xmlns:fn="http://www.w3.org/2005/xpath-functions"
   xmlns:msi="urn:milstd2045DFDLInternal"
   xmlns:msms="urn:milstd2045DFDLMessageSize"
-  xmlns:tns="urn:milstd2045DFDL"
+  xmlns:ms2045="urn:milstd2045DFDL"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.w3.org/2001/XMLSchema"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -47,27 +47,27 @@ SOFTWARE.
 
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">
-      <dfdl:format ref="tns:msCommon"/>
+      <dfdl:format ref="ms2045:msCommon"/>
       <dfdl:defineVariable name="versionSpec" type="xs:string"/>
     </appinfo>
   </annotation>
 
   <group name="futureUseGroup">
     <sequence>
-      <element name="future" type="tns:future"
+      <element name="future" type="ms2045:future"
                minOccurs="0"
                dfdl:occursCountKind="expression"
-               dfdl:occursCount="{ if ($tns:versionSpec eq 'D1') then 1 else 0 }"/>
+               dfdl:occursCount="{ if ($ms2045:versionSpec eq 'D1') then 1 else 0 }"/>
     </sequence>
   </group>
 
   <complexType name="future">
     <sequence>
-      <sequence dfdl:hiddenGroupRef="tns:future_use_1_PI"/>
-      <sequence dfdl:hiddenGroupRef="tns:future_use_2_PI"/>
-      <sequence dfdl:hiddenGroupRef="tns:future_use_3_PI"/>
-      <sequence dfdl:hiddenGroupRef="tns:future_use_4_PI"/>
-      <sequence dfdl:hiddenGroupRef="tns:future_use_5_PI"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:future_use_1_PI"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:future_use_2_PI"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:future_use_3_PI"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:future_use_4_PI"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:future_use_5_PI"/>
     </sequence>
   </complexType>
 

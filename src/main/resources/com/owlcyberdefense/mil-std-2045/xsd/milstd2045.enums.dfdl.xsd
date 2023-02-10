@@ -30,7 +30,7 @@ SOFTWARE.
 -->
 
 <schema targetNamespace="urn:milstd2045DFDL"
-        xmlns:tns="urn:milstd2045DFDL"
+        xmlns:ms2045="urn:milstd2045DFDL"
         xmlns:msi="urn:milstd2045DFDLInternal"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
@@ -61,35 +61,35 @@ SOFTWARE.
   </simpleType>
 
   <simpleType name="enumBase">
-    <restriction base="tns:checkedInt"/>
+    <restriction base="ms2045:checkedInt"/>
   </simpleType>
 
   <simpleType name="enum1" dfdl:length="1">
-    <xs:restriction base="tns:enumBase"/>
+    <xs:restriction base="ms2045:enumBase"/>
   </simpleType>
 
   <simpleType name="enum2" dfdl:length="2">
-    <xs:restriction base="tns:enumBase"/>
+    <xs:restriction base="ms2045:enumBase"/>
   </simpleType>
 
   <simpleType name="enum3" dfdl:length="3">
-    <xs:restriction base="tns:enumBase"/>
+    <xs:restriction base="ms2045:enumBase"/>
   </simpleType>
 
   <simpleType name="enum4" dfdl:length="4">
-    <xs:restriction base="tns:enumBase"/>
+    <xs:restriction base="ms2045:enumBase"/>
   </simpleType>
 
   <simpleType name="enum5" dfdl:length="5">
-    <xs:restriction base="tns:enumBase"/>
+    <xs:restriction base="ms2045:enumBase"/>
   </simpleType>
 
   <simpleType name="enum6" dfdl:length="6">
-    <xs:restriction base="tns:enumBase"/>
+    <xs:restriction base="ms2045:enumBase"/>
   </simpleType>
 
   <simpleType name="enum9" dfdl:length="9">
-    <xs:restriction base="tns:enumBase"/>
+    <xs:restriction base="ms2045:enumBase"/>
   </simpleType>
 
   <!--
@@ -116,8 +116,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="versionEnum" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="versionEnum" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="base" dfdlx:repValues="0"/>
       <enumeration value="B" dfdlx:repValues="1"/>
       <enumeration value="C" dfdlx:repValues="2"/>
@@ -138,16 +138,16 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="dataCompressionEnum" dfdlx:repType="tns:enum2">
-    <restriction base="tns:enumString">
+  <simpleType name="dataCompressionEnum" dfdlx:repType="ms2045:enum2">
+    <restriction base="ms2045:enumString">
       <enumeration value="LZW" dfdlx:repValues="0"/>
       <enumeration value="GZIP" dfdlx:repValues="1"/>
       <pattern value="OK_.{0,20}"/><!-- none of these are implemented yet -->
     </restriction>
   </simpleType>
 
-  <simpleType name="umfEnum" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="umfEnum" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_Link_16" dfdlx:repValues="0"/>
       <enumeration value="OK_Binary_File" dfdlx:repValues="1"/>
       <enumeration value="OK_VMF" dfdlx:repValues="2"/>
@@ -178,8 +178,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="messsageStandardVersionLink16Enum" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="messsageStandardVersionLink16Enum" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_6016" dfdlx:repValues="0"/>
       <enumeration value="OK_6016A" dfdlx:repValues="1"/>
       <enumeration value="OK_6016B" dfdlx:repValues="2"/>
@@ -200,7 +200,7 @@ SOFTWARE.
   </simpleType>
 
   <group name="h_messageStandardVersionVMFGroup">
-    <choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+    <choice dfdl:choiceDispatchKey="{ $ms2045:versionSpec }">
       <!--
       DFDL has no way to discriminate a choice at unparse time
       based on data values in the infoset. So choices really cannot
@@ -209,15 +209,15 @@ SOFTWARE.
       Hence, this group cannot be hidden.
       -->
       <element name="vmf_hdr_C" dfdl:choiceBranchKey="C"
-               type="tns:messsageStandardVersionVMFEnum_C"/>
+               type="ms2045:messsageStandardVersionVMFEnum_C"/>
       <element name="vmf_hdr_D1" dfdl:choiceBranchKey="D1"
-               type="tns:messsageStandardVersionVMFEnum_D1"/>
+               type="ms2045:messsageStandardVersionVMFEnum_D1"/>
     </choice>
   </group>
 
   <group name="messageStandardVersionVMFGroup">
     <sequence>
-      <group ref="tns:h_messageStandardVersionVMFGroup"/>
+      <group ref="ms2045:h_messageStandardVersionVMFGroup"/>
       <element name="vmf" type="xs:string"
                dfdl:inputValueCalc="{
               if (fn:exists(../vmf_hdr_C)) then ../vmf_hdr_C else ../vmf_hdr_D1
@@ -225,8 +225,8 @@ SOFTWARE.
     </sequence>
   </group>
 
-  <simpleType name="messsageStandardVersionVMFEnum_C" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="messsageStandardVersionVMFEnum_C" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_TIDP-TE_R2" dfdlx:repValues="0"/>
       <enumeration value="OK_TIDP-TE_R3" dfdlx:repValues="1"/>
       <enumeration value="OK_TIDP-TE_R4" dfdlx:repValues="2"/>
@@ -253,8 +253,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="messsageStandardVersionVMFEnum_D1" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="messsageStandardVersionVMFEnum_D1" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_TIDP-TE_R2" dfdlx:repValues="0"/>
       <enumeration value="OK_TIDP-TE_R3" dfdlx:repValues="1"/>
       <enumeration value="OK_TIDP-TE_R4" dfdlx:repValues="2"/>
@@ -282,8 +282,8 @@ SOFTWARE.
   </simpleType>
 
 
-  <simpleType name="messsageStandardVersionNITFSEnum" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="messsageStandardVersionNITFSEnum" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_2500B_Notice_2" dfdlx:repValues="0"/><!-- Undefined in rev C -->
       <!--
       This pattern facet insures that only the above "OK" values are
@@ -314,8 +314,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="messsageStandardVersionUSMTFEnum" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="messsageStandardVersionUSMTFEnum" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_1993" dfdlx:repValues="0"/>
       <enumeration value="OK_1995" dfdlx:repValues="1"/>
       <enumeration value="OK_1997" dfdlx:repValues="2"/>
@@ -335,8 +335,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="messsageStandardVersionXML_MTFEnum" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="messsageStandardVersionXML_MTFEnum" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="Undefined_00" dfdlx:repValues="0"/>
       <enumeration value="Undefined_01" dfdlx:repValues="1"/>
       <enumeration value="Undefined_02" dfdlx:repValues="2"/>
@@ -368,7 +368,7 @@ SOFTWARE.
   </simpleType>
 
   <group name="h_messageStandardVersionXMLVMFGroup">
-    <choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+    <choice dfdl:choiceDispatchKey="{ $ms2045:versionSpec }">
       <!--
       DFDL has no way to discriminate a choice at unparse time
       based on data values in the infoset. So choices really cannot
@@ -377,15 +377,15 @@ SOFTWARE.
       Hence, this group cannot be hidden.
       -->
       <element name="vmf_hdr_C_xml" dfdl:choiceBranchKey="C"
-               type="tns:messsageStandardVersionXMLVMFEnum_C"/>
+               type="ms2045:messsageStandardVersionXMLVMFEnum_C"/>
       <element name="vmf_hdr_D1_xml" dfdl:choiceBranchKey="D1"
-               type="tns:messsageStandardVersionXMLVMFEnum_D1"/>
+               type="ms2045:messsageStandardVersionXMLVMFEnum_D1"/>
     </choice>
   </group>
 
   <group name="messageStandardVersionXMLVMFGroup">
     <sequence>
-      <group ref="tns:h_messageStandardVersionXMLVMFGroup"/>
+      <group ref="ms2045:h_messageStandardVersionXMLVMFGroup"/>
       <element name="xml_vmf" type="xs:string"
                dfdl:inputValueCalc="{
               if (fn:exists(../vmf_hdr_C)) then ../vmf_hdr_C else ../vmf_hdr_D1
@@ -397,8 +397,8 @@ SOFTWARE.
   These are almost the same as the non-XML VMF enums.
   They differen in that the first 3 enums are undefined here.
   -->
-  <simpleType name="messsageStandardVersionXMLVMFEnum_C" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="messsageStandardVersionXMLVMFEnum_C" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="Undefined_00" dfdlx:repValues="0"/>
       <enumeration value="Undefined_01" dfdlx:repValues="1"/>
       <enumeration value="Undefined_02" dfdlx:repValues="2"/>
@@ -423,8 +423,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="messsageStandardVersionXMLVMFEnum_D1" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="messsageStandardVersionXMLVMFEnum_D1" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="Undefined_00" dfdlx:repValues="0"/>
       <enumeration value="Undefined_01" dfdlx:repValues="1"/>
       <enumeration value="Undefined_02" dfdlx:repValues="2"/>
@@ -450,8 +450,8 @@ SOFTWARE.
   </simpleType>
 
 
-  <simpleType name="cantcoReasonCodewordsEnum" dfdlx:repType="tns:enum3">
-    <restriction base="tns:enumString">
+  <simpleType name="cantcoReasonCodewordsEnum" dfdlx:repType="ms2045:enum3">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_Communications" dfdlx:repValues="0"/>
       <enumeration value="OK_Ammunition" dfdlx:repValues="1"/>
       <enumeration value="OK_Personnel" dfdlx:repValues="2"/>
@@ -463,8 +463,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="cantproReasonCodewordsEnum" dfdlx:repType="tns:enum6">
-    <restriction base="tns:enumString">
+  <simpleType name="cantproReasonCodewordsEnum" dfdlx:repType="ms2045:enum6">
+    <restriction base="ms2045:enumString">
       <enumeration value="Undefined_00" dfdlx:repValues="0"/>
       <enumeration value="OK_Field_content_invalid_01" dfdlx:repValues="1"/>
       <enumeration value="OK_Message_incorrectly_routed_02" dfdlx:repValues="2"/>
@@ -543,8 +543,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="operationIndicatorEnum" dfdlx:repType="tns:enum2">
-    <restriction base="tns:enumString">
+  <simpleType name="operationIndicatorEnum" dfdlx:repType="ms2045:enum2">
+    <restriction base="ms2045:enumString">
       <enumeration value="Operation" dfdlx:repValues="0"/>
       <enumeration value="Exercise" dfdlx:repValues="1"/>
       <enumeration value="Simulation" dfdlx:repValues="2"/>
@@ -552,15 +552,15 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="retransmitIndicatorEnum" dfdlx:repType="tns:enum1">
-    <restriction base="tns:enumString">
+  <simpleType name="retransmitIndicatorEnum" dfdlx:repType="ms2045:enum1">
+    <restriction base="ms2045:enumString">
       <enumeration value="Original_Message" dfdlx:repValues="0"/>
       <enumeration value="Retransmitted_Message" dfdlx:repValues="1"/>
     </restriction>
   </simpleType>
 
   <group name="h_messagePrecedenceCodesGroup">
-    <choice dfdl:choiceDispatchKey="{ $tns:versionSpec }">
+    <choice dfdl:choiceDispatchKey="{ $ms2045:versionSpec }">
       <!--
       DFDL has no way to discriminate a choice at unparse time
       based on data values in the infoset. So choices really cannot
@@ -569,15 +569,15 @@ SOFTWARE.
       Hence, this group cannot be hidden.
       -->
       <element name="vmf_hdr_C" dfdl:choiceBranchKey="C"
-               type="tns:messagePrecedenceCodesEnum_C"/>
+               type="ms2045:messagePrecedenceCodesEnum_C"/>
       <element name="vmf_hdr_D1" dfdl:choiceBranchKey="D1"
-               type="tns:messagePrecedenceCodesEnum_D"/>
+               type="ms2045:messagePrecedenceCodesEnum_D"/>
     </choice>
   </group>
 
   <group name="messagePrecedenceCodesGroup">
     <sequence>
-      <group ref="tns:h_messagePrecedenceCodesGroup"/>
+      <group ref="ms2045:h_messagePrecedenceCodesGroup"/>
       <element name="value" type="xs:string"
                dfdl:inputValueCalc="{
               if (fn:exists(../vmf_hdr_C)) then ../vmf_hdr_C else ../vmf_hdr_D1
@@ -585,8 +585,8 @@ SOFTWARE.
     </sequence>
   </group>
 
-  <simpleType name="messagePrecedenceCodesEnum_C" dfdlx:repType="tns:enum3">
-    <restriction base="tns:enumString">
+  <simpleType name="messagePrecedenceCodesEnum_C" dfdlx:repType="ms2045:enum3">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_Emergency" dfdlx:repValues="2"/>
       <enumeration value="OK_Flash" dfdlx:repValues="4"/>
       <enumeration value="OK_Immediate" dfdlx:repValues="5"/>
@@ -610,8 +610,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="messagePrecedenceCodesEnum_D" dfdlx:repType="tns:enum3">
-    <restriction base="tns:enumString">
+  <simpleType name="messagePrecedenceCodesEnum_D" dfdlx:repType="ms2045:enum3">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_Routine" dfdlx:repValues="0"/>
       <enumeration value="OK_Priority" dfdlx:repValues="1"/>
       <enumeration value="OK_Immediate" dfdlx:repValues="2"/>
@@ -634,8 +634,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="securityClassificationEnum" dfdlx:repType="tns:enum2">
-    <restriction base="tns:enumString">
+  <simpleType name="securityClassificationEnum" dfdlx:repType="ms2045:enum2">
+    <restriction base="ms2045:enumString">
       <enumeration value="U" dfdlx:repValues="0"/>
       <enumeration value="C" dfdlx:repValues="1"/>
       <enumeration value="S" dfdlx:repValues="2"/>
@@ -643,8 +643,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="receiptComplianceEnum" dfdlx:repType="tns:enum3">
-    <restriction base="tns:enumString">
+  <simpleType name="receiptComplianceEnum" dfdlx:repType="ms2045:enum3">
+    <restriction base="ms2045:enumString">
       <enumeration value="Undefined_0" dfdlx:repValues="0"/>
       <enumeration value="OK_MR" dfdlx:repValues="1"/>
       <enumeration value="OK_CANTPRO" dfdlx:repValues="2"/>
@@ -667,8 +667,8 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="securityParameterInformationEnum" dfdlx:repType="tns:enum4">
-    <restriction base="tns:enumString">
+  <simpleType name="securityParameterInformationEnum" dfdlx:repType="ms2045:enum4">
+    <restriction base="ms2045:enumString">
       <enumeration value="OK_Authentication_No_Encryption" dfdlx:repValues="0"/>
       <!--
       This pattern facet insures that only the above "OK" values are
@@ -699,15 +699,15 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
-  <simpleType name="signedAcknowledgeRequestIndicatorEnum" dfdlx:repType="tns:enum1">
-    <restriction base="tns:enumString">
+  <simpleType name="signedAcknowledgeRequestIndicatorEnum" dfdlx:repType="ms2045:enum1">
+    <restriction base="ms2045:enumString">
       <enumeration value="No_Signed_Response_Required" dfdlx:repValues="0"/>
       <enumeration value="Signed_Response_Requested" dfdlx:repValues="1"/>
     </restriction>
   </simpleType>
 
-  <xs:simpleType name="dfi4127_dui005_nationality_Enum" dfdlx:repType="tns:enum9">
-    <xs:restriction base="tns:enumString">
+  <xs:simpleType name="dfi4127_dui005_nationality_Enum" dfdlx:repType="ms2045:enum9">
+    <xs:restriction base="ms2045:enumString">
       <xs:enumeration value="NO_STATEMENT" dfdlx:repValues="0"/>
       <xs:enumeration value="AFGHANISTAN_(AF)" dfdlx:repValues="1"/>
       <xs:enumeration value="ALBANIA_(AL)" dfdlx:repValues="2"/>
@@ -1225,15 +1225,15 @@ SOFTWARE.
 
 
 
-  <simpleType name="acknowledgeRequestIndicatorEnum" dfdlx:repType="tns:enum1">
-    <restriction base="tns:enumString">
+  <simpleType name="acknowledgeRequestIndicatorEnum" dfdlx:repType="ms2045:enum1">
+    <restriction base="ms2045:enumString">
       <enumeration value="No_Acknowledgement_Required" dfdlx:repValues="0"/>
       <enumeration value="Acknowledgement_Requested" dfdlx:repValues="1"/>
     </restriction>
   </simpleType>
 
-  <simpleType name="replyRequestIndicatorEnum" dfdlx:repType="tns:enum1">
-    <restriction base="tns:enumString">
+  <simpleType name="replyRequestIndicatorEnum" dfdlx:repType="ms2045:enum1">
+    <restriction base="ms2045:enumString">
       <enumeration value="No_Reply_Required" dfdlx:repValues="0"/>
       <enumeration value="Reply_Requested" dfdlx:repValues="1"/>
     </restriction>
