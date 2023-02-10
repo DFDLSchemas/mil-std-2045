@@ -31,7 +31,7 @@ SOFTWARE.
   ]]> -->
 <schema
   targetNamespace="urn:milstd2045DFDLInternal"
-  xmlns:tns="urn:milstd2045DFDLInternal"
+  xmlns:ms2045="urn:milstd2045DFDLInternal"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
   xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
@@ -58,7 +58,7 @@ SOFTWARE.
 
       <dfdl:defineFormat name="msBase">
         <dfdl:format
-          ref="tns:GeneralFormat"
+          ref="ms2045:GeneralFormat"
           fillByte="%#r00;"
           lengthUnits="bits"
           alignment="1"
@@ -84,7 +84,7 @@ SOFTWARE.
       occursCountKind.
       -->
 
-      <dfdl:format ref="tns:msBase"/>
+      <dfdl:format ref="ms2045:msBase"/>
     </appinfo>
   </annotation>
 
@@ -92,11 +92,11 @@ SOFTWARE.
     are three reusable groups named FPI, FRI, GPI, and GRI. -->
 
   <simpleType name="presenceIndicator" dfdl:length="1"
-              dfdl:ref="tns:msBase" dfdl:lengthKind="explicit">
+              dfdl:ref="ms2045:msBase" dfdl:lengthKind="explicit">
     <restriction base="xs:unsignedInt"/>
   </simpleType>
 
-  <simpleType name="repeatIndicator" dfdl:length="1" dfdl:ref="tns:msBase"
+  <simpleType name="repeatIndicator" dfdl:length="1" dfdl:ref="ms2045:msBase"
               dfdl:lengthKind="explicit">
     <restriction base="xs:unsignedInt"/>
   </simpleType>
@@ -114,7 +114,7 @@ SOFTWARE.
           </appinfo>
         </annotation>
       </sequence>
-      <element name="GRI" type="tns:repeatIndicator"
+      <element name="GRI" type="ms2045:repeatIndicator"
                dfdl:outputValueCalc="{ if (dfdl:occursIndex() lt fn:count(..)) then 1 else 0 }"/>
     </sequence>
   </group>
@@ -133,7 +133,7 @@ SOFTWARE.
           </appinfo>
         </annotation>
       </sequence>
-      <element name="FRI" type="tns:repeatIndicator"
+      <element name="FRI" type="ms2045:repeatIndicator"
                dfdl:outputValueCalc="{ if (dfdl:occursIndex() lt fn:count(..)) then 1 else 0 }"/>
     </sequence>
   </group>
@@ -143,7 +143,7 @@ SOFTWARE.
       <element name="data_compression_type_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../data_compression_type) }'/>
           </sequence>
         </complexType>
@@ -156,7 +156,7 @@ SOFTWARE.
       <element name="originator_address_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../originator_address_group) }'/>
           </sequence>
         </complexType>
@@ -169,7 +169,7 @@ SOFTWARE.
       <element name="recipient_address_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../recipient_address_group) }'/>
           </sequence>
         </complexType>
@@ -182,7 +182,7 @@ SOFTWARE.
       <element name="information_address_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../information_address_group) }'/>
           </sequence>
         </complexType>
@@ -195,7 +195,7 @@ SOFTWARE.
       <element name="urn_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../urn) }'/>
           </sequence>
         </complexType>
@@ -208,7 +208,7 @@ SOFTWARE.
       <element name="unit_name_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../unit_name) }'/>
           </sequence>
         </complexType>
@@ -221,7 +221,7 @@ SOFTWARE.
       <element name="header_size_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../header_size) }'/>
           </sequence>
         </complexType>
@@ -234,7 +234,7 @@ SOFTWARE.
       <element name="message_standard_version_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../message_standard_version) }'/>
           </sequence>
         </complexType>
@@ -247,7 +247,7 @@ SOFTWARE.
       <element name="vmf_message_identification_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../vmf_message_identification_group) }'/>
           </sequence>
         </complexType>
@@ -260,7 +260,7 @@ SOFTWARE.
       <element name="file_name_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../file_name) }'/>
           </sequence>
         </complexType>
@@ -273,7 +273,7 @@ SOFTWARE.
       <element name="message_size_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../message_size) }'/>
           </sequence>
         </complexType>
@@ -286,7 +286,7 @@ SOFTWARE.
       <element name="originator_dtg_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../originator_dtg_group) }'/>
           </sequence>
         </complexType>
@@ -299,7 +299,7 @@ SOFTWARE.
       <element name="dtg_extension_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../dtg_extension) }'/>
           </sequence>
         </complexType>
@@ -312,7 +312,7 @@ SOFTWARE.
       <element name="perishability_dtg_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../perishability_dtg_group) }'/>
           </sequence>
         </complexType>
@@ -325,7 +325,7 @@ SOFTWARE.
       <element name="acknowledgement_request_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../acknowledgement_request_group) }'/>
           </sequence>
         </complexType>
@@ -338,7 +338,7 @@ SOFTWARE.
       <element name="response_data_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../response_data_group) }'/>
           </sequence>
         </complexType>
@@ -351,7 +351,7 @@ SOFTWARE.
       <element name="reference_message_data_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../reference_message_data_group) }'/>
           </sequence>
         </complexType>
@@ -365,7 +365,7 @@ SOFTWARE.
       <element name="message_security_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../message_security_group) }'/>
           </sequence>
         </complexType>
@@ -378,7 +378,7 @@ SOFTWARE.
       <element name="keying_material_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../keying_material_group) }'/>
           </sequence>
         </complexType>
@@ -392,7 +392,7 @@ SOFTWARE.
       <element name="cryptographic_initialization_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../cryptographic_initialization_group) }'/>
           </sequence>
         </complexType>
@@ -405,7 +405,7 @@ SOFTWARE.
       <element name="key_token_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../key_token_group) }'/>
           </sequence>
         </complexType>
@@ -419,7 +419,7 @@ SOFTWARE.
       <element name="authentication_data_a_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../authentication_data_a_group) }'/>
           </sequence>
         </complexType>
@@ -432,7 +432,7 @@ SOFTWARE.
       <element name="authentication_data_b_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../authentication_data_b_group) }'/>
           </sequence>
         </complexType>
@@ -445,7 +445,7 @@ SOFTWARE.
       <element name="message_security_padding_group_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../message_security_padding_group) }'/>
           </sequence>
         </complexType>
@@ -458,7 +458,7 @@ SOFTWARE.
       <element name="message_security_padding_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../message_security_padding) }'/>
           </sequence>
         </complexType>
@@ -472,7 +472,7 @@ SOFTWARE.
       <element name="message_subtype_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../message_subtype) }'/>
           </sequence>
         </complexType>
@@ -485,7 +485,7 @@ SOFTWARE.
       <element name="cantco_reason_code_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../cantco_reason_code) }'/>
           </sequence>
         </complexType>
@@ -499,7 +499,7 @@ SOFTWARE.
       <element name="cantpro_reason_code_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../cantpro_reason_code) }'/>
           </sequence>
         </complexType>
@@ -512,7 +512,7 @@ SOFTWARE.
       <element name="reply_amplification_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ fn:count(../../reply_amplification) }'/>
           </sequence>
         </complexType>
@@ -527,7 +527,7 @@ SOFTWARE.
       <element name="control_release_marking_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="tns:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{
                        if (fn:exists(../../control_release_marking_D1))
                        then fn:count(../../control_release_marking_D1)

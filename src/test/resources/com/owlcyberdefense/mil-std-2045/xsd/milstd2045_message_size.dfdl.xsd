@@ -30,7 +30,7 @@ SOFTWARE.
 -->
 <schema
   targetNamespace="urn:milstd2045DFDLMessageSize"
-  xmlns:tns="urn:milstd2045DFDLMessageSize"
+  xmlns:ms2045="urn:milstd2045DFDLMessageSize"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.w3.org/2001/XMLSchema"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

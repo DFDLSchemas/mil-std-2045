@@ -31,7 +31,7 @@ SOFTWARE.
   ]]> -->
 <schema
   targetNamespace="urn:milstd2045DFDLInternal"
-  xmlns:tns="urn:milstd2045DFDLInternal"
+  xmlns:ms2045="urn:milstd2045DFDLInternal"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
   xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
@@ -57,7 +57,7 @@ SOFTWARE.
       occursCountKind.
       -->
 
-      <dfdl:format ref="tns:msBase"/>
+      <dfdl:format ref="ms2045:msBase"/>
     </appinfo>
   </annotation>
 
