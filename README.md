@@ -20,4 +20,32 @@ The src/test/resources/milstd2045.tdml file contains unit tests with test data.
 Note that this DFDL schema requires the dfdl:bitOrder format property. 
 As such it works only with Daffodil and not IBM DFDL. (as of this writing - 2022-03-12)
 
+## XSAT2 Schema Quality Report
+
+The schema has been scanned with the XSAT2 Schema Quality Tool.
+The report is below:
+
+    ***************************************
+    * XSAT2 Schema Quality Checker Report  *
+    * File(s) processed: 9 
+    ****************************************
+    In File: /milstd2045.common.dfdl.xsd
+
+     Test 'Base64Binary or hexBinary' Line 76, Col 6, Section: 3.19, Risk Level: High
+     Description: Remove the element or attribute with the binary data.
+     Non-Remediation Reason:
+        This hexBinary type is used only for crypographic-related fields which are
+        documented in the mil-std-2045 spec. as just byte strings. The fields are:
+        * authentication_data,
+        * keying_material_id,
+        * cryptographic_initialization,
+        * key_token,
+        * message_security_padding
+
+    ****************************************
+    *          End XSAT2 Report            *
+    ****************************************
+
+
+
 
