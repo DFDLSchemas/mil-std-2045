@@ -73,12 +73,28 @@ SOFTWARE.
   </simpleType>
 
   <simpleType name="tHexBinary" dfdl:lengthKind="explicit">
-    <restriction base="xs:hexBinary"/>
+    <restriction base="xs:hexBinary">
+    <annotation>
+      <appinfo source="urn:com.owlcyberdefense.xsat2">
+        <xsat2>
+          <nonRemediation>
+            This hexBinary type is used only for crypographic-related fields which are
+            documented in the mil-std-2045 spec. as just byte strings. The fields are:
+            * authentication_data,
+            * keying_material_id,
+            * cryptographic_initialization,
+            * key_token,
+            * message_security_padding
+          </nonRemediation>
+        </xsat2>
+      </appinfo>
+    </annotation>
+    </restriction>
   </simpleType>
 
   <simpleType name="K_ID">
     <restriction base="xs:string">
-      <pattern value="K\d\d\.\d\d(.\d{1,3})?"/>
+      <pattern value="K[0-9][0-9]\.[0-9][0-9](\.[0-9]{1,3})?"/>
     </restriction>
   </simpleType>
 
