@@ -92,6 +92,12 @@ SOFTWARE.
     <xs:restriction base="ms2045:enumBase"/>
   </simpleType>
 
+  <simpleType name="messageVersion">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="13"/>
+    </xs:restriction>
+  </simpleType>
+
   <!--
     Workaround for DAFFODIL-2596
     for the enum restiction base, must specify delimited
@@ -218,10 +224,11 @@ SOFTWARE.
   <group name="messageStandardVersionVMFGroup">
     <sequence>
       <group ref="ms2045:h_messageStandardVersionVMFGroup"/>
-      <element name="vmf" type="xs:string"
+      <element name="vmf" type="ms2045:messageVersion"
                dfdl:inputValueCalc="{
               if (fn:exists(../vmf_hdr_C)) then ../vmf_hdr_C else ../vmf_hdr_D1
-              }"/>
+              }">
+      </element>
     </sequence>
   </group>
 
@@ -386,7 +393,7 @@ SOFTWARE.
   <group name="messageStandardVersionXMLVMFGroup">
     <sequence>
       <group ref="ms2045:h_messageStandardVersionXMLVMFGroup"/>
-      <element name="xml_vmf" type="xs:string"
+      <element name="xml_vmf" type="ms2045:messageVersion"
                dfdl:inputValueCalc="{
               if (fn:exists(../vmf_hdr_C)) then ../vmf_hdr_C else ../vmf_hdr_D1
               }"/>
@@ -578,7 +585,7 @@ SOFTWARE.
   <group name="messagePrecedenceCodesGroup">
     <sequence>
       <group ref="ms2045:h_messagePrecedenceCodesGroup"/>
-      <element name="value" type="xs:string"
+      <element name="value" type="ms2045:messageVersion"
                dfdl:inputValueCalc="{
               if (fn:exists(../vmf_hdr_C)) then ../vmf_hdr_C else ../vmf_hdr_D1
               }"/>
