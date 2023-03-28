@@ -54,7 +54,7 @@ SOFTWARE.
   <element name="milstd2045_messages">
     <complexType>
       <sequence>
-        <element name="message" maxOccurs="unbounded">
+        <element name="message" maxOccurs="10000">
           <complexType>
             <sequence>
               <element name="header" type="ms:milstd2045_application_header_type" />
