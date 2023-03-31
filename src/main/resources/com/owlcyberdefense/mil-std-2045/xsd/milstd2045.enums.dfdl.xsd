@@ -94,7 +94,7 @@ SOFTWARE.
 
   <simpleType name="messageVersion">
     <xs:restriction base="xs:string">
-      <xs:maxLength value="13"/>
+      <xs:pattern value="[a-zA-Z0-9_]{0,13}" />
     </xs:restriction>
   </simpleType>
 
