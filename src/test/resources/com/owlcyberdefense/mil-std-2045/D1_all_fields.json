@@ -1,0 +1,534 @@
+{
+  "milstd2045_messages": {
+    "message": [
+      {
+        "header": {
+          "contents": {
+            "version": {
+              "value": "D1"
+            },
+            "originator_address_group": [
+              {
+                "unit_name": [
+                  {
+                    "value": "Originator"
+                  }
+                ]
+              }
+            ],
+            "recipient_address_group": [
+              {
+                "item": [
+                  {
+                    "urn": [
+                      {
+                        "value": "12345"
+                      }
+                    ]
+                  },
+                  {
+                    "unit_name": [
+                      {
+                        "value": "Recipient2"
+                      }
+                    ]
+                  },
+                  {
+                    "unit_name": [
+                      {
+                        "value": "Recipient3"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "information_address_group": [
+              {
+                "item": [
+                  {
+                    "urn": [
+                      {
+                        "value": "67890"
+                      }
+                    ]
+                  },
+                  {
+                    "unit_name": [
+                      {
+                        "value": "Information2"
+                      }
+                    ]
+                  },
+                  {
+                    "unit_name": [
+                      {
+                        "value": "Information3"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "header_size": [
+              {
+                "value": "640"
+              }
+            ],
+            "future": [
+              {
+              }
+            ],
+            "message_handling_group": {
+              "item": [
+                {
+                  "umf": {
+                    "value": "OK_VMF"
+                  },
+                  "message_standard_version": [
+                    {
+                      "vmf_hdr_D1": "OK_6017D",
+                      "vmf": "OK_6017D"
+                    }
+                  ],
+                  "vmf_message_identification_group": [
+                    {
+                      "fad": {
+                        "value": "7"
+                      },
+                      "message_number": {
+                        "value": "5"
+                      },
+                      "message_subtype": [
+                        {
+                          "value": "122"
+                        }
+                      ],
+                      "K_ID": "K07.05.122"
+                    }
+                  ],
+                  "file_name": [
+                    {
+                      "value": "someFile0/123456789/1234567890123456789/123456789/1234567890.ext"
+                    }
+                  ],
+                  "message_size": [
+                    {
+                      "value": "0"
+                    }
+                  ],
+                  "operation_indicator": {
+                    "value": "Exercise"
+                  },
+                  "retransmit_indicator": {
+                    "value": "Original_Message"
+                  },
+                  "message_precedence_codes": {
+                    "vmf_hdr_D1": "OK_Immediate",
+                    "value": "OK_Immediate"
+                  },
+                  "security_classification": {
+                    "value": "S"
+                  },
+                  "control_release_marking_D1": [
+                    {
+                      "item": [
+                        {
+                          "value": "AFGHANISTAN_(AF)"
+                        },
+                        {
+                          "value": "ALBANIA_(AL)"
+                        },
+                        {
+                          "value": "ALGERIA_(AG)"
+                        }
+                      ]
+                    }
+                  ],
+                  "originator_dtg_group": [
+                    {
+                      "dateTime": "2004-02-28T15:27:55",
+                      "dtg_extension": [
+                        {
+                          "value": "42"
+                        }
+                      ]
+                    }
+                  ],
+                  "perishability_dtg_group": [
+                    {
+                      "timeStatus": [
+                        {
+                          "seconds": "No_Statement"
+                        }
+                      ],
+                      "dateTime": "1995-02-01T11:12:00"
+                    }
+                  ],
+                  "acknowledgement_request_group": [
+                    {
+                      "machine_acknowledge_request_indicator": {
+                        "value": "Acknowledgement_Requested"
+                      },
+                      "operator_acknowledge_request_indicator": {
+                        "value": "No_Acknowledgement_Required"
+                      },
+                      "operator_reply_request_indicator": {
+                        "value": "Reply_Requested"
+                      }
+                    }
+                  ],
+                  "response_data_group": [
+                    {
+                      "dateTime": "2014-01-01T01:01:01",
+                      "r_c": {
+                        "value": "OK_CANTPRO"
+                      },
+                      "cantco_reason_code": [
+                        {
+                          "value": "OK_Tactical_Situation"
+                        }
+                      ],
+                      "cantpro_reason_code": [
+                        {
+                          "value": "OK_Certificate_invalid_29"
+                        }
+                      ],
+                      "reply_amplification": [
+                        {
+                          "value": "up to 50 chars in this amplification statement 123"
+                        }
+                      ]
+                    }
+                  ],
+                  "reference_message_data_group": [
+                    {
+                      "item": [
+                        {
+                          "unit_name": [
+                            {
+                              "value": "SOMEUNIT up to 64 characters long sure up to 64 characters long"
+                            }
+                          ],
+                          "dateTime": "2001-01-01T01:01:01"
+                        },
+                        {
+                          "urn": [
+                            {
+                              "value": "98765"
+                            }
+                          ],
+                          "timeStatus": [
+                            {
+                              "seconds": "No_Statement"
+                            }
+                          ],
+                          "dateTime": "2014-02-03T04:05:00"
+                        }
+                      ]
+                    }
+                  ],
+                  "future": [
+                    {
+                    }
+                  ],
+                  "message_security_group": [
+                    {
+                      "security_parameters_information": {
+                        "value": "OK_Authentication_No_Encryption"
+                      },
+                      "keying_material_group": [
+                        {
+                          "keying_material_id_length": {
+                            "value": "3"
+                          },
+                          "keying_material_id": {
+                            "value": "DEADBEEF"
+                          }
+                        }
+                      ],
+                      "cryptographic_initialization_group": [
+                        {
+                          "cryptographic_initialization_length": {
+                            "value": "0"
+                          },
+                          "cryptographic_initialization": {
+                            "value": "DEADBEEFDEADBEEF"
+                          }
+                        }
+                      ],
+                      "key_token_group": [
+                        {
+                          "key_token_length": {
+                            "value": "0"
+                          },
+                          "key_token": {
+                            "item": [
+                              {
+                                "value": "DEADBEEFDEADBEEF"
+                              },
+                              {
+                                "value": "DEADBEEFDEADBEEF"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "authentication_data_a_group": [
+                        {
+                          "authentication_data_length": {
+                            "value": "4"
+                          },
+                          "authentication_data": {
+                            "value": "C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B"
+                          }
+                        }
+                      ],
+                      "authentication_data_b_group": [
+                        {
+                          "authentication_data_length": {
+                            "value": "4"
+                          },
+                          "authentication_data": {
+                            "value": "C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B"
+                          }
+                        }
+                      ],
+                      "signed_acknowledge_request_indicator": {
+                        "value": "Signed_Response_Requested"
+                      },
+                      "message_security_padding_group": [
+                        {
+                          "message_security_padding_length": {
+                            "value": "4"
+                          },
+                          "message_security_padding": [
+                            {
+                              "value": "DEADBEEF"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "umf": {
+                    "value": "OK_Link_16"
+                  },
+                  "message_standard_version": [
+                    {
+                      "link16": "OK_6016F"
+                    }
+                  ],
+                  "file_name": [
+                    {
+                      "value": "someFile.dat"
+                    }
+                  ],
+                  "message_size": [
+                    {
+                      "value": "0"
+                    }
+                  ],
+                  "operation_indicator": {
+                    "value": "Exercise"
+                  },
+                  "retransmit_indicator": {
+                    "value": "Original_Message"
+                  },
+                  "message_precedence_codes": {
+                    "vmf_hdr_D1": "OK_Immediate",
+                    "value": "OK_Immediate"
+                  },
+                  "security_classification": {
+                    "value": "S"
+                  },
+                  "control_release_marking_D1": [
+                    {
+                      "item": [
+                        {
+                          "value": "AFGHANISTAN_(AF)"
+                        },
+                        {
+                          "value": "ALBANIA_(AL)"
+                        }
+                      ]
+                    }
+                  ],
+                  "originator_dtg_group": [
+                    {
+                      "dateTime": "2004-02-28T15:27:55",
+                      "dtg_extension": [
+                        {
+                          "value": "42"
+                        }
+                      ]
+                    }
+                  ],
+                  "perishability_dtg_group": [
+                    {
+                      "timeStatus": [
+                        {
+                          "seconds": "No_Statement"
+                        }
+                      ],
+                      "dateTime": "1995-02-01T11:12:00"
+                    }
+                  ],
+                  "acknowledgement_request_group": [
+                    {
+                      "machine_acknowledge_request_indicator": {
+                        "value": "Acknowledgement_Requested"
+                      },
+                      "operator_acknowledge_request_indicator": {
+                        "value": "No_Acknowledgement_Required"
+                      },
+                      "operator_reply_request_indicator": {
+                        "value": "Reply_Requested"
+                      }
+                    }
+                  ],
+                  "response_data_group": [
+                    {
+                      "dateTime": "2014-01-01T01:01:01",
+                      "r_c": {
+                        "value": "OK_CANTPRO"
+                      },
+                      "cantco_reason_code": [
+                        {
+                          "value": "OK_Tactical_Situation"
+                        }
+                      ],
+                      "cantpro_reason_code": [
+                        {
+                          "value": "OK_Certificate_invalid_29"
+                        }
+                      ],
+                      "reply_amplification": [
+                        {
+                          "value": "up to 50 chars in this amplification statement 123"
+                        }
+                      ]
+                    }
+                  ],
+                  "reference_message_data_group": [
+                    {
+                      "item": [
+                        {
+                          "unit_name": [
+                            {
+                              "value": "SOMEUNIT up to 64 characters long sure up to 64 characters long"
+                            }
+                          ],
+                          "dateTime": "2001-01-01T01:01:01"
+                        },
+                        {
+                          "urn": [
+                            {
+                              "value": "98765"
+                            }
+                          ],
+                          "timeStatus": [
+                            {
+                              "seconds": "No_Statement"
+                            }
+                          ],
+                          "dateTime": "2014-02-03T04:05:00"
+                        }
+                      ]
+                    }
+                  ],
+                  "future": [
+                    {
+                    }
+                  ],
+                  "message_security_group": [
+                    {
+                      "security_parameters_information": {
+                        "value": "OK_Authentication_No_Encryption"
+                      },
+                      "keying_material_group": [
+                        {
+                          "keying_material_id_length": {
+                            "value": "3"
+                          },
+                          "keying_material_id": {
+                            "value": "DEADBEEF"
+                          }
+                        }
+                      ],
+                      "cryptographic_initialization_group": [
+                        {
+                          "cryptographic_initialization_length": {
+                            "value": "0"
+                          },
+                          "cryptographic_initialization": {
+                            "value": "DEADBEEFDEADBEEF"
+                          }
+                        }
+                      ],
+                      "key_token_group": [
+                        {
+                          "key_token_length": {
+                            "value": "0"
+                          },
+                          "key_token": {
+                            "item": [
+                              {
+                                "value": "DEADBEEFDEADBEEF"
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "authentication_data_a_group": [
+                        {
+                          "authentication_data_length": {
+                            "value": "4"
+                          },
+                          "authentication_data": {
+                            "value": "C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B"
+                          }
+                        }
+                      ],
+                      "authentication_data_b_group": [
+                        {
+                          "authentication_data_length": {
+                            "value": "4"
+                          },
+                          "authentication_data": {
+                            "value": "C8D8DCB62DBAB455D126F45824DF561F5F34E241C041B3927CB96AB1951F18B75C431064B61AAC8B"
+                          }
+                        }
+                      ],
+                      "signed_acknowledge_request_indicator": {
+                        "value": "Signed_Response_Requested"
+                      },
+                      "message_security_padding_group": [
+                        {
+                          "message_security_padding_length": {
+                            "value": "4"
+                          },
+                          "message_security_padding": [
+                            {
+                              "value": "DEADBEEF"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "future": [
+              {
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

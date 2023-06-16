@@ -43,10 +43,9 @@ SOFTWARE.
   targetNamespace="urn:milstd2045DFDL">
 
   <include schemaLocation="milstd2045.common.dfdl.xsd"/>
-  <import namespace="urn:milstd2045DFDLInternal"
-          schemaLocation="milstd2045.internal.dfdl.xsd"/>
+  <import namespace="urn:milstd2045DFDLInternal" schemaLocation="milstd2045.internal.dfdl.xsd"/>
   <import namespace="urn:milstd2045DFDLMessageSize"
-          schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_message_size.dfdl.xsd"/>
+          schemaLocation="/com/owlcyberdefense/mil-std-2045/xsd/milstd2045_message_size.dfdl.xsd"/>
   <include schemaLocation="milstd2045_future_use_groups.dfdl.xsd"/>
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">

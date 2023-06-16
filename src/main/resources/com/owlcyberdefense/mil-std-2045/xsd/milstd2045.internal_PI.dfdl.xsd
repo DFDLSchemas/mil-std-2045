@@ -40,7 +40,7 @@ SOFTWARE.
   xmlns:fn="http://www.w3.org/2005/xpath-functions"
   elementFormDefault="unqualified">
 
-  <include schemaLocation="org/apache/daffodil/xsd/DFDLGeneralFormat.dfdl.xsd"/>
+  <include schemaLocation="/org/apache/daffodil/xsd/DFDLGeneralFormat.dfdl.xsd"/>
 
   <!-- This file exists to avoid polluting the namespace. I.e., the primary namespace 
     of symbols that a user of the DFDL Schema will need to use should ONLY have symbols 

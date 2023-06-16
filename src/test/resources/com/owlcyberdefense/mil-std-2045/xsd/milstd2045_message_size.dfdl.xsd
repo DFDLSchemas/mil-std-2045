@@ -38,8 +38,7 @@ SOFTWARE.
   xmlns:ms="urn:milstd2045DFDL"
   elementFormDefault="unqualified">
 
-  <import namespace="urn:milstd2045DFDL"
-          schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.common.dfdl.xsd"/>
+  <import namespace="urn:milstd2045DFDL" schemaLocation="/com/owlcyberdefense/mil-std-2045/xsd/milstd2045.common.dfdl.xsd"/>
 
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">

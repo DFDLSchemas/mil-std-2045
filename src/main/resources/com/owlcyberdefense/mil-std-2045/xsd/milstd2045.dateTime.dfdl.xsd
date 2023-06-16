@@ -40,8 +40,7 @@ SOFTWARE.
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
         elementFormDefault="unqualified">
 
-  <import namespace="urn:milstd2045DFDLInternal"
-          schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd"/>
+  <import namespace="urn:milstd2045DFDLInternal" schemaLocation="milstd2045.internal.dfdl.xsd"/>
   <include schemaLocation="milstd2045.enums.dfdl.xsd"/>
 
   <annotation>
