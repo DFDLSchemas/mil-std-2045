@@ -434,6 +434,7 @@ SOFTWARE.
 
     <!-- the last 16 bits contain the bits for the acknowledgement_request_group as
 well as hidden presence indicators groups-->
+    <!--
     <document bitOrder="LSBFirst">
       <documentPart type="byte" byteOrder="LTR">
         E4 67 00 80 55
@@ -447,6 +448,10 @@ well as hidden presence indicators groups-->
         00
       </documentPart>
     </document>
+
+    That same data is now saved in a file, useful for playing around with JSON format for parse/unparse.
+    -->
+    <document><documentPart type="file">src/test/resources/com/owlcyberdefense/mil-std-2045/test2045MsgHdr1.dat</documentPart></document>
   </unparserTestCase>
 
   <unparserTestCase name="test2045D1_operator_ind_on_unparsed"

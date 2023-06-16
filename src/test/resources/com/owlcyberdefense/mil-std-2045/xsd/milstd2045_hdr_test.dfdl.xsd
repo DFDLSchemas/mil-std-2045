@@ -40,7 +40,7 @@ SOFTWARE.
   targetNamespace="urn:milstd2045DFDL_test">
 
   <import namespace="urn:milstd2045DFDL"
-          schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
+          schemaLocation="/com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
 
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">

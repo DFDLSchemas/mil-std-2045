@@ -1,0 +1,110 @@
+{
+  "milstd2045_messages": {
+    "message": [
+      {
+        "header": {
+          "contents": {
+            "version": {
+              "value": "D1"
+            },
+            "originator_address_group": [
+              {
+                "urn": [
+                  {
+                    "value": "207"
+                  }
+                ],
+                "unit_name": [
+                  {
+                    "value": "UNITA"
+                  }
+                ],
+                "invalid": [
+                  {
+                    "value": "both URN and unit_name exist"
+                  }
+                ]
+              }
+            ],
+            "recipient_address_group": [
+              {
+                "item": [
+                  {
+                    "urn": [
+                      {
+                        "value": "3"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "future": [
+              {
+              }
+            ],
+            "message_handling_group": {
+              "item": [
+                {
+                  "umf": {
+                    "value": "OK_VMF"
+                  },
+                  "vmf_message_identification_group": [
+                    {
+                      "fad": {
+                        "value": "15"
+                      },
+                      "message_number": {
+                        "value": "99"
+                      },
+                      "K_ID": "K15.99"
+                    }
+                  ],
+                  "operation_indicator": {
+                    "value": "Exercise"
+                  },
+                  "retransmit_indicator": {
+                    "value": "Original_Message"
+                  },
+                  "message_precedence_codes": {
+                    "vmf_hdr_D1": "OK_Immediate",
+                    "value": "OK_Immediate"
+                  },
+                  "security_classification": {
+                    "value": "U"
+                  },
+                  "originator_dtg_group": [
+                    {
+                      "dateTime": "2004-02-28T15:27:55"
+                    }
+                  ],
+                  "acknowledgement_request_group": [
+                    {
+                      "machine_acknowledge_request_indicator": {
+                        "value": "Acknowledgement_Requested"
+                      },
+                      "operator_acknowledge_request_indicator": {
+                        "value": "No_Acknowledgement_Required"
+                      },
+                      "operator_reply_request_indicator": {
+                        "value": "No_Reply_Required"
+                      }
+                    }
+                  ],
+                  "future": [
+                    {
+                    }
+                  ]
+                }
+              ]
+            },
+            "future": [
+              {
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
