@@ -298,7 +298,7 @@ SOFTWARE.
                 </urn>
               </item>
             </recipient_address_group>
-            <future/>
+            <future1/>
             <message_handling_group>
               <item>
                 <umf>
@@ -340,10 +340,10 @@ SOFTWARE.
                     <value>No_Reply_Required</value>
                   </operator_reply_request_indicator>
                 </acknowledgement_request_group>
-                <future/>
+                <future2/>
               </item>
             </message_handling_group>
-            <future/>
+            <future3/>
           </contents>
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
@@ -381,7 +381,7 @@ SOFTWARE.
                 </urn>
               </item>
             </recipient_address_group>
-            <future/>
+            <future1/>
             <message_handling_group>
               <item>
                 <umf>
@@ -423,10 +423,10 @@ SOFTWARE.
                     <value>No_Reply_Required</value>
                   </operator_reply_request_indicator>
                 </acknowledgement_request_group>
-                <future/>
+                <future2/>
               </item>
             </message_handling_group>
-            <future/>
+            <future3/>
           </contents>
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
@@ -483,7 +483,7 @@ operator_reply_request_indicator set to 1">
                 </urn>
               </item>
             </recipient_address_group>
-            <future/>
+            <future1/>
             <message_handling_group>
               <item>
                 <umf>
@@ -525,10 +525,10 @@ operator_reply_request_indicator set to 1">
                     <value>Reply_Requested</value>
                   </operator_reply_request_indicator>
                 </acknowledgement_request_group>
-                <future/>
+                <future2/>
               </item>
             </message_handling_group>
-            <future/>
+            <future3/>
           </contents>
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
@@ -634,7 +634,7 @@ operator_reply_request_indicator set to 1">
             <header_size>
               <value>8</value>
             </header_size>
-            <future/>
+            <future1/>
             <message_handling_group>
               <item>
                 <umf>
@@ -653,10 +653,10 @@ operator_reply_request_indicator set to 1">
                 <security_classification>
                   <value>TS</value>
                 </security_classification>
-                <future/>
+                <future2/>
               </item>
             </message_handling_group>
-            <future/>
+            <future3/>
           </contents>
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
@@ -1213,7 +1213,7 @@ operator_reply_request_indicator set to 1">
             <version>
               <value>D1</value>
             </version>
-            <future/>
+            <future1/>
             <message_handling_group>
               <item>
                 <umf>
@@ -1232,10 +1232,10 @@ operator_reply_request_indicator set to 1">
                 <security_classification>
                   <value>U</value>
                 </security_classification>
-                <future/>
+                <future2/>
               </item>
             </message_handling_group>
-            <future/>
+            <future3/>
           </contents>
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
@@ -1435,7 +1435,7 @@ operator_reply_request_indicator set to 1">
             <version>
               <value>D1</value>
             </version>
-            <future/>
+            <future1/>
             <message_handling_group>
               <item>
                 <umf>
@@ -1459,10 +1459,10 @@ operator_reply_request_indicator set to 1">
                     <value>NO_STATEMENT</value>
                   </item>
                 </control_release_marking_D1>
-                <future/>
+                <future2/>
               </item>
             </message_handling_group>
-            <future/>
+            <future3/>
           </contents>
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
@@ -1576,7 +1576,7 @@ operator_reply_request_indicator set to 1">
             <version>
               <value>D1</value>
             </version>
-            <future/>
+            <future1/>
             <message_handling_group>
               <item>
                 <umf>
@@ -1606,10 +1606,10 @@ operator_reply_request_indicator set to 1">
                     <value>ALGERIA_(AG)</value>
                   </item>
                 </control_release_marking_D1>
-                <future/>
+                <future2/>
               </item>
             </message_handling_group>
-            <future/>
+            <future3/>
           </contents>
         </ex:milstd2045_application_header>
       </tdml:dfdlInfoset>
