@@ -48,7 +48,7 @@
         <header_size>
           <value>640</value>
         </header_size>
-        <future/>
+        <future1/>
         <message_handling_group>
           <item>
             <umf>
@@ -155,7 +155,7 @@
                 <dateTime>2014-02-03T04:05:00</dateTime>
               </item>
             </reference_message_data_group>
-            <future/>
+            <future2/>
             <message_security_group>
               <security_parameters_information>
                 <value>OK_Authentication_No_Encryption</value>
@@ -307,7 +307,7 @@
                 <dateTime>2014-02-03T04:05:00</dateTime>
               </item>
             </reference_message_data_group>
-            <future/>
+            <future2/>
             <message_security_group>
               <security_parameters_information>
                 <value>OK_Authentication_No_Encryption</value>
@@ -368,7 +368,7 @@
             </message_security_group>
           </item>
         </message_handling_group>
-        <future/>
+        <future3/>
       </contents>
     </header>
   </message>
