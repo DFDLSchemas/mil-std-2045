@@ -52,9 +52,27 @@ SOFTWARE.
     </appinfo>
   </annotation>
 
-  <group name="futureUseGroup">
+  <group name="futureUseGroup1">
     <sequence>
-      <element name="future" type="ms2045:future"
+      <element name="future1" type="ms2045:future"
+               minOccurs="0"
+               dfdl:occursCountKind="expression"
+               dfdl:occursCount="{ if ($ms2045:versionSpec eq 'D1') then 1 else 0 }"/>
+    </sequence>
+  </group>
+
+  <group name="futureUseGroup2">
+    <sequence>
+      <element name="future2" type="ms2045:future"
+               minOccurs="0"
+               dfdl:occursCountKind="expression"
+               dfdl:occursCount="{ if ($ms2045:versionSpec eq 'D1') then 1 else 0 }"/>
+    </sequence>
+  </group>
+
+  <group name="futureUseGroup3">
+    <sequence>
+      <element name="future3" type="ms2045:future"
                minOccurs="0"
                dfdl:occursCountKind="expression"
                dfdl:occursCount="{ if ($ms2045:versionSpec eq 'D1') then 1 else 0 }"/>

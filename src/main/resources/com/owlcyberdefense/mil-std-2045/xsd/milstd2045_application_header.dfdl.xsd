@@ -142,7 +142,7 @@ SOFTWARE.
                   </sequence>
                 </complexType>
               </element>
-              <group ref="ms2045:futureUseGroup"/>
+              <group ref="ms2045:futureUseGroup1"/>
               <!-- start message handling group -->
               <element name="message_handling_group">
                 <complexType>
@@ -461,7 +461,7 @@ SOFTWARE.
                               </sequence>
                             </complexType>
                           </element>
-                          <group ref="ms2045:futureUseGroup"/>
+                          <group ref="ms2045:futureUseGroup2"/>
                           <group ref="ms2045:message_security_group"/>
                         </sequence>
                       </complexType>
@@ -469,7 +469,7 @@ SOFTWARE.
                   </sequence>
                 </complexType>
               </element>
-              <group ref="ms2045:futureUseGroup"/>
+              <group ref="ms2045:futureUseGroup3"/>
               <!-- end message handling group -->
               <sequence dfdl:alignment="1" dfdl:alignmentUnits="bytes"/>
             </sequence>
