@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mst:milstd2045_messages xmlns:mst="urn:milstd2045DFDL_test">
+<milstd2045_messages>
   <message>
     <header>
       <contents>
@@ -372,4 +372,4 @@
       </contents>
     </header>
   </message>
-</mst:milstd2045_messages>
+</milstd2045_messages>

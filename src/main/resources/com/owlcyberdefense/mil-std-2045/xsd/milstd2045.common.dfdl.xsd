@@ -29,30 +29,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
 SOFTWARE.
 -->
 
-<schema targetNamespace="urn:milstd2045DFDL"
-        xmlns:ms2045="urn:milstd2045DFDL"
-        xmlns:msi="urn:milstd2045DFDLInternal"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
-        xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
-        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns="http://www.w3.org/2001/XMLSchema"
-        xmlns:fn="http://www.w3.org/2005/xpath-functions"
-        elementFormDefault="unqualified">
+        xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+        xmlns:ms2045="urn:milstd2045DFDL"
+        targetNamespace="urn:milstd2045DFDL">
 
-  <import namespace="urn:milstd2045DFDLInternal" schemaLocation="milstd2045.internal.dfdl.xsd"/>
-  <include schemaLocation="milstd2045.dateTime.dfdl.xsd"/>
+  <include schemaLocation="milstd2045.internal.dfdl.xsd"/>
 
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">
 
       <dfdl:defineFormat name="msCommon">
-        <dfdl:format lengthKind='implicit' ref="msi:msBase"/>
+        <dfdl:format lengthKind='implicit' ref="ms2045:msBaseNoLengthKind"/>
       </dfdl:defineFormat>
 
-      <!-- the default format makes sequences behave properly, but every 
-        element needs an explicit dfdl:ref to provide its length kind and (if optional 
-        or repeating) occursCountKind. -->
       <dfdl:format ref="ms2045:msCommon"/>
 
     </appinfo>
@@ -104,7 +95,7 @@ SOFTWARE.
                dfdl:occursCountKind="implicit">
         <complexType>
           <sequence>
-            <sequence dfdl:hiddenGroupRef="msi:GRI_discriminator"/>
+            <sequence dfdl:hiddenGroupRef="ms2045:GRI_discriminator"/>
             <group ref="ms2045:urn_unit_name_group"/>
           </sequence>
         </complexType>
@@ -114,7 +105,7 @@ SOFTWARE.
 
   <group name="urn_unit_name_group">
     <sequence>
-      <sequence dfdl:hiddenGroupRef="msi:urn_PI"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:urn_PI"/>
       <element name="urn"
                minOccurs="0"
                dfdl:occursCountKind="expression"
@@ -125,13 +116,13 @@ SOFTWARE.
           </sequence>
         </complexType>
       </element>
-      <sequence dfdl:hiddenGroupRef="msi:unit_name_PI"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:unit_name_PI"/>
       <element name="unit_name"
                minOccurs="0"
                dfdl:occursCountKind="expression"
                dfdl:occursCount="{ ../unit_name_PI/value }">
         <complexType>
-          <group ref="msi:tString64"/>
+          <group ref="ms2045:tString64"/>
         </complexType>
       </element>
       <element name="invalid"
@@ -153,7 +144,7 @@ SOFTWARE.
   <group name="dtg_group">
     <sequence>
       <group ref="ms2045:dateTime"/>
-      <sequence dfdl:hiddenGroupRef="msi:dtg_extension_PI"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:dtg_extension_PI"/>
       <element name="dtg_extension"
                minOccurs="0"
                dfdl:occursCountKind="expression"

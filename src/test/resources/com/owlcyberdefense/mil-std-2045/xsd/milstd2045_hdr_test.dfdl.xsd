@@ -30,21 +30,18 @@ SOFTWARE.
   ]]>
 -->
 <schema
-  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
-  xmlns="http://www.w3.org/2001/XMLSchema"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  elementFormDefault="unqualified"
-  xmlns:ms="urn:milstd2045DFDL"
-  xmlns:mst="urn:milstd2045DFDL_test"
-  targetNamespace="urn:milstd2045DFDL_test">
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:ms2045="urn:milstd2045DFDL">
+  <!-- no target namespace -->
 
   <import namespace="urn:milstd2045DFDL"
           schemaLocation="/com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
 
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">
-      <dfdl:format ref="ms:msCommon"/>
+      <dfdl:format ref="ms2045:msCommon"/>
     </appinfo>
   </annotation>
 
@@ -57,7 +54,7 @@ SOFTWARE.
         <element name="message" maxOccurs="10000">
           <complexType>
             <sequence>
-              <element name="header" type="ms:milstd2045_application_header_type" />
+              <element name="header" type="ms2045:milstd2045_application_header_type" />
             </sequence>
           </complexType>
         </element>
