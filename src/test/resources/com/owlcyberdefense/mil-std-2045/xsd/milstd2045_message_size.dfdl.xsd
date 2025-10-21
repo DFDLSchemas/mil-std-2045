@@ -29,36 +29,52 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
 SOFTWARE.
 -->
 <schema
-  targetNamespace="urn:milstd2045DFDLMessageSize"
-  xmlns:ms2045="urn:milstd2045DFDLMessageSize"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.w3.org/2001/XMLSchema"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ms2045="urn:milstd2045DFDL"
   xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
-  xmlns:ms="urn:milstd2045DFDL"
-  elementFormDefault="unqualified">
+  xmlns:msms="urn:milstd2045DFDLMessageSize"
+  targetNamespace="urn:milstd2045DFDLMessageSize">
 
-  <import namespace="urn:milstd2045DFDL" schemaLocation="/com/owlcyberdefense/mil-std-2045/xsd/milstd2045.common.dfdl.xsd"/>
+  <import namespace="urn:milstd2045DFDL"
+          schemaLocation="/com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
 
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">
-      <dfdl:format ref="ms:msCommon"/>
+      <dfdl:format ref="ms2045:msCommon"/>
     </appinfo>
   </annotation>
 
+
   <complexType name="message_size_type">
     <sequence>
-      <!-- users of milstd2045 will likely want to copy this file into their
-             project and add a dfdl:outputValueCalc property to calculate
-             the length of a message. A typical implementation will probably
-             look something like:
-             dfdl:outputValueCalc="{
-               dfdl:valueLength(/messageRoot/message[dfdl:occursIndex], 'bytes')
-             }"
-          -->
-      <element name="value" type="ms:tIntField" dfdl:length="20"/>
+      <!--
+        This is a stub message size value element to
+        enable isolated testing of this schema.
+      -->
+      <element name="value" type="ms2045:tIntField" dfdl:length="20"/>
+      <!--
+        Real uses of this MIL-STD-2045 will want a definition something like
+        below which computes the `message_size_type` value field based on
+        the value length of the payload.
+
+        This assumes the payload is a sibling of the header field.
+        The header field is 6 levels up from where the message_size
+        field appears within it. If your payload field is not named
+        this way, and is not adjacent as a sibling field to the header
+        then this relative path would need to be adjusted.
+
+        Daffodil's schema compiler will ensure the path is correct or you
+        will get a schema definition error at DFDL schema compilation time.
+      -->
+      <!--
+      <element name="value" type="ms2045:tIntField" dfdl:length="20"
+               dfdl:outputValueCalc="{
+                 dfdl:valueLength(../../../../../../payload, 'bytes')
+               }"
+      />
+      -->
     </sequence>
   </complexType>
 
 </schema>
-

@@ -31,19 +31,24 @@ SOFTWARE.
   ]]>
 -->
 <schema
-  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
-  xmlns:fn="http://www.w3.org/2005/xpath-functions"
-  xmlns:msi="urn:milstd2045DFDLInternal"
-  xmlns:msms="urn:milstd2045DFDLMessageSize"
-  xmlns:ms2045="urn:milstd2045DFDL"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.w3.org/2001/XMLSchema"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  elementFormDefault="unqualified"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:fn="http://www.w3.org/2005/xpath-functions"
+  xmlns:msms="urn:milstd2045DFDLMessageSize"
+  xmlns:ms2045="urn:milstd2045DFDL"
   targetNamespace="urn:milstd2045DFDL">
+  <!--
+A better target namespace would be "urn:owlcyberdefense.com:schemas:dfdl:milstd2045:ms2045"
+which is the recommended style for DFDL schema namespace URIs.
+This schema is, however, in extensive use already, so changes to that URI
+are too disruptive unless done along with some disruptive element name or nesting
+change.
+-->
 
   <include schemaLocation="milstd2045.common.dfdl.xsd"/>
-  <import namespace="urn:milstd2045DFDLInternal" schemaLocation="milstd2045.internal.dfdl.xsd"/>
+  <include schemaLocation="milstd2045.dateTime.dfdl.xsd"/>
+  <include schemaLocation="milstd2045.enums.dfdl.xsd"/>
   <import namespace="urn:milstd2045DFDLMessageSize"
           schemaLocation="/com/owlcyberdefense/mil-std-2045/xsd/milstd2045_message_size.dfdl.xsd"/>
   <include schemaLocation="milstd2045_future_use_groups.dfdl.xsd"/>
@@ -78,7 +83,7 @@ SOFTWARE.
                                             defaultValue="{ version/value }"/>
                 </appinfo>
               </annotation>
-              <sequence dfdl:hiddenGroupRef="msi:data_compression_type_PI"/>
+              <sequence dfdl:hiddenGroupRef="ms2045:data_compression_type_PI"/>
               <element name="data_compression_type"
                        minOccurs="0"
                        dfdl:occursCountKind="expression"
@@ -89,7 +94,7 @@ SOFTWARE.
                   </sequence>
                 </complexType>
               </element>
-              <sequence dfdl:hiddenGroupRef="msi:originator_address_group_PI"/>
+              <sequence dfdl:hiddenGroupRef="ms2045:originator_address_group_PI"/>
               <element name="originator_address_group"
                        minOccurs="0"
                        dfdl:occursCountKind="expression"
@@ -98,12 +103,12 @@ SOFTWARE.
                   <group ref="ms2045:urn_unit_name_group"/>
                 </complexType>
               </element>
-              <sequence dfdl:hiddenGroupRef="msi:recipient_address_group_PI"/>
+              <sequence dfdl:hiddenGroupRef="ms2045:recipient_address_group_PI"/>
               <element name="recipient_address_group" type="ms2045:address_group_type"
                        minOccurs="0" maxOccurs="16"
                        dfdl:occursCountKind="expression"
                        dfdl:occursCount="{ ../recipient_address_group_PI/value }"/>
-              <sequence dfdl:hiddenGroupRef="msi:information_address_group_PI"/>
+              <sequence dfdl:hiddenGroupRef="ms2045:information_address_group_PI"/>
               <element name="information_address_group" type="ms2045:address_group_type"
                        minOccurs="0" maxOccurs="16"
                        dfdl:occursCountKind="expression"
@@ -130,7 +135,7 @@ SOFTWARE.
                   </sequence>
                 </complexType>
               </element>
-              <sequence dfdl:hiddenGroupRef="msi:header_size_PI"/>
+              <sequence dfdl:hiddenGroupRef="ms2045:header_size_PI"/>
               <element name="header_size"
                        minOccurs="0"
                        dfdl:occursCountKind="expression"
@@ -152,7 +157,7 @@ SOFTWARE.
                              dfdl:occursCountKind="implicit">
                       <complexType>
                         <sequence>
-                          <sequence dfdl:hiddenGroupRef="msi:GRI_discriminator"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:GRI_discriminator"/>
                           <element name="umf">
                             <complexType>
                               <sequence>
@@ -160,7 +165,7 @@ SOFTWARE.
                               </sequence>
                             </complexType>
                           </element>
-                          <sequence dfdl:hiddenGroupRef="msi:message_standard_version_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:message_standard_version_PI"/>
                           <!--
                           in the occursCount expression below, you would think that
                           the binary file case, the value should be 0. However,
@@ -209,7 +214,7 @@ SOFTWARE.
                               </choice>
                             </complexType>
                           </element>
-                          <sequence dfdl:hiddenGroupRef="msi:vmf_message_identification_group_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:vmf_message_identification_group_PI"/>
                           <element name="vmf_message_identification_group"
                                    minOccurs="0"
                                    dfdl:occursCountKind="expression"
@@ -232,7 +237,7 @@ SOFTWARE.
                                     </sequence>
                                   </complexType>
                                 </element>
-                                <sequence dfdl:hiddenGroupRef="msi:message_subtype_PI"/>
+                                <sequence dfdl:hiddenGroupRef="ms2045:message_subtype_PI"/>
                                 <element name="message_subtype"
                                          minOccurs="0"
                                          dfdl:occursCountKind="expression"
@@ -260,16 +265,16 @@ SOFTWARE.
                               </sequence>
                             </complexType>
                           </element>
-                          <sequence dfdl:hiddenGroupRef="msi:file_name_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:file_name_PI"/>
                           <element name="file_name"
                                    minOccurs="0"
                                    dfdl:occursCountKind="expression"
                                    dfdl:occursCount="{ ../file_name_PI/value }">
                             <complexType>
-                              <group ref="msi:tString64"/>
+                              <group ref="ms2045:tString64"/>
                             </complexType>
                           </element>
-                          <sequence dfdl:hiddenGroupRef="msi:message_size_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:message_size_PI"/>
                           <!-- The user of milstd2045 header must define the message size. Typically, message
                                 size is of type tns:tIntField with a dfdl:length of 20. See milstd2045_message_size.dfdl.xsd for
                                 the typical implementation -->
@@ -307,7 +312,7 @@ SOFTWARE.
                               </sequence>
                             </complexType>
                           </element>
-                          <sequence dfdl:hiddenGroupRef="msi:control_release_marking_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:control_release_marking_PI"/>
                           <choice dfdl:choiceDispatchKey="{ $ms2045:versionSpec }">
                             <sequence dfdl:choiceBranchKey="D1">
                               <element
@@ -322,7 +327,7 @@ SOFTWARE.
                                              dfdl:occursCountKind="implicit">
                                       <complexType>
                                         <sequence>
-                                          <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
+                                          <sequence dfdl:hiddenGroupRef="ms2045:FRI_discriminator"/>
                                           <element name="value" type="ms2045:dfi4127_dui005_nationality_Enum"/>
                                         </sequence>
                                       </complexType>
@@ -337,12 +342,12 @@ SOFTWARE.
                                        dfdl:occursCountKind="expression"
                                        dfdl:occursCount="{ ../control_release_marking_PI/value }">
                                 <complexType>
-                                  <group ref="msi:tString32"/>
+                                  <group ref="ms2045:tString32"/>
                                 </complexType>
                               </element>
                             </sequence>
                           </choice>
-                          <sequence dfdl:hiddenGroupRef="msi:originator_dtg_group_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:originator_dtg_group_PI"/>
                           <element name="originator_dtg_group"
                                    minOccurs="0"
                                    dfdl:occursCountKind="expression"
@@ -351,7 +356,7 @@ SOFTWARE.
                               <group ref="ms2045:dtg_group"/>
                             </complexType>
                           </element>
-                          <sequence dfdl:hiddenGroupRef="msi:perishability_dtg_group_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:perishability_dtg_group_PI"/>
                           <element name="perishability_dtg_group"
                                    minOccurs="0"
                                    dfdl:occursCountKind="expression"
@@ -360,7 +365,7 @@ SOFTWARE.
                               <group ref="ms2045:dateTime"/>
                             </complexType>
                           </element>
-                          <sequence dfdl:hiddenGroupRef="msi:acknowledgement_request_group_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:acknowledgement_request_group_PI"/>
                           <element name="acknowledgement_request_group"
                                    minOccurs="0"
                                    dfdl:occursCountKind="expression"
@@ -391,7 +396,7 @@ SOFTWARE.
                               </sequence>
                             </complexType>
                           </element>
-                          <sequence dfdl:hiddenGroupRef="msi:response_data_group_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:response_data_group_PI"/>
                           <element name="response_data_group"
                                    minOccurs="0"
                                    dfdl:occursCountKind="expression"
@@ -406,7 +411,7 @@ SOFTWARE.
                                     </sequence>
                                   </complexType>
                                 </element>
-                                <sequence dfdl:hiddenGroupRef="msi:cantco_reason_code_PI"/>
+                                <sequence dfdl:hiddenGroupRef="ms2045:cantco_reason_code_PI"/>
                                 <element name="cantco_reason_code"
                                          minOccurs="0"
                                          dfdl:occursCountKind="expression"
@@ -417,7 +422,7 @@ SOFTWARE.
                                     </sequence>
                                   </complexType>
                                 </element>
-                                <sequence dfdl:hiddenGroupRef="msi:cantpro_reason_code_PI"/>
+                                <sequence dfdl:hiddenGroupRef="ms2045:cantpro_reason_code_PI"/>
                                 <element name="cantpro_reason_code"
                                          minOccurs="0"
                                          dfdl:occursCountKind="expression"
@@ -428,19 +433,19 @@ SOFTWARE.
                                     </sequence>
                                   </complexType>
                                 </element>
-                                <sequence dfdl:hiddenGroupRef="msi:reply_amplification_PI"/>
+                                <sequence dfdl:hiddenGroupRef="ms2045:reply_amplification_PI"/>
                                 <element name="reply_amplification"
                                          minOccurs="0"
                                          dfdl:occursCountKind="expression"
                                          dfdl:occursCount="{ ../reply_amplification_PI/value }">
                                   <complexType>
-                                    <group ref="msi:tString50"/>
+                                    <group ref="ms2045:tString50"/>
                                   </complexType>
                                 </element>
                               </sequence>
                             </complexType>
                           </element>
-                          <sequence dfdl:hiddenGroupRef="msi:reference_message_data_group_PI"/>
+                          <sequence dfdl:hiddenGroupRef="ms2045:reference_message_data_group_PI"/>
                           <element name="reference_message_data_group"
                                    minOccurs="0"
                                    dfdl:occursCountKind="expression"
@@ -452,7 +457,7 @@ SOFTWARE.
                                          dfdl:occursCountKind="implicit">
                                   <complexType>
                                     <sequence>
-                                      <sequence dfdl:hiddenGroupRef="msi:GRI_discriminator"/>
+                                      <sequence dfdl:hiddenGroupRef="ms2045:GRI_discriminator"/>
                                       <group ref="ms2045:urn_unit_name_group"/>
                                       <group ref="ms2045:dtg_group"/>
                                     </sequence>
@@ -504,7 +509,7 @@ SOFTWARE.
 
   <group name="message_security_group">
     <sequence>
-      <sequence dfdl:hiddenGroupRef="msi:message_security_group_PI"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:message_security_group_PI"/>
       <element name="message_security_group"
                minOccurs="0"
                dfdl:occursCountKind="expression"
@@ -518,7 +523,7 @@ SOFTWARE.
                 </sequence>
               </complexType>
             </element>
-            <sequence dfdl:hiddenGroupRef="msi:keying_material_group_PI"/>
+            <sequence dfdl:hiddenGroupRef="ms2045:keying_material_group_PI"/>
             <element name="keying_material_group"
                      minOccurs="0"
                      dfdl:occursCountKind="expression"
@@ -545,7 +550,7 @@ SOFTWARE.
                 </sequence>
               </complexType>
             </element>
-            <sequence dfdl:hiddenGroupRef="msi:cryptographic_initialization_group_PI"/>
+            <sequence dfdl:hiddenGroupRef="ms2045:cryptographic_initialization_group_PI"/>
             <element name="cryptographic_initialization_group"
                      minOccurs="0"
                      dfdl:occursCountKind="expression"
@@ -572,7 +577,7 @@ SOFTWARE.
                 </sequence>
               </complexType>
             </element>
-            <sequence dfdl:hiddenGroupRef="msi:key_token_group_PI"/>
+            <sequence dfdl:hiddenGroupRef="ms2045:key_token_group_PI"/>
             <element name="key_token_group"
                      minOccurs="0"
                      dfdl:occursCountKind="expression"
@@ -595,7 +600,7 @@ SOFTWARE.
                                  dfdl:occursCountKind="implicit">
                           <complexType>
                             <sequence>
-                              <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
+                              <sequence dfdl:hiddenGroupRef="ms2045:FRI_discriminator"/>
                               <element name="value" type="ms2045:tHexBinary"
                                        dfdl:length="{ (../../../key_token_length/value + 1) * 8 }"
                                        dfdl:lengthUnits="bytes"/>
@@ -608,12 +613,12 @@ SOFTWARE.
                 </sequence>
               </complexType>
             </element>
-            <sequence dfdl:hiddenGroupRef="msi:authentication_data_a_group_PI"/>
+            <sequence dfdl:hiddenGroupRef="ms2045:authentication_data_a_group_PI"/>
             <element name="authentication_data_a_group" type="ms2045:authentication_data"
                      minOccurs="0"
                      dfdl:occursCountKind="expression"
                      dfdl:occursCount="{ ../authentication_data_a_group_PI/value }"/>
-            <sequence dfdl:hiddenGroupRef="msi:authentication_data_b_group_PI"/>
+            <sequence dfdl:hiddenGroupRef="ms2045:authentication_data_b_group_PI"/>
             <element name="authentication_data_b_group" type="ms2045:authentication_data"
                      minOccurs="0"
                      dfdl:occursCountKind="expression"
@@ -625,7 +630,7 @@ SOFTWARE.
                 </sequence>
               </complexType>
             </element>
-            <sequence dfdl:hiddenGroupRef="msi:message_security_padding_group_PI"/>
+            <sequence dfdl:hiddenGroupRef="ms2045:message_security_padding_group_PI"/>
             <element name="message_security_padding_group"
                      minOccurs="0"
                      dfdl:occursCountKind="expression"
@@ -643,7 +648,7 @@ SOFTWARE.
                       </sequence>
                     </complexType>
                   </element>
-                  <sequence dfdl:hiddenGroupRef="msi:message_security_padding_PI"/>
+                  <sequence dfdl:hiddenGroupRef="ms2045:message_security_padding_PI"/>
                   <element name="message_security_padding"
                            minOccurs="0"
                            dfdl:occursCountKind="expression"

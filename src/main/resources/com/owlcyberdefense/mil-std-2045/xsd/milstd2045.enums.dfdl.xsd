@@ -29,22 +29,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
 SOFTWARE.
 -->
 
-<schema targetNamespace="urn:milstd2045DFDL"
-        xmlns:ms2045="urn:milstd2045DFDL"
-        xmlns:msi="urn:milstd2045DFDLInternal"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="http://www.w3.org/2001/XMLSchema"
         xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
         xmlns:dfdlx="http://www.ogf.org/dfdl/dfdl-1.0/extensions"
-        xmlns:xs="http://www.w3.org/2001/XMLSchema"
-        xmlns="http://www.w3.org/2001/XMLSchema"
         xmlns:fn="http://www.w3.org/2005/xpath-functions"
-        elementFormDefault="unqualified">
+        xmlns:ms2045="urn:milstd2045DFDL"
+        targetNamespace="urn:milstd2045DFDL">
 
-  <import namespace="urn:milstd2045DFDLInternal" schemaLocation="milstd2045.internal.dfdl.xsd"/>
+  <include schemaLocation="milstd2045.common.dfdl.xsd"/>
 
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">
-      <dfdl:format lengthKind='implicit' ref="msi:msBase"/>
+      <dfdl:format ref="ms2045:msCommon"/>
     </appinfo>
   </annotation>
 

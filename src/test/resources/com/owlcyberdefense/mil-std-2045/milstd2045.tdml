@@ -29,16 +29,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE
 SOFTWARE.
 -->
 <testSuite suiteName="MIL_STD_2045_Unit_Tests"
-           xmlns:ms="urn:milstd2045DFDL"
-           xmlns:msi="urn:milstd2045DFDLInternal"
            xmlns:tdml="http://www.ibm.com/xmlns/dfdl/testData"
            xmlns="http://www.ibm.com/xmlns/dfdl/testData"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:ms2045="urn:milstd2045DFDL"
            xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:gpf="http://www.ibm.com/dfdl/GeneralPurposeFormat"
            xmlns:fn="http://www.w3.org/2005/xpath-functions"
-           xmlns:daf="urn:ogf:dfdl:2013:imp:daffodil.apache.org:2018:ext"
            xmlns:ex="http://example.com"
            defaultRoundTrip="onePass"
            defaultValidation="on">
@@ -46,10 +42,10 @@ SOFTWARE.
   <tdml:defineSchema name="unit" elementFormDefault="unqualified" useDefaultNamespace="false"
                      xmlns="http://www.w3.org/2001/XMLSchema">
 
-    <import namespace="urn:milstd2045DFDLInternal"
-            schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd"/>
+    <import namespace="urn:milstd2045DFDL"
+            schemaLocation="/com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
 
-    <dfdl:format ref="msi:msBase" lengthKind="implicit"/>
+    <dfdl:format ref="ms2045:msCommon"/>
 
     <element name="x" dfdl:lengthKind="implicit">
       <complexType>
@@ -75,7 +71,7 @@ SOFTWARE.
         <element name="y_PI" dfdl:lengthKind="implicit">
           <complexType>
             <sequence>
-              <element name="value" type="msi:presenceIndicator"
+              <element name="value" type="ms2045:presenceIndicator"
                        dfdl:outputValueCalc='{ fn:count(../../y) }'/>
             </sequence>
           </complexType>
@@ -91,7 +87,7 @@ SOFTWARE.
                    dfdl:occursCountKind="implicit">
             <complexType>
               <sequence>
-                <sequence dfdl:hiddenGroupRef="msi:FRI_discriminator"/>
+                <sequence dfdl:hiddenGroupRef="ms2045:FRI_discriminator"/>
                 <element name="value" type="xs:unsignedInt" dfdl:lengthKind="explicit" dfdl:length="7"/>
               </sequence>
             </complexType>
@@ -103,7 +99,7 @@ SOFTWARE.
     <element name="string1" dfdl:lengthKind="implicit">
       <complexType>
         <sequence>
-          <group ref="msi:tString32"/>
+          <group ref="ms2045:tString32"/>
         </sequence>
       </complexType>
     </element>
@@ -111,7 +107,7 @@ SOFTWARE.
     <element name="stringInt" dfdl:lengthKind="implicit">
       <complexType>
         <sequence>
-          <group ref="msi:tString32"/>
+          <group ref="ms2045:tString32"/>
           <element name="int" type="xs:int" dfdl:lengthKind="explicit" dfdl:length="14"/>
         </sequence>
       </complexType>
@@ -257,9 +253,9 @@ SOFTWARE.
                      xmlns="http://www.w3.org/2001/XMLSchema">
     <import namespace="urn:milstd2045DFDL"
             schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
-    <dfdl:format ref="ms:msCommon"/>
+    <dfdl:format ref="ms2045:msCommon"/>
 
-    <element name="milstd2045_application_header" type="ms:milstd2045_application_header_type"/>
+    <element name="milstd2045_application_header" type="ms2045:milstd2045_application_header_type"/>
 
   </tdml:defineSchema>
 
@@ -556,12 +552,12 @@ operator_reply_request_indicator set to 1">
     <import namespace="urn:milstd2045DFDL"
             schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
 
-    <dfdl:format ref="ms:msCommon"/>
+    <dfdl:format ref="ms2045:msCommon"/>
 
     <element name="SPI">
       <complexType>
         <sequence>
-          <element ref="ms:message_security_group_with_PI"/>
+          <element ref="ms2045:message_security_group_with_PI"/>
           <sequence dfdl:alignmentUnits="bytes" dfdl:alignment="1"/>
         </sequence>
       </complexType>
@@ -1902,17 +1898,14 @@ operator_reply_request_indicator set to 1">
   <tdml:defineSchema name="dtTest"  elementFormDefault="unqualified" useDefaultNamespace="false"
                      xmlns="http://www.w3.org/2001/XMLSchema" >
 
-    <import namespace="urn:milstd2045DFDLInternal"
-            schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.internal.dfdl.xsd"/>
-
     <import namespace="urn:milstd2045DFDL"
-            schemaLocation="com/owlcyberdefense/mil-std-2045/xsd/milstd2045.dateTime.dfdl.xsd"/>
+            schemaLocation="/com/owlcyberdefense/mil-std-2045/xsd/milstd2045_application_header.dfdl.xsd"/>
 
-    <dfdl:format ref="msi:msBase" lengthKind="implicit"/>
+    <dfdl:format ref="ms2045:msCommon"/>
 
     <element name="dt">
       <complexType>
-        <group ref="ms:dateTime"/>
+        <group ref="ms2045:dateTime"/>
       </complexType>
     </element>
 

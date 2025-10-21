@@ -31,19 +31,13 @@ SOFTWARE.
   ]]>
 -->
 <schema
-  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
-  xmlns:fn="http://www.w3.org/2005/xpath-functions"
-  xmlns:msi="urn:milstd2045DFDLInternal"
-  xmlns:msms="urn:milstd2045DFDLMessageSize"
-  xmlns:ms2045="urn:milstd2045DFDL"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.w3.org/2001/XMLSchema"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  elementFormDefault="unqualified"
+  xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+  xmlns:ms2045="urn:milstd2045DFDL"
   targetNamespace="urn:milstd2045DFDL">
 
   <include schemaLocation="milstd2045.common.dfdl.xsd"/>
-  <import namespace="urn:milstd2045DFDLInternal" schemaLocation="milstd2045.internal.dfdl.xsd"/>
 
   <annotation>
     <appinfo source="http://www.ogf.org/dfdl/">
@@ -94,7 +88,7 @@ SOFTWARE.
       <element name="future_use_1_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="msi:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ 0 }'/>
           </sequence>
         </complexType>
@@ -107,7 +101,7 @@ SOFTWARE.
       <element name="future_use_2_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="msi:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ 0 }'/>
           </sequence>
         </complexType>
@@ -120,7 +114,7 @@ SOFTWARE.
       <element name="future_use_3_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="msi:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ 0 }'/>
           </sequence>
         </complexType>
@@ -133,7 +127,7 @@ SOFTWARE.
       <element name="future_use_4_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="msi:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ 0 }'/>
           </sequence>
         </complexType>
@@ -146,7 +140,7 @@ SOFTWARE.
       <element name="future_use_5_PI" dfdl:lengthKind="implicit">
         <complexType>
           <sequence>
-            <element name="value" type="msi:presenceIndicator"
+            <element name="value" type="ms2045:presenceIndicator"
                      dfdl:outputValueCalc='{ 0 }'/>
           </sequence>
         </complexType>
