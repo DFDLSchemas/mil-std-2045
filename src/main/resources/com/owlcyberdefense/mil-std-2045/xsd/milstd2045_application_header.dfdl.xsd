@@ -39,7 +39,7 @@ SOFTWARE.
   xmlns:ms2045="urn:milstd2045DFDL"
   targetNamespace="urn:milstd2045DFDL">
   <!--
-A better target namespace would be "urn:owlcyberdefense.com:schemas:dfdl:milstd2045:ms2045"
+A better target namespace would be "urn:owlcyberdefense.com:schema:dfdl:milstd2045:ms2045"
 which is the recommended style for DFDL schema namespace URIs.
 This schema is, however, in extensive use already, so changes to that URI
 are too disruptive unless done along with some disruptive element name or nesting
