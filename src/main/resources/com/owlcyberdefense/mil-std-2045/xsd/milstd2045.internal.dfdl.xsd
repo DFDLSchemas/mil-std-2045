@@ -180,7 +180,7 @@ SOFTWARE.
         </annotation>
       </sequence>
       <element name="GRI" type="ms2045:repeatIndicator"
-               dfdl:outputValueCalc="{ if (dfdl:occursIndex() lt fn:count(..)) then 1 else 0 }"/>
+               dfdl:outputValueCalc="{ if (dfdl:occursIndex() lt fn:count(../../item)) then 1 else 0 }"/>
     </sequence>
   </group>
 
@@ -199,7 +199,7 @@ SOFTWARE.
         </annotation>
       </sequence>
       <element name="FRI" type="ms2045:repeatIndicator"
-               dfdl:outputValueCalc="{ if (dfdl:occursIndex() lt fn:count(..)) then 1 else 0 }"/>
+               dfdl:outputValueCalc="{ if (dfdl:occursIndex() lt fn:count(../../item)) then 1 else 0 }"/>
     </sequence>
   </group>
 
