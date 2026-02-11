@@ -45,17 +45,6 @@ SOFTWARE.
     </appinfo>
   </annotation>
 
-  <simpleType name="checkedInt" dfdl:lengthKind="explicit">
-    <annotation>
-      <appinfo source="http://www.ogf.org/dfdl/">
-        <dfdl:assert
-          message='{ fn:concat("The value: ", xs:string(.) , " did not satisfy facet constraints.") }'>{
-          dfdl:checkConstraints(.) }</dfdl:assert>
-      </appinfo>
-    </annotation>
-    <restriction base="xs:unsignedInt"/>
-  </simpleType>
-
   <simpleType name="enumBase">
     <restriction base="ms2045:checkedInt"/>
   </simpleType>
@@ -101,22 +90,6 @@ SOFTWARE.
   <xs:simpleType name="enumString" dfdl:lengthKind="delimited">
     <xs:restriction base="xs:string"/>
   </xs:simpleType>
-
-  <!--
-  Used to create invalid element values on purpose.
-
-  Any string that doesn't begin with "OK_" will be deemed
-  invalid and generate a validation error.
-
-  Some of these invalid elements use a dfdl:inputValueCalc to
-  capture a diagnostic message. These can be a few lines
-  long. Hence, fairly large max for this.
-  -->
-  <simpleType name="invalidEnum">
-    <restriction base="xs:string">
-      <pattern value="OK_[0-9A-Za-z_-]{0,300}"/>
-    </restriction>
-  </simpleType>
 
   <simpleType name="versionEnum" dfdlx:repType="ms2045:enum4">
     <restriction base="ms2045:enumString">

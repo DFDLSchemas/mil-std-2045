@@ -69,6 +69,24 @@ SOFTWARE.
     <restriction base="xs:string"/>
   </simpleType>
 
+  <group name="dtg_group">
+    <sequence>
+      <group ref="ms2045:dateTime"/>
+      <sequence dfdl:hiddenGroupRef="ms2045:dtg_extension_PI"/>
+      <element name="dtg_extension"
+               minOccurs="0"
+               dfdl:occursCountKind="expression"
+               dfdl:occursCount="{ ../dtg_extension_PI/value }">
+        <complexType>
+          <sequence>
+            <element name="value" type="ms2045:tIntField"
+                     dfdl:length="12"/>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+  </group>
+
   <group name="dateTime">
     <sequence>
       <sequence dfdl:hiddenGroupRef="ms2045:ymdhms"/>
