@@ -32,6 +32,7 @@ SOFTWARE.
 <schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
         xmlns="http://www.w3.org/2001/XMLSchema"
         xmlns:dfdl="http://www.ogf.org/dfdl/dfdl-1.0/"
+        xmlns:fn="http://www.w3.org/2005/xpath-functions"
         xmlns:ms2045="urn:milstd2045DFDL"
         targetNamespace="urn:milstd2045DFDL">
 
@@ -88,6 +89,33 @@ SOFTWARE.
     </restriction>
   </simpleType>
 
+  <simpleType name="checkedInt" dfdl:lengthKind="explicit">
+    <annotation>
+      <appinfo source="http://www.ogf.org/dfdl/">
+        <dfdl:assert
+            message='{ fn:concat("The value: ", xs:string(.) , " did not satisfy facet constraints.") }'>{
+          dfdl:checkConstraints(.) }</dfdl:assert>
+      </appinfo>
+    </annotation>
+    <restriction base="xs:unsignedInt"/>
+  </simpleType>
+
+  <!--
+  Used to create invalid element values on purpose.
+
+  Any string that doesn't begin with "OK_" will be deemed
+  invalid and generate a validation error.
+
+  Some of these invalid elements use a dfdl:inputValueCalc to
+  capture a diagnostic message. These can be a few lines
+  long. Hence, fairly large max for this.
+  -->
+  <simpleType name="invalidEnum">
+    <restriction base="xs:string">
+      <pattern value="OK_[0-9A-Za-z_-]{0,300}"/>
+    </restriction>
+  </simpleType>
+
   <complexType name="address_group_type">
     <sequence>
       <element name="item"
@@ -135,24 +163,6 @@ SOFTWARE.
           <sequence>
             <element name="value" type="ms2045:invalidEnum"
                      dfdl:inputValueCalc='{ "both URN and unit_name exist" }'/>
-          </sequence>
-        </complexType>
-      </element>
-    </sequence>
-  </group>
-
-  <group name="dtg_group">
-    <sequence>
-      <group ref="ms2045:dateTime"/>
-      <sequence dfdl:hiddenGroupRef="ms2045:dtg_extension_PI"/>
-      <element name="dtg_extension"
-               minOccurs="0"
-               dfdl:occursCountKind="expression"
-               dfdl:occursCount="{ ../dtg_extension_PI/value }">
-        <complexType>
-          <sequence>
-            <element name="value" type="ms2045:tIntField"
-                     dfdl:length="12"/>
           </sequence>
         </complexType>
       </element>
