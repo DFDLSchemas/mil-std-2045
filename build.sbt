@@ -8,4 +8,4 @@ val root = (project in file("."))
       Compile / task / mappings += (baseDirectory.value / "COPYRIGHT.txt") -> "COPYRIGHT.txt"
     }
   )
-  .daffodilProject(crossDaffodilVersions = Seq("3.6.0", "3.7.0", "3.8.0", "3.9.0", "3.10.0", "3.11.0", "4.0.0"))
+  .daffodilProject(crossDaffodilVersions = Seq("3.6.0", "3.7.0", "3.8.0", "3.9.0", "3.10.0", "3.11.0", "4.0.0", "4.2.0"))
